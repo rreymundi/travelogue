@@ -6,26 +6,26 @@ class TraveloguesController < ApplicationController
     end
 
     def update
-        task = @current_user.tasks.find(params[:id])
-        task.update!(task_params)
-        render json: task, status: :ok
+        travelogue = @current_user.travelogues.find(params[:id])
+        travelogue.update!(travelogue_params)
+        render json: travelogue, status: :ok
     end
 
     def create
-        task = @current_user.tasks.create!(task_params)
-        render json: task, status: :created
+        travelogue = @current_user.travelogues.create!(travelogue_params)
+        render json: travelogue, status: :created
     end
 
     def destroy
-        task = @current_user.tasks.find(params[:id])
-        task.destroy
+        travelogue = @current_user.travelogues.find(params[:id])
+        travelogue.destroy
         head :no_content
     end
 
     private
 
-    def task_params 
-        params.permit(:name, :description, :priority, :project_id, :status)
+    def travelogue_params 
+        params.permit(:title, :description, :saved, :location_id, :collection_id)
     end
 
 end
