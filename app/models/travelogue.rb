@@ -1,0 +1,2 @@
+class Travelogue < ApplicationRecord
+end
