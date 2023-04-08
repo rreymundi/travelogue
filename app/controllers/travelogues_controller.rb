@@ -5,15 +5,15 @@ class TraveloguesController < ApplicationController
         render json: travelogues, status: :ok
     end
 
+    def create
+        travelogue = @current_user.travelogues.create!(travelogue_params)
+        render json: travelogue, status: :created
+    end
+
     def update
         travelogue = @current_user.travelogues.find(params[:id])
         travelogue.update!(travelogue_params)
         render json: travelogue, status: :ok
-    end
-
-    def create
-        travelogue = @current_user.travelogues.create!(travelogue_params)
-        render json: travelogue, status: :created
     end
 
     def destroy
