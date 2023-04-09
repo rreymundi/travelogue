@@ -25,7 +25,7 @@ class TraveloguesController < ApplicationController
     private
 
     def travelogue_params 
-        params.permit(:title, :description, :saved, :location_id, :collection_id)
+        params.permit(:title, :description, :saved, :location_id, :collection_id, :cover_image)
     end
 
 end
