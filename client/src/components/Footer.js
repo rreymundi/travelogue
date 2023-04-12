@@ -33,7 +33,7 @@ const Footer = () => {
                 }}
               >
               <Typography variant="caption" color="white">
-                Copyright ©2022. co.lab limited
+                Copyright ©2022. travelogue limited
               </Typography>
             </Box>
           </Container>
