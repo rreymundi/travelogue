@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/user';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +19,7 @@ import { Link } from "react-router-dom";
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const {user} = useContext(UserContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -64,7 +66,6 @@ function ResponsiveAppBar() {
           >
             travelogue
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -95,6 +96,7 @@ function ResponsiveAppBar() {
             >
             </Menu>
           </Box>
+            
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -114,10 +116,11 @@ function ResponsiveAppBar() {
           >
             travelogue
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Open user menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -138,7 +141,7 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} component={ Link } to='/settings'>
+              <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} component={ Link } to='/account'>
                 <Typography textAlign="center">Account</Typography>
               </MenuItem>
               <MenuItem key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
