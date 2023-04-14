@@ -10,6 +10,21 @@ const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
 
+  useEffect(() => {
+    fetch('/me')
+    .then(r => {
+      if (r.ok) {
+        r.json()
+        .then((user) => {
+          setCurrentUser(user)
+        })
+      } else {
+        r.json().then((errorData) => setErrors(errorData.errors))
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onLogin = (loggedInUser) => {
     setCurrentUser(loggedInUser)
     setErrors(null)
