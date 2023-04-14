@@ -1,4 +1,5 @@
 class TraveloguesController < ApplicationController
+    skip_before_action :authorize
 
     def index
         travelogues = Travelogue.all

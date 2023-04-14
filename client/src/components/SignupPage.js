@@ -1,19 +1,18 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Box } from '@mui/material';
+import { ErrorContext } from '../context/error';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { TextField, Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 
 const SignupPage = ({ onLogin }) => {
+  const {errors, setErrors} = useContext(ErrorContext);
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     password_confirmation: "",
   });
-
-  let navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -34,10 +33,10 @@ const SignupPage = ({ onLogin }) => {
     .then(r => {
       if (r.ok) {
         r.json().then((user) => onLogin(user))
-        navigate("/")
-        // setErrors([])
+        console.log("Success!")
       } else {
-        // r.json().then((errorData) => setErrors(errorData.errors))      
+        r.json().then((errorData) => setErrors(errorData.errors))
+        console.log(errors)
       }
     })
   };
@@ -49,9 +48,10 @@ const SignupPage = ({ onLogin }) => {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    boxShadow: 24,
     p: 4,
-    display: 'flex'
+    display: 'flex',
+    border: '1px solid',
+    borderColor: '#F1EEEA'
   };
 
   return (
@@ -69,7 +69,7 @@ const SignupPage = ({ onLogin }) => {
           <TextField 
             id="username" 
             name="username" 
-            variant="standard" 
+            variant="outlined"            
             placeholder="username" 
             value={formData.username} 
             onChange={handleChange}
@@ -79,7 +79,7 @@ const SignupPage = ({ onLogin }) => {
           <TextField 
             id="password" 
             name="password" 
-            variant="standard" 
+            variant="outlined"            
             placeholder="password" 
             type="password" 
             value={formData.password} 
@@ -90,7 +90,7 @@ const SignupPage = ({ onLogin }) => {
             <TextField 
               id="password_confirmation" 
               name="password_confirmation" 
-              variant="standard" 
+              variant="outlined"              
               placeholder="re-enter password" 
               type="password" 
               value={formData.password_confirmation} 

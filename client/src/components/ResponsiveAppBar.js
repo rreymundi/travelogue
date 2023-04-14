@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import AdbIcon from '@mui/icons-material/Adb';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Divider from '@mui/material/Divider';
-import { Link } from "react-router-dom";
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ onLogout }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const {user} = useContext(UserContext);
@@ -41,7 +41,7 @@ function ResponsiveAppBar() {
     fetch("/logout", {
       method: 'DELETE'
     })
-    // onLogout();
+    onLogout();
   };
 
   return (

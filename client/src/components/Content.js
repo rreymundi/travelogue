@@ -8,7 +8,7 @@ import Home from './Home';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 
-const Content = () => {
+const Content = ({ onLogin }) => {
   return (
     <Box 
         component='main'
@@ -17,19 +17,20 @@ const Content = () => {
             overflow: 'auto',
             display: 'flex',
             flexFlow: 'row nowrap',
-            overflowX: 'scroll'
+            overflowX: 'scroll',
+            background: '#F7F7F6'
         }}
         >
         <Container>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' 
-              element={<LoginPage />} 
-            />
-            <Route path='/signup' 
-              element={<SignupPage />} 
-            />
-          </Routes>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' 
+                element={<LoginPage onLogin={onLogin} />} 
+              />
+              <Route path='/signup' 
+                element={<SignupPage onLogin={onLogin} />} 
+              />
+            </Routes>
         </Container>
       </Box>
   )
