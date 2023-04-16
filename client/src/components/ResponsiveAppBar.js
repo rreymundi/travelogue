@@ -127,7 +127,8 @@ function ResponsiveAppBar({ onLogout }) {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ 
+                  mt: '45px' }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -142,6 +143,10 @@ function ResponsiveAppBar({ onLogout }) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+              <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} >
+                  <Typography textAlign="center">{user.username}</Typography>
+                </MenuItem>
+                <Divider />
                 <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} component={ Link } to='/account'>
                   <Typography textAlign="center">Account</Typography>
                 </MenuItem>

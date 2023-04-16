@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import AccountSettings from './AccountSettings';
 import Home from './Home';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
@@ -26,6 +27,9 @@ const Content = ({ onLogin }) => {
             />
             <Route path='/signup' 
               element={<SignupPage onLogin={onLogin} />} 
+            />
+            <Route path='/account'
+              element={<AccountSettings />}
             />
           </Routes>
       </Box>

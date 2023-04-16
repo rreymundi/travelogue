@@ -34,7 +34,6 @@ const Home = () => {
   const homeGrid = {
     boxSizing: 'border-box',
     display: 'flex',
-    flexWrap: 'wrap',
     width: '100%',
     flexDirection: 'row'
   }
@@ -75,17 +74,31 @@ const Home = () => {
   }
 
   const searchButton = {
-    margin: '8px', 
+    margin: '8px',
   }
 
   const discoverHero = {
     minHeight: '31.25rem',
-    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
     borderRadius: '0px',
-    boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
-    position: 'relative',
-    color: 'white',
     backgroundColor: '#F7F7F6',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+
+  const discoverBox = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+  
+  const discoverHeroText = {
+    fontSize: '3.5rem'
+  }
+
+  const discoverHeroSub = {
+    fontSize: '2rem'
   }
 
   const quoteHero = {
@@ -113,22 +126,22 @@ const Home = () => {
     backgroundColor: '#F7F7F6',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center'
   }
 
   const signupBox = {
-    ml: 'auto',
-    mr: 'auto',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center'
   }
 
   const signupText = {
     fontSize: '2.5rem',
-    margin: '64px'
+
   }
 
   const signupButton = {
-    margin: '64px'
   }
   
   return (
@@ -145,7 +158,6 @@ const Home = () => {
               label="Search"
               variant="filled"
               placeholder="Search..."
-              size="small"
               sx={textField}
             />
             <Button variant='contained' sx={searchButton}>Search</Button>
@@ -154,6 +166,14 @@ const Home = () => {
       </Grid>
     </Paper>
     <Paper sx={discoverHero}>
+      <Box sx={discoverBox}>
+        <Typography sx={discoverHeroText}>Stories from around the world</Typography>
+        <Typography sx={discoverHeroSub}>Discover stories, recommendations, and tips.</Typography>
+        <Box>
+          TRAVELOGUES HERE
+        </Box>
+        <Button variant='contained'>Discover</Button>
+      </Box>
     </Paper>
     <Paper sx={quoteHero}>
         <Typography sx={quoteText}>
