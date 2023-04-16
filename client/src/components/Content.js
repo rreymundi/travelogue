@@ -9,26 +9,16 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 
 const Content = ({ onLogin }) => {
-
-  const boxStyle = {
-    // height: '100vh',
-    // overflow: 'auto',
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    // overflowX: 'scroll',
-    m: '64px',
-  }
   
-  const containerStyle = {
-    backgroundColor: '#F7F7F6',
+  const boxStyle = {
+    m: '64px',
   }
 
   return (
     <Box 
       component='main'
-      sx={boxStyle}
     >
-      <Container disableGutters sx={containerStyle}>
+      <Box disableGutters sx={boxStyle}>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' 
@@ -38,7 +28,7 @@ const Content = ({ onLogin }) => {
               element={<SignupPage onLogin={onLogin} />} 
             />
           </Routes>
-      </Container>
+      </Box>
     </Box>
   )
 }

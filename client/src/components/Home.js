@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -68,7 +69,7 @@ const Home = () => {
   }
   
   const textField = {
-    background: 'white', 
+    backgroundColor: 'white', 
     margin: '8px',
     color: '#282828'
   }
@@ -84,7 +85,7 @@ const Home = () => {
     boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
     position: 'relative',
     color: 'white',
-    backgroundColor: '#FFFFF',
+    backgroundColor: '#F7F7F6',
   }
 
   const quoteHero = {
@@ -92,7 +93,7 @@ const Home = () => {
     borderRadius: '0px',
     position: 'relative',
     color: '#282828',
-    backgroundColor: '#F7F7F6',
+    backgroundColor: '#FFC2A5',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -109,31 +110,25 @@ const Home = () => {
     borderRadius: '0px',
     position: 'relative',
     color: '#282828',
-    backgroundColor: '#FFF',
+    backgroundColor: '#F7F7F6',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'left',
   }
 
-  const signupTextBox = {
-    ml: '104px',
-    mr: '56px'
+  const signupBox = {
+    ml: 'auto',
+    mr: 'auto',
+    display: 'flex',
+    alignItems: 'center',
   }
 
   const signupText = {
-    fontSize: '3.5rem',
-    textAlign: 'center',
-  }
-
-  const signupButtonBox = {
-    mr: 'auto',
-    ml: '56px'
+    fontSize: '2.5rem',
+    margin: '64px'
   }
 
   const signupButton = {
-    width: '144px',
-    height: '66px',
-    fontSize: '1rem'
+    margin: '64px'
   }
   
   return (
@@ -161,20 +156,16 @@ const Home = () => {
     <Paper sx={discoverHero}>
     </Paper>
     <Paper sx={quoteHero}>
-      <Box>
         <Typography sx={quoteText}>
           “Nothing behind me, everything ahead of me, as is ever so on the road.”
         </Typography>
-      </Box>
     </Paper>
     <Paper sx={signupHero}>
-      <Box sx={signupTextBox}>
+      <Box sx={signupBox}>
         <Typography sx={signupText}>
           Join our community
         </Typography>
-      </Box>
-      <Box sx={signupButtonBox}>
-        <Button variant='contained' sx={signupButton}>Sign up</Button>
+        <Button variant='contained' component={ Link } to="/signup" sx={signupButton}>Sign up</Button>
       </Box>
     </Paper>
     </>

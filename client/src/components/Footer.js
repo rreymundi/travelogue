@@ -8,10 +8,7 @@ const Footer = () => {
     return (
         <Paper sx={{
           width: '100%',
-          // marginTop: 'auto',
-          // marginBottom: 'auto',
           backgroundColor: '#1976d2',
-          bottom: 0,
         }} component="footer" square variant="outlined">
           <Container maxWidth="lg">
             <Box

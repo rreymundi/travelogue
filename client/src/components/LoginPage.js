@@ -43,62 +43,67 @@ const LoginPage = ({ onLogin }) => {
     };
 
   const boxStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
+    backgroundColor: '#F7F7F6',
+    padding: '6rem',
+    display: 'flex',
+    justifyContent: 'center'
+  }
+
+  const formBox = {
+    width: '25rem',
     bgcolor: 'background.paper',
     p: 4,
     display: 'flex',
     border: '1px solid',
-    borderColor: '#F1EEEA'
+    borderColor: '#F1EEEA',
   };
 
   return (
-    <Box sx={boxStyle} component="form" onSubmit={handleLogin}>
-      <Grid 
-        container 
-        spacing={2} 
-        alignItems="center" 
-        justify="center" 
-        direction="column" 
-        >
-        <Grid item>
-          <Typography sx={{ fontWeight: 'bold' }}>Log in</Typography>
-        </Grid>
-        <Grid item>
-          <TextField 
-            id="username" 
-            name="username" 
-            variant="outlined"            placeholder="username" 
-            value={formData.username} 
-            onChange={handleChange}/>
-        </Grid>
-        <Grid item>
-          <TextField 
-            id="password" 
-            name="password" 
-            variant="outlined"            placeholder="password" 
-            type="password" 
-            value={formData.password} 
-            onChange={handleChange}/>
-        </Grid>
-        <Grid item>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              type="submit" >
-              Log in
-            </Button>
-        </Grid>
+    <Box sx={boxStyle}>
+      <Box sx={formBox} component="form" onSubmit={handleLogin}>
+        <Grid 
+          container 
+          spacing={2} 
+          alignItems="center" 
+          justify="center" 
+          direction="column" 
+          >
+          <Grid item>
+            <Typography sx={{ fontWeight: 'bold' }}>Log in</Typography>
+          </Grid>
+          <Grid item>
+            <TextField 
+              id="username" 
+              name="username" 
+              variant="outlined"            placeholder="username" 
+              value={formData.username} 
+              onChange={handleChange}/>
+          </Grid>
+          <Grid item>
+            <TextField 
+              id="password" 
+              name="password" 
+              variant="outlined"            placeholder="password" 
+              type="password" 
+              value={formData.password} 
+              onChange={handleChange}/>
+          </Grid>
+          <Grid item>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                type="submit" >
+                Log in
+              </Button>
+          </Grid>
 
-        <Grid item>
-          <Typography>New to travelogue?&nbsp;
-            <Link to="/signup" underline="none" >Sign up!</Link>
-          </Typography>
+          <Grid item>
+            <Typography>New to travelogue?&nbsp;
+              <Link to="/signup" underline="none" >Sign up!</Link>
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Box>
   )
 }

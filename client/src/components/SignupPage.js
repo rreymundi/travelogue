@@ -42,71 +42,76 @@ const SignupPage = ({ onLogin }) => {
   };
 
   const boxStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
+    backgroundColor: '#F7F7F6',
+    padding: '6rem',
+    display: 'flex',
+    justifyContent: 'center'
+  }
+
+  const formBox = {
+    width: '25rem',
     bgcolor: 'background.paper',
     p: 4,
     display: 'flex',
     border: '1px solid',
-    borderColor: '#F1EEEA'
+    borderColor: '#F1EEEA',
   };
 
   return (
-    <Box sx={boxStyle} component="form" onSubmit={handleSignup}>
-      <Grid 
-        container 
-        spacing={2} 
-        alignItems="center" 
-        justify="center" 
-        direction="column" >
-        <Grid item>
-          <Typography sx={{ fontWeight: 'bold' }}>Sign up</Typography>
-        </Grid>
-        <Grid item>
-          <TextField 
-            id="username" 
-            name="username" 
-            variant="outlined"            
-            placeholder="username" 
-            value={formData.username} 
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item>
-          <TextField 
-            id="password" 
-            name="password" 
-            variant="outlined"            
-            placeholder="password" 
-            type="password" 
-            value={formData.password} 
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item>
+    <Box sx={boxStyle}>
+      <Box sx={formBox} component="form" onSubmit={handleSignup}>
+        <Grid 
+          container 
+          spacing={2} 
+          alignItems="center" 
+          justify="center" 
+          direction="column" >
+          <Grid item>
+            <Typography sx={{ fontWeight: 'bold' }}>Sign up</Typography>
+          </Grid>
+          <Grid item>
             <TextField 
-              id="password_confirmation" 
-              name="password_confirmation" 
-              variant="outlined"              
-              placeholder="re-enter password" 
-              type="password" 
-              value={formData.password_confirmation} 
+              id="username" 
+              name="username" 
+              variant="outlined"            
+              placeholder="username" 
+              value={formData.username} 
               onChange={handleChange}
             />
+          </Grid>
+          <Grid item>
+            <TextField 
+              id="password" 
+              name="password" 
+              variant="outlined"            
+              placeholder="password" 
+              type="password" 
+              value={formData.password} 
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item>
+              <TextField 
+                id="password_confirmation" 
+                name="password_confirmation" 
+                variant="outlined"              
+                placeholder="re-enter password" 
+                type="password" 
+                value={formData.password_confirmation} 
+                onChange={handleChange}
+              />
+          </Grid>
+          <Grid item>
+              <Button 
+                variant="contained" 
+                color="primary" 
+                type="submit" 
+              >
+              Create account
+              </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              type="submit" 
-            >
-            Create account
-            </Button>
-        </Grid>
-      </Grid>
+      </Box>
     </Box>
   )
 }

@@ -39,7 +39,7 @@ const App = () => {
   };
 
   return (
-      <Box>
+      <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
         <Content onLogin={onLogin} />
         <Footer />
