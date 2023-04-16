@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ErrorContext } from './context/error';
 import { UserContext } from './context/user';
-import { BrowserRouter as Router } from "react-router-dom";
+import Box from '@mui/material/Box';
 import Content from "./components/Content";
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Footer from './components/Footer';
@@ -9,6 +10,7 @@ import Footer from './components/Footer';
 const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
+  let navigate = useNavigate()
 
   useEffect(() => {
     fetch('/me')
@@ -26,16 +28,22 @@ const App = () => {
   }, []);
 
   const onLogin = (loggedInUser) => {
-    setCurrentUser(loggedInUser)
-    setErrors(null)
+    setCurrentUser(loggedInUser);
+    setErrors(null);
+    navigate('/');
+  };
+
+  const onLogout = () => {
+    setCurrentUser(null);
+    navigate('/');
   };
 
   return (
-    <Router>
-      <ResponsiveAppBar />
-      <Content onLogin={onLogin} /> 
-      <Footer />
-    </Router>
+      <Box>
+        <ResponsiveAppBar onLogout={onLogout} />
+        <Content onLogin={onLogin} />
+        <Footer />
+      </Box>
   );
 }
 

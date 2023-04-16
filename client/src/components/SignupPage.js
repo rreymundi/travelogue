@@ -41,7 +41,7 @@ const SignupPage = ({ onLogin }) => {
     })
   };
 
-  const style = {
+  const boxStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -55,7 +55,7 @@ const SignupPage = ({ onLogin }) => {
   };
 
   return (
-    <Box sx={style} component="form" onSubmit={handleSignup}>
+    <Box sx={boxStyle} component="form" onSubmit={handleSignup}>
       <Grid 
         container 
         spacing={2} 
