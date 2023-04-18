@@ -37,17 +37,17 @@ const TraveloguesPage = () => {
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
         <List>
           <ListItem>
-              <ListItemText>
-                TRAVELOGUE 1
-              </ListItemText>
-              <ListItemText>
-                Published date
-              </ListItemText>
-              <ListItemIcon sx={{ justifyContent: 'end' }} >
-                <Button onClick={console.log("clicky")}>
-                  <MoreHorizIcon />
-                </Button>
-              </ListItemIcon>
+            <ListItemText>
+              TRAVELOGUE 1
+            </ListItemText>
+            <ListItemText>
+              Published date
+            </ListItemText>
+            <ListItemIcon sx={{ justifyContent: 'end' }} >
+              <Button onClick={console.log("clicky")}>
+                <MoreHorizIcon />
+              </Button>
+            </ListItemIcon>
           </ListItem>
         </List>
       </Box>
