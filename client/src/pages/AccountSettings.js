@@ -3,6 +3,7 @@ import { UserContext } from '../context/user';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
 
 const AccountSettings = () => {
+    
     const {user} = useContext(UserContext);
     const [formData, setFormData] = useState({
         name: "",
@@ -20,21 +21,17 @@ const AccountSettings = () => {
 
     const boxStyle = {
         backgroundColor: '#F7F7F6',
-        padding: '6rem',
+        padding: '3rem',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
-      }
-
-    const accountTitle = {
-        display: 'flex',
-        justifyContent: 'left'
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
     const form = {
         display: 'flex',
         flexDirection: 'inline',
-        margin: '2.5rem'
+        margin: '2.5rem',
     }
 
     const accountFieldsLeft = {
@@ -45,14 +42,13 @@ const AccountSettings = () => {
     const accountFieldsRight = {
         display: 'flex', 
         flexDirection: 'column',
-        marginLeft: '8rem',
+        ml: '5rem',
+        mt: '.5rem'
     }
 
   return (
     <Box sx={boxStyle}>
-        <Box sx={accountTitle}>
-            <Typography sx={{ fontSize: '3.5rem' }}>Account settings</Typography>
-        </Box>
+        <Typography sx={{ fontSize: '3.5rem', m: '1rem'}}>Account settings</Typography>
         <Box sx={form}>
             <Box sx={accountFieldsLeft}>
                 <Grid
@@ -67,7 +63,7 @@ const AccountSettings = () => {
                         <TextField 
                             id="name" 
                             name="name" 
-                            variant="filled" 
+                            variant="filled"                    
                             placeholder="Name" 
                             value={formData.name} 
                             onChange={handleChange} 
@@ -80,7 +76,7 @@ const AccountSettings = () => {
                         <TextField 
                             id="location" 
                             name="location" 
-                            variant="filled" 
+                            variant="filled"                    
                             placeholder="Location" 
                             value={formData.location} 
                             onChange={handleChange} 
