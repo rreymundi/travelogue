@@ -1,21 +1,62 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/user';
+import { ErrorContext } from '../context/error';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
 
 const AccountSettings = () => {
-    
-    const {user} = useContext(UserContext);
+    const {user, setCurrentUser} = useContext(UserContext);
+    const {setErrors} = useContext(ErrorContext);
     const [formData, setFormData] = useState({
-        name: "",
-        location: "",
-        bio: "",
-        avatar: ""
+        name: user.name,
+        location: user.location,
+        bio: user.bio,
       });
 
     const handleChange = (e) => {
         setFormData({
         ...formData,
         [e.target.name]: e.target.value,
+        })
+    };
+
+    const handleImageUpload = (e) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append("avatar", e.target.files[0]);
+        fetch('/profile/avatar', {
+            method: 'POST',
+            body: data
+        })
+        .then((r) => {
+            if (r.ok) {
+                r.json().then((r) => setCurrentUser({...user, avatar_url: r.avatar_url}))
+            } else {
+                r.json().then((errorData) => console.log(errorData.errors))
+            }
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newUserData = {
+            name: formData.name,
+            location: formData.location,
+            bio: formData.bio,
+            };
+        fetch(`/users/${user.id}`, {
+            method: "PATCH",
+            headers: {
+            "Content-type": "application/json"
+            },
+            body: JSON.stringify(newUserData)
+        })
+        .then((r) => {
+            if (r.ok) {
+                r.json()
+                .then((updatedUser) => setCurrentUser(updatedUser))
+            } else {
+                r.json().then((errorData) => console.log(errorData.errors))
+            }
         })
     };
 
@@ -48,8 +89,13 @@ const AccountSettings = () => {
 
   return (
     <Box sx={boxStyle}>
-        <Typography sx={{ fontSize: '3.5rem', m: '1rem'}}>Account settings</Typography>
-        <Box sx={form}>
+        <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+            <Typography sx={{ fontSize: '3.5rem' }}>Edit profile</Typography>
+            <Typography sx={{ fontSize: '1.5rem'}}>
+                Make changes to your profile
+            </Typography>
+        </Box>        
+        <Box sx={form} component='form' onSubmit={handleSubmit} >
             <Box sx={accountFieldsLeft}>
                 <Grid
                     container
@@ -103,8 +149,22 @@ const AccountSettings = () => {
                 </Grid>
             </Box>
             <Box sx={accountFieldsRight}>
-                <Avatar variant="square" sx={{ height: '10rem', width: '10rem'}}>avatar</Avatar>
-                <Button variant="contained" color="primary" type="submit" sx={{ mt: '2rem'}}>Update</Button>
+                <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user.avatar_url}>avatar</Avatar>
+                <Button
+                    variant="contained"
+                    component="label"
+                    sx={{ mt: '2rem'}}
+                >
+                    Upload File
+                    <input
+                        id="avatar"
+                        name="avatar"
+                        type="file"
+                        accept=".jpg, .jpeg, .png, .webp"
+                        hidden
+                        onChange={handleImageUpload}
+                    />
+                </Button>
             </Box>
         </Box>
     </Box>

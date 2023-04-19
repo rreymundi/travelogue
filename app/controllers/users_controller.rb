@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       end
 
     def show
-    render json: @current_user
+        render json: @current_user
     end
 
     def create
@@ -17,7 +17,12 @@ class UsersController < ApplicationController
 
     def update
         @current_user.update!(user_params)
-        render json: user, status: :ok
+        render json: @current_user, status: :ok
+    end
+
+    def avatarchange
+        @current_user.avatar.attach(params[:avatar])
+        render json: @current_user, status: :ok
     end
 
     private

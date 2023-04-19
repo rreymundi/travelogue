@@ -123,7 +123,7 @@ function ResponsiveAppBar({ onLogout }) {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open user menu">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={user.username} src={user.avatar_url} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -143,12 +143,12 @@ function ResponsiveAppBar({ onLogout }) {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-              <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} >
+              <MenuItem key={"Username"} onClick={handleCloseUserMenu} >
                   <Typography textAlign="center">{user.username}</Typography>
                 </MenuItem>
                 <Divider />
-                <MenuItem key={"Account Settings"} onClick={handleCloseUserMenu} component={ Link } to='/account'>
-                  <Typography textAlign="center">Account</Typography>
+                <MenuItem key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
+                  <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
                 <MenuItem key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
                   <Typography textAlign="center">Travelogues</Typography>

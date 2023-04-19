@@ -28,7 +28,9 @@ const TraveloguesPage = () => {
       <Box sx={{ justifySelf: 'left' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
           <Typography sx={{ fontSize: '3.5rem' }}>Travelogues</Typography>
-          <Typography sx={{ fontSize: '1.5rem'}}>Share your stories</Typography>
+          <Typography sx={{ fontSize: '1.5rem'}}>
+            A place to keep track of your travelogues
+          </Typography>
         </Box>
       </Box>
       <Box sx={{ justifySelf: 'right', m: '1rem'}}>

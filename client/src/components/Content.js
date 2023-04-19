@@ -28,7 +28,7 @@ const Content = ({ onLogin }) => {
           <Route path='/signup' 
             element={<SignupPage onLogin={onLogin} />} 
           />
-          <Route path='/account'
+          <Route path='/profile'
             element={<AccountSettings />}
           />
           <Route path='/travelogues'
