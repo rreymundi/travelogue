@@ -1,5 +1,4 @@
 class TraveloguesController < ApplicationController
-    skip_before_action :authorize
 
     def index
         travelogues = Travelogue.all
@@ -23,10 +22,16 @@ class TraveloguesController < ApplicationController
         head :no_content
     end
 
+    def coverimagechange
+        travelogue = @current_user.travelogues.find(params[:id])
+        travelogue.cover_image.attach(params[:cover_image])
+        render json: travelogue, status: :ok
+    end
+
     private
 
     def travelogue_params 
-        params.permit(:title, :description, :saved, :location_id, :collection_id, :cover_image)
+        params.permit(:title, :description, :location, :saved, :collection_id, :cover_image)
     end
 
 end
