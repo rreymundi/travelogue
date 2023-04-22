@@ -48,6 +48,7 @@ function ResponsiveAppBar({ onLogout }) {
     <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            {/* desktop display header */}
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
@@ -66,37 +67,9 @@ function ResponsiveAppBar({ onLogout }) {
             >
               travelogue
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-              </Menu>
-            </Box>
-              
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}></Box>
+            {/* mobile display header */}
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
@@ -129,11 +102,11 @@ function ResponsiveAppBar({ onLogout }) {
               <Menu
                 sx={{ 
                   mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
@@ -170,7 +143,7 @@ function ResponsiveAppBar({ onLogout }) {
                   href="/login"
                   sx={{
                     mr: 2,
-                    display: { xs: 'none', md: 'flex' },
+                    display: { md: 'flex' },
                     fontFamily: 'monospace',
                     fontWeight: 700,
                     letterSpacing: '.3rem',
