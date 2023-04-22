@@ -46,7 +46,7 @@ const TraveloguesPage = () => {
               Published date
             </ListItemText>
             <ListItemIcon sx={{ justifyContent: 'end' }} >
-              <Button onClick={console.log("clicky")}>
+              <Button>
                 <MoreHorizIcon />
               </Button>
             </ListItemIcon>

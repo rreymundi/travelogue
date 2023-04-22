@@ -2,15 +2,16 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
+import LocationMenu from '../components/LocationMenu';
 
 const AccountSettings = () => {
     const {user, setCurrentUser} = useContext(UserContext);
     const {setErrors} = useContext(ErrorContext);
     const [formData, setFormData] = useState({
-        name: user.name,
-        location: user.location,
-        bio: user.bio,
+        name: '',
+        bio: '',
       });
+    const [inputValue, setInputValue] = React.useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -35,12 +36,12 @@ const AccountSettings = () => {
             }
         });
     };
-
+    console.log(user)
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUserData = {
             name: formData.name,
-            location: formData.location,
+            location: inputValue,
             bio: formData.bio,
             };
         fetch(`/users/${user.id}`, {
@@ -119,14 +120,7 @@ const AccountSettings = () => {
                         <Typography>Location</Typography>
                     </Grid>
                     <Grid item>
-                        <TextField 
-                            id="location" 
-                            name="location" 
-                            variant="filled"                    
-                            placeholder="Location" 
-                            value={formData.location} 
-                            onChange={handleChange} 
-                        />
+                        <LocationMenu id="location" name="location" inputValue={inputValue} setInputValue={setInputValue}/>
                     </Grid>
                     <Grid item>
                         <Typography>Bio</Typography>
@@ -149,13 +143,13 @@ const AccountSettings = () => {
                 </Grid>
             </Box>
             <Box sx={accountFieldsRight}>
-                <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user.avatar_url}>avatar</Avatar>
+                <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user?.avatar_url}>avatar</Avatar>
                 <Button
                     variant="contained"
                     component="label"
                     sx={{ mt: '2rem'}}
-                >
-                    Upload File
+                    >
+                    Upload
                     <input
                         id="avatar"
                         name="avatar"

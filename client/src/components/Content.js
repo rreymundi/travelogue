@@ -19,7 +19,7 @@ const Content = ({ onLogin }) => {
   }
 
   return (
-      <Box disableGutters sx={boxStyle}>
+      <Box disablegutters='true' sx={boxStyle}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' 
