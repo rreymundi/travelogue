@@ -30,7 +30,6 @@ const TravelogueDraft = () => {
     saved: false
   });
   const [inputValue, setInputValue] = React.useState('');
-  let navigate = useNavigate();
   const data = new FormData();
 
   const handleChange = (e) => {
@@ -47,9 +46,9 @@ const TravelogueDraft = () => {
   const [postTags, setPostTags] = useState([]);
 
   const handleSetTags = (e, newValue) => {
-      const selectedTags = JSON.stringify(newValue, null, '')
-      setPostTags(selectedTags)
+    setPostTags(newValue)
   };
+  console.log(postTags)
 
   const tags = [
       { id: 0, name: "travel" },
@@ -79,9 +78,9 @@ const TravelogueDraft = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
         data.append('title', formData.title)
-        data.append('location', inputValue)
         data.append('description', formData.description)
         data.append('saved', formData.saved)
+        data.append('location', inputValue)
         data.append('tags', postTags)
           fetch(`/travelogues/`, {
             method: "POST",
@@ -90,9 +89,10 @@ const TravelogueDraft = () => {
         .then((r) => {
             if (r.ok) {
                 r.json()
-                .then((newTravelogue) => 
-                  console.log(newTravelogue))
-            } else {
+                .then((newTravelogue) => {
+                  setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
+                })
+              } else {
                 r.json().then((errorData) => console.log(errorData.errors))
             }
         })

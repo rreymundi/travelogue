@@ -11,7 +11,7 @@ import {
   ListItemText,
   Typography 
 } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import TravelogueRow from '../components/TravelogueRow';
 
 
 const TraveloguesPage = () => {
@@ -37,21 +37,16 @@ const TraveloguesPage = () => {
         <Button variant="contained" color="primary" component={ Link } to="/travelogues/new">New</Button>
       </Box>
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
+        {user.travelogues.length === 0 
+        ? 
+        <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', m: '1rem' }}>You have no travelogues</Typography>
+        :
         <List>
-          <ListItem>
-            <ListItemText>
-              TRAVELOGUE 1
-            </ListItemText>
-            <ListItemText>
-              Published date
-            </ListItemText>
-            <ListItemIcon sx={{ justifyContent: 'end' }} >
-              <Button>
-                <MoreHorizIcon />
-              </Button>
-            </ListItemIcon>
-          </ListItem>
+          {user.travelogues.map((travelogue) => 
+            <TravelogueRow travelogue={travelogue} />
+          )}
         </List>
+        }
       </Box>
     </Box>
   )
