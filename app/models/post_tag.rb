@@ -1,4 +1,4 @@
-class Tag_Post < ApplicationRecord
+class PostTag < ApplicationRecord
     belongs_to :travelogue
     belongs_to :tag
 end
