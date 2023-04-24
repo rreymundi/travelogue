@@ -37,12 +37,12 @@ const TraveloguesPage = ({ setTravelogue }) => {
         <Button variant="contained" color="primary" component={ Link } to="/travelogues/new">New</Button>
       </Box>
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
-        {user.travelogues.length === 0 
+        {user?.travelogues.length === 0 
         ? 
         <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', m: '1rem' }}>You have no travelogues</Typography>
         :
         <List>
-          {user.travelogues.map((travelogue) => 
+          {user?.travelogues.map((travelogue) => 
             <TravelogueRow key={travelogue.id} travelogue={travelogue} setTravelogue={setTravelogue} />
           )}
         </List>
