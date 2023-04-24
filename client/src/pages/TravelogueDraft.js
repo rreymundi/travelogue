@@ -31,7 +31,7 @@ const TravelogueDraft = () => {
   });
   const [inputValue, setInputValue] = React.useState('');
   const data = new FormData();
-
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -48,7 +48,11 @@ const TravelogueDraft = () => {
   const handleSetTags = (e, newValue) => {
     setPostTags(newValue)
   };
+
   console.log(postTags)
+  console.log(formData)
+
+  const navigate = useNavigate();
 
   const tags = [
       { id: 0, name: "travel" },
@@ -92,6 +96,7 @@ const TravelogueDraft = () => {
                 .then((newTravelogue) => {
                   setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
                 })
+                navigate('/travelogues')
               } else {
                 r.json().then((errorData) => console.log(errorData.errors))
             }

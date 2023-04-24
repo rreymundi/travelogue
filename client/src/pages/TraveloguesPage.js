@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { 
   Box, 
@@ -14,7 +14,7 @@ import {
 import TravelogueRow from '../components/TravelogueRow';
 
 
-const TraveloguesPage = () => {
+const TraveloguesPage = ({ setTravelogue }) => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {
@@ -43,7 +43,7 @@ const TraveloguesPage = () => {
         :
         <List>
           {user.travelogues.map((travelogue) => 
-            <TravelogueRow travelogue={travelogue} />
+            <TravelogueRow key={travelogue.id} travelogue={travelogue} setTravelogue={setTravelogue} />
           )}
         </List>
         }
