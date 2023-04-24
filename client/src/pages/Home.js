@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../context/user';
 import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -6,8 +7,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import hero_1 from '../assets/hero_1.jpg';
+import hero_2 from '../assets/hero_2.jpg';
 
 const Home = () => {
+  const { user } = useContext(UserContext);
 
   const hero = {
     minHeight: '31.25rem',
@@ -19,9 +23,21 @@ const Home = () => {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    backgroundImage: 'url(https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1421&q=80)',
+    backgroundImage: `url(${hero_1})`,
     display: 'flex',
     flexDirection: 'inline'
+  }
+
+  const heroLoggedIn = {
+    minHeight: '31.25rem',
+    borderRadius: '0px',
+    color: 'white',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundImage: `url(${hero_2})`,
+    display: 'flex',
+    justifyContent: 'center',
   }
 
   const heroBox = {
@@ -129,28 +145,50 @@ const Home = () => {
   }
 
   const button = {
-    m: '2.5rem',
+    m: '1rem',
   }
   
   return (
     <>
+    {user
+    ?
+      <Paper sx={heroLoggedIn}>
+        <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
+          <Box>
+            <Typography sx={heroText}>See the world</Typography>
+            <Typography sx={discoverHeroSub}>One travelogue at a time</Typography>
+          </Box>
+          <Box >
+            <TextField
+              id="search-bar"
+              label="Search"
+              variant="filled"
+              placeholder="Search..."
+              sx={textField}
+            />
+            <Button variant='contained' sx={searchButton}>Search</Button>
+          </Box>
+        </Box>
+      </Paper>
+    :
     <Paper sx={hero}>
-      <Box sx={heroBox}>
-        <Box sx={heroTextBox}>
-          <Typography sx={heroText}>Welcome to Travelogue</Typography>
+        <Box sx={heroBox}>
+          <Box sx={heroTextBox}>
+            <Typography sx={heroText}>Welcome to Travelogue</Typography>
+          </Box>
+          <Box sx={searchBox}>
+            <TextField
+              id="search-bar"
+              label="Search"
+              variant="filled"
+              placeholder="Search..."
+              sx={textField}
+            />
+            <Button variant='contained' sx={searchButton}>Search</Button>
+          </Box>
         </Box>
-        <Box sx={searchBox}>
-          <TextField
-            id="search-bar"
-            label="Search"
-            variant="filled"
-            placeholder="Search..."
-            sx={textField}
-          />
-          <Button variant='contained' sx={searchButton}>Search</Button>
-        </Box>
-      </Box>
-    </Paper>
+      </Paper>
+    }
     <Paper sx={discoverHero}>
       <Box sx={discoverBox}>
         <Typography sx={discoverHeroText}>Stories from around the world</Typography>
@@ -167,12 +205,22 @@ const Home = () => {
         </Typography>
     </Paper>
     <Paper sx={signupHero}>
-      <Box sx={signupBox}>
+      {user 
+      ?
+      <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
+        <Typography sx={signupText}>
+          Stories from around the globe.
+        </Typography>
+        <Button variant='contained' component={ Link } to="/discover" sx={button}>Discover</Button>
+      </Box>
+      :
+      <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
         <Typography sx={signupText}>
           Join our community
         </Typography>
         <Button variant='contained' component={ Link } to="/signup" sx={button}>Sign up</Button>
       </Box>
+      }
     </Paper>
     </>
   )
