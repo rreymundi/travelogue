@@ -10,7 +10,7 @@ import TraveloguesPage from '../pages/TraveloguesPage';
 import TravelogueDraft from '../pages/TravelogueDraft';
 import Travelogue from '../pages/Travelogue';
 
-const Content = ({ onLogin }) => {
+const Content = ({ onLogin, onDeleteTravelogue }) => {
   let { travelogueID } = useParams();
   const [travelogue, setTravelogue] = useState(null);
   
@@ -28,7 +28,7 @@ const Content = ({ onLogin }) => {
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/travelogues' element={<TraveloguesPage setTravelogue={setTravelogue} />} />
+          <Route path='/travelogues' element={<TraveloguesPage setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />} />
           <Route path='/travelogues/:travelogueID' element={<Travelogue travelogue={travelogue} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft />} />
           <Route path='/collections' element={<Collections />} />

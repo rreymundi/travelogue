@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-    Box, 
     Button,
-    List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Typography 
   } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TravelogueMenu from './TravelogueMenu';
 
-const TravelogueRow = ({ travelogue, setTravelogue }) => {
+const TravelogueRow = ({ travelogue, setTravelogue, onDeleteTravelogue }) => {
   const [anchorTravelogueMenu, setAnchorTravelogueMenu] = useState(null);
 
-  const handleOpenTaskMenu = (e) => {
+  const handleOpen = (e) => {
     setAnchorTravelogueMenu(e.currentTarget);
   };
 
@@ -37,11 +34,11 @@ const TravelogueRow = ({ travelogue, setTravelogue }) => {
             {travelogue.created_at}
         </ListItemText>
         <ListItemIcon sx={{ justifyContent: 'end' }} >
-            <Button onClick={handleOpenTaskMenu} >
+            <Button onClick={handleOpen} >
                 <MoreHorizIcon />
             </Button>
         </ListItemIcon>
-        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} />
+        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
     </ListItem>
   )
 }

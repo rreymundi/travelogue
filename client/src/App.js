@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorContext } from './context/error';
 import { UserContext } from './context/user';
@@ -38,10 +38,17 @@ const App = () => {
     navigate('/');
   };
 
+  const handleDeleteTravelogue = (deletedTravelogue) => {
+    setCurrentUser({
+      ...user,
+      travelogues: user.travelogues.filter((travelogue) => travelogue.id !== deletedTravelogue.id),
+    });
+  };
+
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        <Content onLogin={onLogin} />
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} />
         <Footer />
       </Box>
   );

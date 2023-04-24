@@ -14,7 +14,7 @@ import {
 import TravelogueRow from '../components/TravelogueRow';
 
 
-const TraveloguesPage = ({ setTravelogue }) => {
+const TraveloguesPage = ({ setTravelogue, onDeleteTravelogue }) => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {
@@ -43,7 +43,7 @@ const TraveloguesPage = ({ setTravelogue }) => {
         :
         <List>
           {user?.travelogues.map((travelogue) => 
-            <TravelogueRow key={travelogue.id} travelogue={travelogue} setTravelogue={setTravelogue} />
+            <TravelogueRow key={travelogue.id} travelogue={travelogue} setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />
           )}
         </List>
         }

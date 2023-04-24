@@ -8,7 +8,18 @@ import Box from '@mui/material/Box';
 const TravelogueMenu = ({ 
     anchorTravelogueMenu,
     handleClose, 
+    travelogue,
+    onDeleteTravelogue
   }) => {
+    let navigate = useNavigate();
+
+    const handleDelete = () => {
+        fetch(`/travelogues/${travelogue.id}`, {
+          method: 'DELETE'
+        })
+        .then(console.log("deleted!"))
+        .then(onDeleteTravelogue(travelogue))
+      };
 
     return (
         <Box sx={{ flexGrow: 0 }}>
@@ -38,6 +49,7 @@ const TravelogueMenu = ({
                 <MenuItem onClick={handleClose}>
                     <Typography 
                         textAlign="center" 
+                        onClick={handleDelete}
                         >
                         Delete
                     </Typography>
