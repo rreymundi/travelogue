@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import parse from "autosuggest-highlight/parse";
 import { debounce } from '@mui/material/utils';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyCjagGN22JZPVbpyzbdYZXGVVp-arlNSLU&callback=Function.prototype';
+const MY_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -33,7 +33,7 @@ export default function LocationMenu({ inputValue, setInputValue }) {
   if (typeof window !== 'undefined' && !loaded.current) {
     if (!document.querySelector('#google-maps')) {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${MY_KEY}&libraries=places`,
         document.querySelector('head'),
         'google-maps',
       );
