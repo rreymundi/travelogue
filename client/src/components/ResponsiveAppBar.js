@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
-import AdbIcon from '@mui/icons-material/Adb';
+import ExploreIcon from '@mui/icons-material/Explore';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -49,7 +49,7 @@ function ResponsiveAppBar({ onLogout }) {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {/* desktop display header */}
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <ExploreIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -58,7 +58,7 @@ function ResponsiveAppBar({ onLogout }) {
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
+                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
@@ -70,7 +70,7 @@ function ResponsiveAppBar({ onLogout }) {
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}></Box>
             {/* mobile display header */}
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <ExploreIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -80,7 +80,7 @@ function ResponsiveAppBar({ onLogout }) {
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontFamily: 'monospace',
+                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
@@ -144,7 +144,7 @@ function ResponsiveAppBar({ onLogout }) {
                   sx={{
                     mr: 2,
                     display: { md: 'flex' },
-                    fontFamily: 'monospace',
+                    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                     fontWeight: 700,
                     letterSpacing: '.3rem',
                     color: 'inherit',
