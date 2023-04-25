@@ -49,9 +49,6 @@ const TravelogueDraft = () => {
     setPostTags(newValue)
   };
 
-  console.log(postTags)
-  console.log(formData)
-
   const navigate = useNavigate();
 
   const tags = [
