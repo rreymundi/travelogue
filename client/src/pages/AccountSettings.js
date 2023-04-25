@@ -8,8 +8,8 @@ const AccountSettings = () => {
     const {user, setCurrentUser} = useContext(UserContext);
     const {setErrors} = useContext(ErrorContext);
     const [formData, setFormData] = useState({
-        name: '',
-        bio: '',
+        name: user.name,
+        bio: user.bio,
       });
     const [inputValue, setInputValue] = React.useState('');
 
@@ -36,7 +36,7 @@ const AccountSettings = () => {
             }
         });
     };
-    console.log(user)
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const newUserData = {
