@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TravelogueContext } from '../context/travelogue';
 import { 
     Autocomplete,
     Box, 
@@ -17,7 +18,8 @@ import {
     Typography 
   } from '@mui/material';
 
-  const Travelogue = ({ travelogue }) => {
+  const Travelogue = () => {
+    const {travelogue} = useContext(TravelogueContext);
     const boxStyle = {
         backgroundColor: '#F7F7F6',
         padding: '3rem',
@@ -35,8 +37,6 @@ import {
       backgroundImage: `url(` + travelogue.cover_image_url +`)`,
       aspectRatio: '16 / 9',
     }
-
-  console.log(travelogue.cover_image_url)
 
   return (
     <Box sx={boxStyle} >

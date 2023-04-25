@@ -4,17 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ErrorProvider } from './context/error';
+import { TravelogueProvider } from "./context/travelogue";
 import { UserProvider } from "./context/user";
 import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorProvider>
-      <UserProvider>
-        <Router>
-          <App />
-        </Router>
-      </UserProvider>
+      <TravelogueProvider>
+        <UserProvider>
+          <Router>
+            <App />
+          </Router>
+        </UserProvider>
+      </TravelogueProvider>
     </ErrorProvider>
   </React.StrictMode>,
   document.getElementById('root')

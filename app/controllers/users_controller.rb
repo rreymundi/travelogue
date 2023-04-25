@@ -20,6 +20,7 @@ class UsersController < ApplicationController
         render json: @current_user, status: :ok
     end
 
+    # this custom route allows changing the avatar while updating account settings
     def avatarchange
         @current_user.avatar.attach(params[:avatar])
         render json: @current_user, status: :ok

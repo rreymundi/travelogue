@@ -43,7 +43,7 @@ const TraveloguesPage = ({ setTravelogue, onDeleteTravelogue }) => {
         :
         <List>
           {user?.travelogues.map((travelogue) => 
-            <TravelogueRow key={travelogue.id} travelogue={travelogue} setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />
+            <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
           )}
         </List>
         }

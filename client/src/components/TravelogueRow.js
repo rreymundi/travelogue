@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { TravelogueContext } from '../context/travelogue';
 import { 
     Button,
     ListItem,
@@ -10,8 +11,9 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TravelogueMenu from './TravelogueMenu';
 
-const TravelogueRow = ({ travelogue, setTravelogue, onDeleteTravelogue }) => {
+const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
   const [anchorTravelogueMenu, setAnchorTravelogueMenu] = useState(null);
+  const {setTravelogue} = useContext(TravelogueContext);
 
   const handleOpen = (e) => {
     setAnchorTravelogueMenu(e.currentTarget);
@@ -38,7 +40,7 @@ const TravelogueRow = ({ travelogue, setTravelogue, onDeleteTravelogue }) => {
                 <MoreHorizIcon />
             </Button>
         </ListItemIcon>
-        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
+        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />
     </ListItem>
   )
 }

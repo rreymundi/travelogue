@@ -33,8 +33,9 @@ class TraveloguesController < ApplicationController
         head :no_content
     end
 
+    # this custom route allows changing the cover image while updating an existing travelogue
     def coverimagechange
-        travelogue = @current_user.travelogues.find(travelogue_params[:id])
+        travelogue = @current_user.travelogues.find(params[:id])
         travelogue.cover_image.attach(travelogue_params[:cover_image])
         render json: travelogue, status: :ok
     end
