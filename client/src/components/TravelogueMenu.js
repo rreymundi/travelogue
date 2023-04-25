@@ -9,6 +9,7 @@ const TravelogueMenu = ({
     anchorTravelogueMenu,
     handleClose, 
     travelogue,
+    setTravelogue,
     onDeleteTravelogue
   }) => {
     let navigate = useNavigate();
@@ -20,6 +21,11 @@ const TravelogueMenu = ({
         .then(console.log("deleted!"))
         .then(onDeleteTravelogue(travelogue))
       };
+
+    const handleEdit = () => {
+        navigate(`/travelogues/${travelogue.id}/edit`)
+        setTravelogue(travelogue)
+    };
 
     return (
         <Box sx={{ flexGrow: 0 }}>
@@ -42,6 +48,7 @@ const TravelogueMenu = ({
                 <MenuItem onClick={handleClose}>
                     <Typography 
                         textAlign="center" 
+                        onClick={handleEdit}
                         >
                         Edit
                     </Typography>

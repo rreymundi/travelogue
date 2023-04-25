@@ -9,10 +9,10 @@ import SignupPage from '../pages/SignupPage';
 import TraveloguesPage from '../pages/TraveloguesPage';
 import TravelogueDraft from '../pages/TravelogueDraft';
 import Travelogue from '../pages/Travelogue';
+import TravelogueEdit from '../pages/TravelogueEdit';
 
-const Content = ({ onLogin, onDeleteTravelogue }) => {
+const Content = ({ onLogin, onDeleteTravelogue, onImageEdit }) => {
   let { travelogueID } = useParams();
-  const [travelogue, setTravelogue] = useState(null);
   
   const boxStyle = {
     m: '64px',
@@ -28,8 +28,9 @@ const Content = ({ onLogin, onDeleteTravelogue }) => {
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/travelogues' element={<TraveloguesPage setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />} />
-          <Route path='/travelogues/:travelogueID' element={<Travelogue travelogue={travelogue} />} />
+          <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
+          <Route path='/travelogues/:travelogueID' element={<Travelogue />} />
+          <Route path='/travelogues/:travelogueID/edit' element={<TravelogueEdit onImageEdit={onImageEdit} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft />} />
           <Route path='/collections' element={<Collections />} />
         </Routes>

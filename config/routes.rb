@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
 
   post '/profile/avatar', to: "users#avatarchange"
-  post '/travelogue/cover', to: "travelogues#coverimagechange"
+  post '/travelogue/:id/cover', to: "travelogues#coverimagechange"
 
   resources :travelogues, only: [:index, :create, :update, :destroy]
   resources :collections, only: [:index]
