@@ -30,7 +30,7 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
   return (
     <ListItem >
         <ListItemButton onClick={handleClick} component={ Link } to={`/travelogues/${travelogue.id}`} >
-            {travelogue?.title ? travelogue.title : 'Untitled'}
+            {travelogue.title}
         </ListItemButton>
         <ListItemText>
             {travelogue.created_at}
