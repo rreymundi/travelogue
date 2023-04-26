@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
@@ -12,6 +13,7 @@ const AccountSettings = () => {
         bio: user.bio,
       });
     const [inputValue, setInputValue] = React.useState('');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -55,6 +57,7 @@ const AccountSettings = () => {
             if (r.ok) {
                 r.json()
                 .then((updatedUser) => setCurrentUser(updatedUser))
+                navigate('/')
             } else {
                 r.json().then((errorData) => console.log(errorData.errors))
             }
