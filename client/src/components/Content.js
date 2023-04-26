@@ -11,7 +11,7 @@ import TravelogueDraft from '../pages/TravelogueDraft';
 import Travelogue from '../pages/Travelogue';
 import TravelogueEdit from '../pages/TravelogueEdit';
 
-const Content = ({ onLogin, onDeleteTravelogue, onImageEdit }) => {
+const Content = ({ onLogin, onDeleteTravelogue, onTravelogueEdit }) => {
   let { travelogueID } = useParams();
   
   const boxStyle = {
@@ -30,7 +30,7 @@ const Content = ({ onLogin, onDeleteTravelogue, onImageEdit }) => {
           <Route path='/profile' element={<AccountSettings />} />
           <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
           <Route path='/travelogues/:travelogueID' element={<Travelogue />} />
-          <Route path='/travelogues/:travelogueID/edit' element={<TravelogueEdit onImageEdit={onImageEdit} />} />
+          <Route path='/travelogues/:travelogueID/edit' element={<TravelogueEdit onTravelogueEdit={onTravelogueEdit} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft />} />
           <Route path='/collections' element={<Collections />} />
         </Routes>

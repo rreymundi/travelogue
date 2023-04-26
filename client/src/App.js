@@ -48,7 +48,7 @@ const App = () => {
     });
   };
 
-  const handleUpdateImage = (updatedTravelogue) => {
+  const handleUpdateTravelogue = (updatedTravelogue) => {
     const updatedTravelogues = user.travelogues.map((travelogue) => 
       travelogue.id === updatedTravelogue.id ? updatedTravelogue : travelogue
     );
@@ -59,7 +59,7 @@ const App = () => {
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onImageEdit={handleUpdateImage} />
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onTravelogueEdit={handleUpdateTravelogue} />
         <Footer />
       </Box>
   );

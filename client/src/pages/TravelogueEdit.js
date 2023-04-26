@@ -7,6 +7,7 @@ import {
     Box, 
     Button,
     Grid,
+    Link,
     Paper,
     TextField,
     Typography 
@@ -14,7 +15,7 @@ import {
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 
-const TravelogueEdit = ({ onImageEdit }) => {
+const TravelogueEdit = ({ onTravelogueEdit }) => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
   const {travelogue} = useContext(TravelogueContext);
@@ -23,7 +24,7 @@ const TravelogueEdit = ({ onImageEdit }) => {
     location: travelogue.location,
     description: travelogue.description,
   });
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -63,35 +64,61 @@ const TravelogueEdit = ({ onImageEdit }) => {
     .then((r) => {
       if (r.ok) {
           r.json()
-          .then((updatedTravelogue) => onImageEdit(updatedTravelogue))
+          .then((updatedTravelogue) => onTravelogueEdit(updatedTravelogue))
         } else {
           r.json().then((errorData) => console.log(errorData.errors))
       }
     })
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const data = new FormData();
+  //   data.append('title', formData.title)
+  //   data.append('description', formData.description)
+  //   data.append('saved', formData.saved)
+  //   data.append('location', inputValue)
+  //   data.append('tags', postTags)
+  //     fetch(`/travelogues/`, {
+  //       method: "POST",
+  //       body: data,
+  //   })
+  //   .then((r) => {
+  //       if (r.ok) {
+  //           r.json()
+  //           .then((newTravelogue) => {
+  //             setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
+  //           })
+  //           navigate('/travelogues')
+  //         } else {
+  //           r.json().then((errorData) => console.log(errorData.errors))
+  //       }
+  //   })
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append('title', formData.title)
-    data.append('description', formData.description)
-    data.append('saved', formData.saved)
-    data.append('location', inputValue)
-    data.append('tags', postTags)
-      fetch(`/travelogues/`, {
-        method: "POST",
-        body: data,
+    const updatedTravelogue = {
+      title: formData.title,
+      description: formData.description,
+      location: inputValue,
+      tags: postTags
+      };
+    fetch(`/travelogues/${travelogue.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(updatedTravelogue)
     })
     .then((r) => {
-        if (r.ok) {
-            r.json()
-            .then((newTravelogue) => {
-              setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
-            })
-            navigate('/travelogues')
-          } else {
-            r.json().then((errorData) => console.log(errorData.errors))
-        }
+      if (r.ok) {
+        r.json()
+        .then((updatedTravelogue) => onTravelogueEdit(updatedTravelogue))
+        navigate('/travelogues')
+      } else {
+        r.json().then((errorData) => setErrors(errorData.errors))
+      }
     })
   };
 
@@ -121,6 +148,7 @@ const TravelogueEdit = ({ onImageEdit }) => {
         </Box>
       </Box> */}
       {/* <Paper sx={{ justifySelf: 'center'}}></Paper> */}
+      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
       <Paper variant="outlined" sx={coverImage} />
       <Grid
         container
@@ -157,7 +185,7 @@ const TravelogueEdit = ({ onImageEdit }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography>Location</Typography>
-          <LocationMenu inputValue={inputValue} setInputValue={setInputValue}/>
+          <LocationMenu inputValue={inputValue} setInputValue={setInputValue} location={travelogue?.location}/>
         </Grid>
         <Grid item xs={3}>
           <Tags tags={tags} handleSetTags={handleSetTags} />
