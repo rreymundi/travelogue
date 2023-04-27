@@ -23,7 +23,7 @@ class TraveloguesController < ApplicationController
 
     def update
         create_or_delete_travelogue_tags(@travelogue, params[:tags])
-        @travelogue.update(travelogue_params.except(:tags))
+        @travelogue.update!(travelogue_params.except(:tags))
         render json: @travelogue, status: :ok
     end
 
@@ -63,7 +63,7 @@ class TraveloguesController < ApplicationController
     end
 
     def travelogue_params 
-        params.permit(:title, :description, :location, :saved, :cover_image, :tags)
+        params.permit(:title, :description, :location, :cover_image, :tags)
     end
 
 end
