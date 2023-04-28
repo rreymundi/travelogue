@@ -34,7 +34,7 @@ const AccountSettings = () => {
             if (r.ok) {
                 r.json().then((r) => setCurrentUser({...user, avatar_url: r.avatar_url}))
             } else {
-                r.json().then((errorData) => console.log(errorData.errors))
+                r.json().then((errorData) => setErrors(errorData.errors))
             }
         });
     };
@@ -59,7 +59,7 @@ const AccountSettings = () => {
                 .then((updatedUser) => setCurrentUser(updatedUser))
                 navigate('/')
             } else {
-                r.json().then((errorData) => console.log(errorData.errors))
+                r.json().then((errorData) => setErrors(errorData.errors))
             }
         })
     };

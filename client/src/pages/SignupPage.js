@@ -33,10 +33,8 @@ const SignupPage = ({ onLogin }) => {
     .then(r => {
       if (r.ok) {
         r.json().then((user) => onLogin(user))
-        console.log("Success!")
       } else {
         r.json().then((errorData) => setErrors(errorData.errors))
-        console.log(errors)
       }
     })
   };

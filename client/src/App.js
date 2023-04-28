@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorContext } from './context/error';
 import { UserContext } from './context/user';
@@ -27,6 +27,20 @@ const App = () => {
         r.json().then((errorData) => setErrors(errorData.errors))
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [tags, setTags] = useState(null);
+
+  useEffect(() => {
+    fetch('/tags')
+    .then(r => {
+      if(r.ok) {
+        r.json().then((r) => setTags(r))
+      } else {
+        r.json().then((r) => setErrors(r.errors))
+      }
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +73,7 @@ const App = () => {
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onTravelogueEdit={handleUpdateTravelogue} />
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onTravelogueEdit={handleUpdateTravelogue} tags={tags} />
         <Footer />
       </Box>
   );

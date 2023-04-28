@@ -15,7 +15,7 @@ import {
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 
-const TravelogueEdit = ({ onTravelogueEdit }) => {
+const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
   const {travelogue} = useContext(TravelogueContext);
@@ -45,13 +45,13 @@ const TravelogueEdit = ({ onTravelogueEdit }) => {
 
   const navigate = useNavigate();
 
-  const tags = [
-      { id: 0, name: "travel" },
-      { id: 1, name: "food" },
-      { id: 2, name: "museums" },
-      { id: 3, name: "history" },
-      { id: 4, name: "nature" }
-    ];
+  // const tags = [
+  //     { id: 0, name: "travel" },
+  //     { id: 1, name: "food" },
+  //     { id: 2, name: "museums" },
+  //     { id: 3, name: "history" },
+  //     { id: 4, name: "nature" }
+  //   ];
   
   const handleImageUpload = (e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ const TravelogueEdit = ({ onTravelogueEdit }) => {
           r.json()
           .then((updatedTravelogue) => onTravelogueEdit(updatedTravelogue))
         } else {
-          r.json().then((errorData) => console.log(errorData.errors))
+          r.json().then((errorData) => setErrors(errorData.errors))
       }
     })
   };
@@ -188,7 +188,7 @@ const TravelogueEdit = ({ onTravelogueEdit }) => {
           <LocationMenu inputValue={inputValue} setInputValue={setInputValue} location={travelogue?.location}/>
         </Grid>
         <Grid item xs={3}>
-          <Tags tags={tags} handleSetTags={handleSetTags} />
+          <Tags tags={tags} travelogue={travelogue} handleSetTags={handleSetTags} />
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>

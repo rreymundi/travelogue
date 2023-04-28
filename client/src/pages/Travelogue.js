@@ -15,7 +15,7 @@ import {
         padding: '3rem',
         display: 'grid',
     };
-    console.log(travelogue)
+    
     const hero = {
       justifySelf: 'center', 
       height: '20rem', 

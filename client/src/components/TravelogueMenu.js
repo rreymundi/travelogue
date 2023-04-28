@@ -18,7 +18,6 @@ const TravelogueMenu = ({
         fetch(`/travelogues/${travelogue.id}`, {
           method: 'DELETE'
         })
-        .then(console.log("deleted!"))
         .then(onDeleteTravelogue(travelogue))
       };
 

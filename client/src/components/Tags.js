@@ -3,19 +3,23 @@ import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const Tags = ({ tags, handleSetTags }) => {
+const Tags = ({ travelogue, tags, handleSetTags }) => {
+    
+    const renderedTags = tags?.map((tag) => tag.name);
+    const renderedTravelogueTags = travelogue?.tags.map((tag) => tag.name);
+
     return (
     <Autocomplete
         multiple
         id="tags-filled"
-        options={tags.map((option) => option.name)}
-        // defaultValue={[tags[1].name]}
+        options={tags?.map((option) => option.name)}
+        defaultValue={travelogue !== null ? renderedTravelogueTags : renderedTags}
         limitTags={3}
         freeSolo
         renderTags={(value, getTagProps) =>
-        value.map((option, index) => (
-            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-        ))
+            value.map((option, index) => (
+                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+            ))
         }
         renderInput={(params) => (
             <TextField
