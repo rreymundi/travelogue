@@ -6,6 +6,10 @@ class TraveloguesController < ApplicationController
         render json: travelogues, status: :ok
     end
 
+    def show
+        render json: @travelogue, status: :ok
+    end
+
     def create
         @travelogue = @current_user.travelogues.new(travelogue_params.except(:tags))
         @travelogue.cover_image.attach(params[:cover_image])
