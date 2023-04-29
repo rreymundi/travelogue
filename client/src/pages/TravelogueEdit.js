@@ -44,14 +44,6 @@ const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
   };
 
   const navigate = useNavigate();
-
-  // const tags = [
-  //     { id: 0, name: "travel" },
-  //     { id: 1, name: "food" },
-  //     { id: 2, name: "museums" },
-  //     { id: 3, name: "history" },
-  //     { id: 4, name: "nature" }
-  //   ];
   
   const handleImageUpload = (e) => {
     e.preventDefault();
