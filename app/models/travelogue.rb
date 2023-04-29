@@ -10,7 +10,7 @@ class Travelogue < ApplicationRecord
       if cover_image.attached?
         Rails.application.routes.url_helpers.rails_blob_path(cover_image, only_path: true)
       else
-        "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"      
+        nil   
       end
     end
 

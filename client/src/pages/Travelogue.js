@@ -11,16 +11,22 @@ import {
   const Travelogue = () => {
     const {travelogue} = useContext(TravelogueContext);
     const boxStyle = {
-        backgroundColor: '#F7F7F6',
-        padding: '3rem',
-        display: 'grid',
+      backgroundColor: '#F7F7F6',
+      padding: '3rem',
+      display: 'grid',
+    };
+
+    const paperContainer = {
+      backgroundColor: 'white', 
+      justifySelf: 'center', 
+      padding: '2rem',
+      width: '40rem'
     };
     
     const hero = {
       justifySelf: 'center', 
       height: '20rem', 
       width: '40rem', 
-      margin: '2rem',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
@@ -31,8 +37,10 @@ import {
   return (
     <Box sx={boxStyle} >
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
-      <Paper sx={{ backgroundColor: 'white', justifySelf: 'center', mb: '3rem'} }>
-        <Paper variant="outlined" sx={hero} />
+      <Paper sx={paperContainer}>
+        { travelogue.cover_image_url !== null 
+        ? <Paper variant="outlined" sx={hero} />
+        : null }
         <Box
           spacing={2}
           sx={{ m: '2rem' }}
