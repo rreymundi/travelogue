@@ -51,32 +51,6 @@ const TravelogueDraft = ({ tags }) => {
   
   const navigate = useNavigate();
 
-  // stop using these tags once the backend is set up
-  // const tags = [
-  //     { id: 0, name: "travel" },
-  //     { id: 1, name: "food" },
-  //     { id: 2, name: "museums" },
-  //     { id: 3, name: "history" },
-  //     { id: 4, name: "nature" }
-  //   ];
-  
-  // const handleImageUpload = (e) => {
-  //   e.preventDefault();
-  //   const data = new FormData();
-  //   data.append("cover_image", e.target.files[0]);
-  //   fetch('/travelogue/cover', {
-  //       method: 'POST',
-  //       body: data
-  //   })
-  //   .then((r) => {
-  //       if (r.ok) {
-  //           r.json().then((r) => console.log(r))
-  //       } else {
-  //           r.json().then((errorData) => console.log(errorData.errors))
-  //       }
-  //   });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
         data.append('title', formData.title)
@@ -122,7 +96,7 @@ const TravelogueDraft = ({ tags }) => {
         container
         spacing={2}
       >
-        <Grid item xs={9}>
+        <Grid item xs={8}>
           <Typography>Title</Typography>
           <TextField 
             id="title" 
@@ -156,14 +130,14 @@ const TravelogueDraft = ({ tags }) => {
           <Typography>Location</Typography>
           <LocationMenu inputValue={inputValue} setInputValue={setInputValue}/>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={5}>
           <Tags tags={tags} handleSetTags={handleSetTags} />
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>
           <TextField 
             multiline
-            rows={16}
+            rows={8}
             id="description" 
             name="description" 
             variant="filled"                    
