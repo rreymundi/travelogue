@@ -13,8 +13,6 @@ import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 
 const Content = ({ onLogin, onDeleteTravelogue, onTravelogueEdit, tags }) => {
-  let { id } = useParams();
-  console.log(id)
   
   const boxStyle = {
     m: '64px',
@@ -30,7 +28,7 @@ const Content = ({ onLogin, onDeleteTravelogue, onTravelogueEdit, tags }) => {
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/travelogues/' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
+          <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onTravelogueEdit={onTravelogueEdit} tags={tags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft tags={tags} />} />

@@ -63,7 +63,7 @@ class TraveloguesController < ApplicationController
       end
 
     def set_travelogue
-        @travelogue = Travelogue.find(params[:id])
+        @travelogue = @current_user.travelogues.find(params[:id])
     end
 
     def travelogue_params 
