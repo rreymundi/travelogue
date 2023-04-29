@@ -9,8 +9,7 @@ class User < ApplicationRecord
       if avatar.attached?
         Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
       else
-        self.avatar.attach(io: File.open(Rails.root.join('client', 'src', 'assets', 'no_image.jpg')), filename: 'no_image.jpg', content_type: 'application/jpeg')
-      end
+        "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"      end
     end
 
 end
