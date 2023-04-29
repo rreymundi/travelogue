@@ -24,8 +24,8 @@ function loadScript(src, position, id) {
 
 const autocompleteService = { current: null };
 
-export default function LocationMenu({ inputValue, setInputValue }) {
-  const [value, setValue] = React.useState(null);
+export default function LocationMenu({ inputValue, setInputValue, location }) {
+  const [value, setValue] = React.useState('');
   // const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
   const loaded = React.useRef(false);
@@ -99,6 +99,7 @@ export default function LocationMenu({ inputValue, setInputValue }) {
       autoComplete
       includeInputInList
       filterSelectedOptions
+      // changing this from "value" to "location" will display the current value inside the field
       value={value}
       noOptionsText="No locations"
       onChange={(event, newValue) => {
