@@ -99,7 +99,8 @@ function ResponsiveAppBar({ onLogout }) {
               </Tooltip>
               <Menu
                 sx={{ 
-                  mt: '45px' }}
+                  mt: '45px',
+                }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -113,22 +114,29 @@ function ResponsiveAppBar({ onLogout }) {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
-              >
-              <MenuItem key={"Username"} onClick={handleCloseUserMenu} >
+                >
+                <MenuItem disableRipple sx={{
+                  width: '11rem', 
+                  cursor: 'default',
+                  '&:hover': {
+                    background: 'none',
+                  },
+                  justifyContent: 'center'
+                }} key={"Username"} >
                   <Typography textAlign="center">{user.username}</Typography>
                 </MenuItem>
                 <Divider />
-                <MenuItem key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
                   <Typography textAlign="center">Travelogues</Typography>
                 </MenuItem>
-                <MenuItem key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/collections'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/collections'>
                   <Typography textAlign="center">Collections</Typography>
                 </MenuItem>
                 <Divider />
-                <MenuItem key={"Log out"} onClick={handleLogout}>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Log out"} onClick={handleLogout}>
                   <Typography textAlign="center">Log out</Typography>
                 </MenuItem>
               </Menu>
