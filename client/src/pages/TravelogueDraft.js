@@ -37,6 +37,7 @@ const TravelogueDraft = ({ tags }) => {
       [e.target.name]: e.target.value,
     })
   };
+  const [buttonText, setButtonText] = useState('Add cover image');
 
   const handleImageUpload = (e) => {
     data.append('cover_image', e.target.files[0])
@@ -113,10 +114,10 @@ const TravelogueDraft = ({ tags }) => {
         </Box>
       </Box>
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
-      <Paper sx={{ justifySelf: 'center'}}></Paper>
-      <Paper variant="outlined" sx={{ justifySelf: 'center', height: '20rem', width: '40rem', margin: '2rem'}}>
+      {/* <Paper sx={{ justifySelf: 'center'}}>TEST</Paper> */}
+      {/* <Paper variant="outlined" sx={{ justifySelf: 'center', height: '20rem', width: '40rem', margin: '2rem'}}>
         ADD AN IMG ELEMENT HERE LATER
-      </Paper>
+      </Paper> */}
       <Grid
         container
         spacing={2}
@@ -138,8 +139,9 @@ const TravelogueDraft = ({ tags }) => {
             variant="contained"
             component="label"
             sx={{ width: '10rem', textAlign: 'center' }}
+            onClick={() => setButtonText('Change cover image')}
             >
-              Add cover image
+              {buttonText}
             <input
                 id="cover_image"
                 name="cover_image"
