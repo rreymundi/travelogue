@@ -12,7 +12,6 @@ const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
   const {setTravelogue} = useContext(TravelogueContext);
-  // const [travelogue, setTravelogue] = useState(null);
   let navigate = useNavigate()
 
   useEffect(() => {
@@ -30,13 +29,13 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [tags, setTags] = useState(null);
+  const [allTags, setAllTags] = useState(null);
 
   useEffect(() => {
     fetch('/tags')
     .then(r => {
       if(r.ok) {
-        r.json().then((r) => setTags(r))
+        r.json().then((r) => setAllTags(r))
       } else {
         r.json().then((r) => setErrors(r.errors))
       }
@@ -55,25 +54,34 @@ const App = () => {
     navigate('/');
   };
 
+  const handleAddTravelogue = (newTravelogue) => {
+    // this adds new travelogue to state
+    setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
+    // this adds new tags to state
+    const tagsToAdd = newTravelogue.tags.filter((tag) => !allTags.includes(tag));
+    const updatedTags = allTags.concat(tagsToAdd);
+    setAllTags(updatedTags);
+  };
+
+  const handleUpdateTravelogue = (updatedTravelogue) => {
+    const updatedTravelogues = user.travelogues.map((travelogue) => 
+    travelogue.id === updatedTravelogue.id ? updatedTravelogue : travelogue
+    );
+    setCurrentUser({ ...user, travelogues: updatedTravelogues });
+    setTravelogue(updatedTravelogue);
+  };
+
   const handleDeleteTravelogue = (deletedTravelogue) => {
     setCurrentUser({
       ...user,
       travelogues: user.travelogues.filter((travelogue) => travelogue.id !== deletedTravelogue.id),
     });
   };
-
-  const handleUpdateTravelogue = (updatedTravelogue) => {
-    const updatedTravelogues = user.travelogues.map((travelogue) => 
-      travelogue.id === updatedTravelogue.id ? updatedTravelogue : travelogue
-    );
-    setCurrentUser({ ...user, travelogues: updatedTravelogues });
-    setTravelogue(updatedTravelogue);
-  };
-
+  
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onTravelogueEdit={handleUpdateTravelogue} tags={tags} />
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTags={allTags} onAddTravelogue={handleAddTravelogue}/>
         <Footer />
       </Box>
   );

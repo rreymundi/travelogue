@@ -14,7 +14,7 @@ import {
 import TravelogueRow from '../components/TravelogueRow';
 
 
-const TraveloguesPage = ({ setTravelogue, onDeleteTravelogue }) => {
+const TraveloguesPage = ({ onDeleteTravelogue }) => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {

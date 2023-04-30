@@ -12,7 +12,7 @@ import Travelogue from '../pages/Travelogue';
 import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 
-const Content = ({ onLogin, onDeleteTravelogue, onTravelogueEdit, tags }) => {
+const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelogue, allTags }) => {
   
   const boxStyle = {
     m: '64px',
@@ -30,8 +30,8 @@ const Content = ({ onLogin, onDeleteTravelogue, onTravelogueEdit, tags }) => {
           <Route path='/profile' element={<AccountSettings />} />
           <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
-          <Route path='/travelogues/:id/edit' element={<TravelogueEdit onTravelogueEdit={onTravelogueEdit} tags={tags} />} />
-          <Route path='/travelogues/new' element={<TravelogueDraft tags={tags} />} />
+          <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
+          <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/collections' element={<Collections />} />
           <Route path='/discover' element={<Discover />} />
         </Routes>
