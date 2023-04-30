@@ -19,7 +19,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
     location: "",
     description: "",
   });
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = useState('');
   const data = new FormData();
   const handleChange = (e) => {
     setFormData({
@@ -38,7 +38,6 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
   const handleSetTags = (e, newValue) => {
     setPostTags(newValue)
   };
-  console.log(postTags)
   
   const navigate = useNavigate();
 
@@ -120,7 +119,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
           <LocationMenu inputValue={inputValue} setInputValue={setInputValue}/>
         </Grid>
         <Grid item xs={5}>
-          <Tags allTags={allTags} handleSetTags={handleSetTags} />
+          <Tags allTags={allTags} postTags={postTags} handleSetTags={handleSetTags} />
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>
