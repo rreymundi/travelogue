@@ -1,28 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../context/user';
+import React, { useState, useContext } from 'react';
 import { ErrorContext } from '../context/error';
 import { useNavigate } from "react-router-dom"
 import { 
-    Autocomplete,
     Box, 
     Button,
     Grid,
     Link,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Paper,
-    Stack,
     TextField,
     Typography 
   } from '@mui/material';
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 
-const TravelogueDraft = ({ tags }) => {
-  const {user, setCurrentUser} = useContext(UserContext);
+const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
   const {setErrors} = useContext(ErrorContext);
   const [formData, setFormData] = useState({
     title: "",
@@ -44,10 +34,11 @@ const TravelogueDraft = ({ tags }) => {
   };
 
   const [postTags, setPostTags] = useState([]);
-  
+
   const handleSetTags = (e, newValue) => {
     setPostTags(newValue)
   };
+  console.log(postTags)
   
   const navigate = useNavigate();
 
@@ -64,9 +55,7 @@ const TravelogueDraft = ({ tags }) => {
         .then((r) => {
             if (r.ok) {
                 r.json()
-                .then((newTravelogue) => {
-                  setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
-                })
+                .then((newTravelogue) => onAddTravelogue(newTravelogue))
                 navigate('/travelogues')
               } else {
                 r.json().then((errorData) => setErrors(errorData.errors))
@@ -131,7 +120,7 @@ const TravelogueDraft = ({ tags }) => {
           <LocationMenu inputValue={inputValue} setInputValue={setInputValue}/>
         </Grid>
         <Grid item xs={5}>
-          <Tags tags={tags} handleSetTags={handleSetTags} />
+          <Tags allTags={allTags} handleSetTags={handleSetTags} />
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import { TravelogueContext } from '../context/travelogue';
 import { useNavigate } from "react-router-dom"
@@ -15,10 +14,9 @@ import {
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 
-const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
-  const {user, setCurrentUser} = useContext(UserContext);
+const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
   const {setErrors} = useContext(ErrorContext);
-  const {travelogue} = useContext(TravelogueContext);
+  const {travelogue, setTravelogue} = useContext(TravelogueContext);
   const [formData, setFormData] = useState({
     title: travelogue.title,
     location: travelogue.location,
@@ -56,37 +54,12 @@ const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
     .then((r) => {
       if (r.ok) {
           r.json()
-          .then((updatedTravelogue) => onTravelogueEdit(updatedTravelogue))
+          .then((r) => onUpdateTravelogue(r))
         } else {
-          r.json().then((errorData) => setErrors(errorData.errors))
+          r.json().then((r) => setErrors(r.errors))
       }
     })
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const data = new FormData();
-  //   data.append('title', formData.title)
-  //   data.append('description', formData.description)
-  //   data.append('saved', formData.saved)
-  //   data.append('location', inputValue)
-  //   data.append('tags', postTags)
-  //     fetch(`/travelogues/`, {
-  //       method: "POST",
-  //       body: data,
-  //   })
-  //   .then((r) => {
-  //       if (r.ok) {
-  //           r.json()
-  //           .then((newTravelogue) => {
-  //             setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
-  //           })
-  //           navigate('/travelogues')
-  //         } else {
-  //           r.json().then((errorData) => console.log(errorData.errors))
-  //       }
-  //   })
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,10 +79,10 @@ const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
     .then((r) => {
       if (r.ok) {
         r.json()
-        .then((updatedTravelogue) => onTravelogueEdit(updatedTravelogue))
+        .then((r) => onUpdateTravelogue(r))
         navigate('/travelogues')
       } else {
-        r.json().then((errorData) => setErrors(errorData.errors))
+        r.json().then((r) => setErrors(r.errors))
       }
     })
   };
@@ -141,7 +114,9 @@ const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
       </Box> */}
       {/* <Paper sx={{ justifySelf: 'center'}}></Paper> */}
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
-      <Paper variant="outlined" sx={coverImage} />
+      { travelogue.cover_image_url !== null 
+        ? <Paper variant="outlined" sx={coverImage} />
+        : null }
       <Grid
         container
         spacing={2}
@@ -180,7 +155,7 @@ const TravelogueEdit = ({ onTravelogueEdit, tags }) => {
           <LocationMenu inputValue={inputValue} setInputValue={setInputValue} location={travelogue?.location}/>
         </Grid>
         <Grid item xs={3}>
-          <Tags tags={tags} travelogue={travelogue} handleSetTags={handleSetTags} />
+          <Tags allTags={allTags} travelogue={travelogue} handleSetTags={handleSetTags} />
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>
