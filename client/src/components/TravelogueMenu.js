@@ -14,14 +14,14 @@ const TravelogueMenu = ({
   }) => {
     let navigate = useNavigate();
 
-    const handleDelete = () => {
+    const handleDeleteClick = () => {
         fetch(`/travelogues/${travelogue.id}`, {
           method: 'DELETE'
         })
         .then(onDeleteTravelogue(travelogue))
       };
 
-    const handleEdit = () => {
+    const handleEditClick = () => {
         setTravelogue(travelogue)
         navigate(`/travelogues/${travelogue.id}/edit`)
     };
@@ -47,7 +47,7 @@ const TravelogueMenu = ({
                 <MenuItem onClick={handleClose}>
                     <Typography 
                         textAlign="center" 
-                        onClick={handleEdit}
+                        onClick={handleEditClick}
                         >
                         Edit
                     </Typography>
@@ -55,7 +55,7 @@ const TravelogueMenu = ({
                 <MenuItem onClick={handleClose}>
                     <Typography 
                         textAlign="center" 
-                        onClick={handleDelete}
+                        onClick={handleDeleteClick}
                         >
                         Delete
                     </Typography>

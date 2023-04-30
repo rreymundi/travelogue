@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { TravelogueContext } from '../context/travelogue';
-import { ErrorContext } from '../context/error';
 import { 
     Box, 
     Chip,
@@ -8,25 +7,9 @@ import {
     Paper,
     Typography 
   } from '@mui/material';
-import { useParams } from 'react-router-dom';
 
   const Travelogue = () => {
-    const {travelogue, setTravelogue} = useContext(TravelogueContext);
-    const {errors, setErrors} = useContext(ErrorContext);
-
-    let { id } = useParams();
-
-    useEffect( () => {
-      fetch(`/travelogues/${id}`)
-      .then((r) => {
-          if (r.ok) {
-            r.json().then((r) => setTravelogue(r))
-          } else {
-            r.json().then((r) => setErrors(r.errors))
-          }
-      });
-      }, [id, setErrors, setTravelogue]);
-
+    const {travelogue} = useContext(TravelogueContext);
 
     const boxStyle = {
       backgroundColor: '#F7F7F6',
