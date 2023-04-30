@@ -16,7 +16,7 @@ import Tags from '../components/Tags';
 
 const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
   const {setErrors} = useContext(ErrorContext);
-  const {travelogue, setTravelogue} = useContext(TravelogueContext);
+  const {travelogue} = useContext(TravelogueContext);
   const [formData, setFormData] = useState({
     title: travelogue.title,
     location: travelogue.location,

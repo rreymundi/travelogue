@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route, useParams } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Collections from '../pages/Collections';
 import Box from '@mui/material/Box';

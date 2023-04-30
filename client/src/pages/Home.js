@@ -133,13 +133,6 @@ const Home = () => {
     justifyContent: 'center'
   }
 
-  const signupBox = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-
   const signupText = {
     fontSize: '2.5rem',
   }
