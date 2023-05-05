@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { TravelogueContext } from '../context/travelogue';
+import { ErrorContext } from '../context/error';
 import { 
     Box, 
     Chip,
@@ -9,7 +11,46 @@ import {
   } from '@mui/material';
 
   const Travelogue = () => {
-    const {travelogue} = useContext(TravelogueContext);
+    const {travelogue, setTravelogue} = useContext(TravelogueContext);
+    const {setErrors} = useContext(ErrorContext);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+    const { id } = useParams();
+
+    const url = '/travelogues/' + id;
+
+    useEffect(() => {
+      setIsMounted(true);
+      const fetchData = async () => {
+        setIsLoading(true);
+        const r = await fetch(url);
+        const json = await r.json();
+        if (r.ok) {
+          setTravelogue(json)
+          } else {
+          setErrors(json.errors)
+        }
+        setIsLoading(false)
+      };
+      fetchData();
+      return () => {
+        setIsMounted(false);
+      };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    // useEffect(() => {
+    //   setIsLoading(true);
+    //   fetch(url)
+    //   .then(r => {
+    //     if (r.ok) {
+    //       r.json().then((data) => setTravelogue(data))
+    //     } else {
+    //       r.json().then((data) => setErrors(data.errors))
+    //     }
+    //   });
+    //   setIsLoading(false)
+    // }, [setTravelogue, setErrors, url]);
 
     const boxStyle = {
       backgroundColor: '#F7F7F6',
@@ -34,6 +75,8 @@ import {
       backgroundImage: `url(` + travelogue.cover_image_url +`)`,
       aspectRatio: '16 / 9',
     }
+
+  if (isLoading) return <div>Loading...</div>
 
   return (
     <Box sx={boxStyle} >

@@ -12,20 +12,37 @@ const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
   const {setTravelogue} = useContext(TravelogueContext);
+  const [isLoading, setIsLoading] = useState(false);
   let navigate = useNavigate()
 
+  // useEffect(() => {
+  //   fetch('/me')
+  //   .then(r => {
+  //     if (r.ok) {
+  //       r.json()
+  //       .then((user) => {
+  //         setCurrentUser(user)
+  //       })
+  //     } else {
+  //       r.json().then((errorData) => setErrors(errorData.errors))
+  //     }
+  //   });
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
-    fetch('/me')
-    .then(r => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const r = await fetch('/me');
+      const json = await r.json();
       if (r.ok) {
-        r.json()
-        .then((user) => {
-          setCurrentUser(user)
-        })
-      } else {
-        r.json().then((errorData) => setErrors(errorData.errors))
+        setCurrentUser(json)
+        } else {
+        setErrors(json.errors)
       }
-    });
+      setIsLoading(false)
+    };
+    fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -81,7 +98,12 @@ const App = () => {
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTags={allTags} onAddTravelogue={handleAddTravelogue}/>
+        {isLoading 
+        ? 
+        <p>Loading ...</p>
+        : 
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTags={allTags} onAddTravelogue={handleAddTravelogue} />
+        }
         <Footer />
       </Box>
   );

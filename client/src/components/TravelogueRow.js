@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TravelogueContext } from '../context/travelogue';
 import { 
     Button,
     ListItem,
@@ -13,7 +12,6 @@ import TravelogueMenu from './TravelogueMenu';
 
 const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
   const [anchorTravelogueMenu, setAnchorTravelogueMenu] = useState(null);
-  const {setTravelogue} = useContext(TravelogueContext);
 
   const handleOpen = (e) => {
     setAnchorTravelogueMenu(e.currentTarget);
@@ -23,13 +21,9 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
     setAnchorTravelogueMenu(null);
   };
 
-  const handleClick = () => {
-    setTravelogue(travelogue)
-  };
-
   return (
     <ListItem >
-        <ListItemButton onClick={handleClick} component={ Link } to={`/travelogues/${travelogue.id}`} >
+        <ListItemButton component={ Link } to={`/travelogues/${travelogue.id}`} >
             {travelogue.title}
         </ListItemButton>
         <ListItemText>
@@ -40,7 +34,7 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
                 <MoreHorizIcon />
             </Button>
         </ListItemIcon>
-        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} setTravelogue={setTravelogue} onDeleteTravelogue={onDeleteTravelogue} />
+        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
     </ListItem>
   )
 }

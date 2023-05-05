@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { ErrorContext } from '../context/error';
 import { TravelogueContext } from '../context/travelogue';
 import { useNavigate } from "react-router-dom"
@@ -16,13 +17,39 @@ import Tags from '../components/Tags';
 
 const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
   const {setErrors} = useContext(ErrorContext);
-  const {travelogue} = useContext(TravelogueContext);
+  const {travelogue, setTravelogue} = useContext(TravelogueContext);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const { id } = useParams();
+  const url = '/travelogues/' + id;
+
+  useEffect(() => {
+    setIsMounted(true);
+    const fetchData = async () => {
+      setIsLoading(true);
+      const r = await fetch(url);
+      const json = await r.json();
+      if (r.ok) {
+        setTravelogue(json)
+        } else {
+        setErrors(json.errors)
+      }
+      setIsLoading(false)
+    };
+    fetchData();
+    return () => {
+      setIsMounted(false);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [formData, setFormData] = useState({
     title: travelogue.title,
     location: travelogue.location,
     description: travelogue.description,
   });
-  const [inputValue, setInputValue] = useState('');
+
 
   const handleChange = (e) => {
     setFormData({
@@ -105,14 +132,10 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
     aspectRatio: '16 / 9',
   }
 
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <Box sx={boxStyle} component='form' onSubmit={handleSubmit}>
-      {/* <Box>
-        <Box>
-          <Typography sx={{ fontSize: '3.5rem' }}>New Draft</Typography>
-        </Box>
-      </Box> */}
-      {/* <Paper sx={{ justifySelf: 'center'}}></Paper> */}
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
       { travelogue.cover_image_url !== null 
         ? <Paper variant="outlined" sx={coverImage} />

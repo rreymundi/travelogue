@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { TravelogueContext } from '../context/travelogue';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
@@ -9,9 +10,9 @@ const TravelogueMenu = ({
     anchorTravelogueMenu,
     handleClose, 
     travelogue,
-    setTravelogue,
     onDeleteTravelogue
   }) => {
+    const { setTravelogue } = useContext(TravelogueContext);
     let navigate = useNavigate();
 
     const handleDeleteClick = () => {
