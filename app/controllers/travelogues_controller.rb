@@ -1,4 +1,5 @@
 class TraveloguesController < ApplicationController
+    skip_before_action :authorize, only: [:index, :show]
     before_action :set_travelogue, except: [:index, :create]
     
     def index

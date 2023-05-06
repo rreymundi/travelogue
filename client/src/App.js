@@ -13,22 +13,9 @@ const App = () => {
   const {setErrors} = useContext(ErrorContext);
   const {setTravelogue} = useContext(TravelogueContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [allTags, setAllTags] = useState(null);
+  const [allTravelogues, setAllTravelogues] = useState(null);
   let navigate = useNavigate()
-
-  // useEffect(() => {
-  //   fetch('/me')
-  //   .then(r => {
-  //     if (r.ok) {
-  //       r.json()
-  //       .then((user) => {
-  //         setCurrentUser(user)
-  //       })
-  //     } else {
-  //       r.json().then((errorData) => setErrors(errorData.errors))
-  //     }
-  //   });
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,8 +33,24 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [allTags, setAllTags] = useState(null);
+  // GET all travelogues
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const r = await fetch('/travelogues');
+      const json = await r.json();
+      if (r.ok) {
+        setAllTravelogues(json)
+        } else {
+        setErrors(json.errors)
+      }
+      setIsLoading(false)
+    };
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  // GET all tags
   useEffect(() => {
     fetch('/tags')
     .then(r => {
@@ -94,7 +97,24 @@ const App = () => {
       travelogues: user.travelogues.filter((travelogue) => travelogue.id !== deletedTravelogue.id),
     });
   };
-  
+
+  const filteredData = (query, data) => {
+    if (!query) {
+      return data
+    } else {
+      const filtered = data.filter((d) => 
+        d.title.toLowerCase().includes(query.toLowerCase()) || 
+        d.description.toLowerCase().includes(query.toLowerCase() ||
+        d.location.toLowerCase().includes(query.toLowerCase()))
+        )
+      setAllTravelogues(filtered)
+    }
+  }; 
+
+  const onSearch = (search) => {
+    filteredData(search, allTravelogues);
+  };
+
   return (
       <Box sx={{ minHeight: '100%' }}>
         <ResponsiveAppBar onLogout={onLogout} />
@@ -102,7 +122,7 @@ const App = () => {
         ? 
         <p>Loading ...</p>
         : 
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTags={allTags} onAddTravelogue={handleAddTravelogue} />
+        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTravelogues={allTravelogues} allTags={allTags} onAddTravelogue={handleAddTravelogue} onSearch={onSearch} />
         }
         <Footer />
       </Box>
