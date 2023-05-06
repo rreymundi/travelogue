@@ -41,8 +41,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
     return () => {
       setIsMounted(false);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setTravelogue, setErrors, url]);
 
   const [formData, setFormData] = useState({
     title: travelogue.title,
@@ -175,7 +174,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography>Location</Typography>
-          <LocationMenu inputValue={inputValue} setInputValue={setInputValue} location={travelogue?.location}/>
+          <LocationMenu inputValue={inputValue} setInputValue={setInputValue} location={travelogue.location}/>
         </Grid>
         <Grid item xs={3}>
           <Tags allTags={allTags} travelogue={travelogue} handleSetTags={handleSetTags} />

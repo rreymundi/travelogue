@@ -33,7 +33,7 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
   if (typeof window !== 'undefined' && !loaded.current) {
     if (!document.querySelector('#google-maps')) {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${MY_KEY}&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${MY_KEY}&libraries=places&callback=Function.prototype`,
         document.querySelector('head'),
         'google-maps',
       );
@@ -99,8 +99,9 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
       autoComplete
       includeInputInList
       filterSelectedOptions
+      freeSolo
       // changing this from "value" to "location" will display the current value inside the field
-      value={value}
+      value={location}
       noOptionsText="No locations"
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);

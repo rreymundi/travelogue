@@ -75,7 +75,8 @@ const LoginPage = ({ onLogin }) => {
             <TextField 
               id="username" 
               name="username" 
-              variant="outlined"            placeholder="username" 
+              variant="outlined"            
+              placeholder="username" 
               value={formData.username} 
               onChange={handleChange}/>
           </Grid>
@@ -83,7 +84,8 @@ const LoginPage = ({ onLogin }) => {
             <TextField 
               id="password" 
               name="password" 
-              variant="outlined"            placeholder="password" 
+              variant="outlined"            
+              placeholder="password" 
               type="password" 
               value={formData.password} 
               onChange={handleChange}/>

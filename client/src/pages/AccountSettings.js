@@ -12,7 +12,7 @@ const AccountSettings = () => {
         name: user.name,
         bio: user.bio,
       });
-    const [inputValue, setInputValue] = React.useState('');
+    const [inputValue, setInputValue] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -90,81 +90,81 @@ const AccountSettings = () => {
         ml: '5rem',
         mt: '.5rem'
     }
-
-  return (
-    <Box sx={boxStyle}>
-        <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-            <Typography sx={{ fontSize: '3.5rem' }}>Edit profile</Typography>
-            <Typography sx={{ fontSize: '1.5rem'}}>
-                Make changes to your profile
-            </Typography>
-        </Box>        
-        <Box sx={form} component='form' onSubmit={handleSubmit} >
-            <Box sx={accountFieldsLeft}>
-                <Grid
-                    container
-                    spacing={2} 
-                    direction="column" 
-                >
-                    <Grid item>
-                        <Typography>Name</Typography>
-                    </Grid>
-                    <Grid item>
-                        <TextField 
-                            id="name" 
-                            name="name" 
-                            variant="filled"                    
-                            placeholder="Name" 
-                            value={formData.name} 
-                            onChange={handleChange} 
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Typography>Location</Typography>
-                    </Grid>
-                    <Grid item>
-                        <LocationMenu id="location" name="location" inputValue={inputValue} setInputValue={setInputValue}/>
-                    </Grid>
-                    <Grid item>
-                        <Typography>Bio</Typography>
-                    </Grid>
-                    <Grid item>
-                        <TextField 
-                            multiline
-                            rows={4}
-                            id="bio" 
-                            name="bio" 
-                            variant="filled"                    
-                            placeholder="Bio" 
-                            value={formData.bio} 
-                            onChange={handleChange} 
-                        />
-                        </Grid>
-                    <Grid item>
-                        <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Save</Button>
-                    </Grid>
-                </Grid>
-            </Box>
-            <Box sx={accountFieldsRight}>
-                <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user?.avatar_url}>avatar</Avatar>
-                <Button
-                    variant="contained"
-                    component="label"
-                    sx={{ mt: '2rem'}}
+  
+    return (
+        <Box sx={boxStyle}>
+            <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+                <Typography sx={{ fontSize: '3.5rem' }}>Edit profile</Typography>
+                <Typography sx={{ fontSize: '1.5rem'}}>
+                    Make changes to your profile
+                </Typography>
+            </Box>        
+            <Box sx={form} component='form' onSubmit={handleSubmit} >
+                <Box sx={accountFieldsLeft}>
+                    <Grid
+                        container
+                        spacing={2} 
+                        direction="column" 
                     >
-                    Upload
-                    <input
-                        id="avatar"
-                        name="avatar"
-                        type="file"
-                        accept=".jpg, .jpeg, .png, .webp"
-                        hidden
-                        onChange={handleImageUpload}
-                    />
-                </Button>
+                        <Grid item>
+                            <Typography>Name</Typography>
+                        </Grid>
+                        <Grid item>
+                            <TextField 
+                                id="name" 
+                                name="name" 
+                                variant="filled"                    
+                                placeholder="Name" 
+                                value={formData.name} 
+                                onChange={handleChange} 
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Typography>Location</Typography>
+                        </Grid>
+                        <Grid item>
+                            <LocationMenu id="location" name="location" inputValue={inputValue} setInputValue={setInputValue} location={user.location} />
+                        </Grid>
+                        <Grid item>
+                            <Typography>Bio</Typography>
+                        </Grid>
+                        <Grid item>
+                            <TextField 
+                                multiline
+                                rows={4}
+                                id="bio" 
+                                name="bio" 
+                                variant="filled"                    
+                                placeholder="Bio" 
+                                value={formData.bio} 
+                                onChange={handleChange} 
+                            />
+                            </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Save</Button>
+                        </Grid>
+                    </Grid>
+                </Box>
+                <Box sx={accountFieldsRight}>
+                    <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user?.avatar_url}>avatar</Avatar>
+                    <Button
+                        variant="contained"
+                        component="label"
+                        sx={{ mt: '2rem'}}
+                        >
+                        Upload
+                        <input
+                            id="avatar"
+                            name="avatar"
+                            type="file"
+                            accept=".jpg, .jpeg, .png, .webp"
+                            hidden
+                            onChange={handleImageUpload}
+                        />
+                    </Button>
+                </Box>
             </Box>
         </Box>
-    </Box>
   )
 }
 
