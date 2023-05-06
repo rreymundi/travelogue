@@ -1,15 +1,19 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
 import { Link, useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { 
+  Box,
+  Button,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
+import HomepageCard from '../components/HomepageCard';
 import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
 
-const Home = ({ onSearch }) => {
+const Home = ({ onSearch, allTravelogues }) => {
   const { user } = useContext(UserContext);
 
   const [search, setSearch] = useState('');
@@ -25,6 +29,13 @@ const Home = ({ onSearch }) => {
     onSearch(search)
     navigate('/discover')
   };
+
+  const traveloguesToShow = allTravelogues?.filter((travelogue) =>
+    travelogue.cover_image_url !== null).slice(-3);
+  const renderedTravelogues = traveloguesToShow?.map((travelogue) => {
+    return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} />;
+  });
+
 
   const hero = {
     minHeight: '31.25rem',
@@ -111,11 +122,11 @@ const Home = ({ onSearch }) => {
   }
   
   const discoverHeroText = {
-    fontSize: '3.5rem'
+    fontSize: '2.75rem'
   }
 
   const discoverHeroSub = {
-    fontSize: '2rem'
+    fontSize: '1.5rem'
   }
 
   const quoteHero = {
@@ -133,6 +144,7 @@ const Home = ({ onSearch }) => {
   const quoteText = {
     fontSize: '4rem',
     textAlign: 'center',
+    color: 'white',
   }
 
   const signupHero = {
@@ -200,16 +212,16 @@ const Home = ({ onSearch }) => {
     <Paper sx={discoverHero}>
       <Box sx={discoverBox}>
         <Typography sx={discoverHeroText}>Stories from around the world</Typography>
-        <Typography sx={discoverHeroSub}>Discover stories, recommendations, and tips.</Typography>
-        <Box>
-          TRAVELOGUES HERE
-        </Box>
-        <Button variant='contained' sx={button}>Discover</Button>
+        <Grid sx={{ display: 'flex' }}>
+          {renderedTravelogues}
+        </Grid>
+        <Button variant='contained' component={ Link } to="/discover" sx={button}>Discover</Button>
       </Box>
     </Paper>
     <Paper sx={quoteHero}>
         <Typography sx={quoteText}>
-          “Nothing behind me, everything ahead of me, as is ever so on the road.”
+          “Nothing behind me, everything ahead of me, as is ever so on the road.” 
+          <Typography sx={{ fontStyle: 'italic', fontSize: '2rem'}}>- Jack Kerouac, On the Road</Typography>
         </Typography>
     </Paper>
     <Paper sx={signupHero}>
@@ -217,9 +229,9 @@ const Home = ({ onSearch }) => {
       ?
       <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
         <Typography sx={signupText}>
-          Stories from around the globe.
+          Share your stories.
         </Typography>
-        <Button variant='contained' component={ Link } to="/discover" sx={button}>Discover</Button>
+        <Button variant='contained' component={ Link } to="/travelogues/new" sx={button}>Post travelogue</Button>
       </Box>
       :
       <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
