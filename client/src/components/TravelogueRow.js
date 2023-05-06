@@ -21,13 +21,15 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
     setAnchorTravelogueMenu(null);
   };
 
+  const publishedDate = new Date(travelogue.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
   return (
     <ListItem >
         <ListItemButton component={ Link } to={`/travelogues/${travelogue.id}`} >
             {travelogue.title}
         </ListItemButton>
         <ListItemText>
-            {travelogue.created_at}
+            {publishedDate}
         </ListItemText>
         <ListItemIcon sx={{ justifyContent: 'end' }} >
             <Button onClick={handleOpen} >

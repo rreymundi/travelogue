@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { Box,
     Grid, 
     Typography,
@@ -23,7 +23,7 @@ const Discover = ({ allTravelogues }) => {
                 </Typography>
                 <Box sx={{ margin: '2.5rem'}}>
                     <Grid container spacing={2}>
-                        {allTravelogues.map((travelogue) => (
+                        {allTravelogues?.map((travelogue) => (
                             <TravelogueCard item key={travelogue.id} travelogue={travelogue} />
                         ))}
                     </Grid>

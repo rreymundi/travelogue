@@ -10,8 +10,12 @@ import {
   Typography
  } from '@mui/material';
  import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+ import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 const TravelogueCard = ({ travelogue }) => {
+
+  const publishedDate = new Date(travelogue.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
 
   return (
     <Card sx={{ width:'100%', heigh: '100%', margin: '1rem' }}>
@@ -30,13 +34,13 @@ const TravelogueCard = ({ travelogue }) => {
                 {travelogue.location}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ paddingTop: '4px', cursor: 'pointer' }}>
-                {travelogue.description}
+                {travelogue.description.slice(0, 70) + '...'}
               </Typography>
             </Box>
             <Box sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }} >
               <Box sx={{ display: 'flex' }}>
                 <Typography variant="body2" color="text.secondary" sx={{ cursor: 'pointer', mr: '0.375rem' }}>
-                  PUBLISHED DATE
+                  {publishedDate}
                 </Typography>
                 {travelogue?.tags?.map((tag) => 
                   <Typography key={tag.id} variant="body2" color="primary" sx={{ ml: '0.375rem' }}>
@@ -55,7 +59,7 @@ const TravelogueCard = ({ travelogue }) => {
             { travelogue.cover_image_url !== null 
               ?
               <CardMedia
-                  sx={{ verticalAlign: 'middle', width: '275px', aspectRatio: 'auto 200 / 134 ', heigh: '134px' }}
+                  sx={{ verticalAlign: 'middle', width: '275px', aspectRatio: 'auto 200 / 134 ', height: '100%' }}
                   image={travelogue.cover_image_url}
                   title="travelogue image"
               />
