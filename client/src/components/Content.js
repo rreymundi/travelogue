@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
-import Collections from '../pages/Collections';
+import Bookmarks from '../pages/Bookmarks';
 import Box from '@mui/material/Box';
 import Home from '../pages/Home';
 import LoginPage from '../pages/LoginPage';
@@ -24,7 +24,7 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
   return (
       <Box disablegutters='true' sx={boxStyle}>
         <Routes>
-          <Route path='/' element={<Home onSearch={onSearch} />} />
+          <Route path='/' element={<Home onSearch={onSearch} allTravelogues={allTravelogues} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
@@ -32,7 +32,7 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
           <Route path='/travelogues/:id' element={<Travelogue />} />
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
-          <Route path='/collections' element={<Collections />} />
+          <Route path='/bookmarks' element={<Bookmarks />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues}/>} />
         </Routes>
       </Box>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/user';
 import { Box, Typography } from '@mui/material'
 
-const Collections = () => {
+const Bookmarks = () => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {
@@ -16,9 +16,9 @@ const Collections = () => {
 
   return (
     <Box sx={boxStyle}>
-      <Typography sx={{ fontSize: '3.5rem', m: '1rem'}}>Collections</Typography>
+      <Typography sx={{ fontSize: '3.5rem', m: '1rem'}}>Bookmarks</Typography>
     </Box>
   )
 }
 
-export default Collections
+export default Bookmarks

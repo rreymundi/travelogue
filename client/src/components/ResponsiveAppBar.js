@@ -123,7 +123,7 @@ function ResponsiveAppBar({ onLogout }) {
                   },
                   justifyContent: 'center'
                 }} key={"Username"} >
-                  <Typography textAlign="center">{user.username}</Typography>
+                  <Typography textAlign="center" sx={{ fontWeight: 'bold' }}>{user.username}</Typography>
                 </MenuItem>
                 <Divider />
                 <MenuItem sx={{ justifyContent:'center' }} key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
@@ -132,8 +132,8 @@ function ResponsiveAppBar({ onLogout }) {
                 <MenuItem sx={{ justifyContent:'center' }} key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
                   <Typography textAlign="center">Travelogues</Typography>
                 </MenuItem>
-                <MenuItem sx={{ justifyContent:'center' }} key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/collections'>
-                  <Typography textAlign="center">Collections</Typography>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/bookmarks'>
+                  <Typography textAlign="center">Bookmarks</Typography>
                 </MenuItem>
                 <Divider />
                 <MenuItem sx={{ justifyContent:'center' }} key={"Log out"} onClick={handleLogout}>
