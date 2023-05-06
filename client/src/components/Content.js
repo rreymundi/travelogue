@@ -12,7 +12,7 @@ import Travelogue from '../pages/Travelogue';
 import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 
-const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelogue, allTags }) => {
+const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelogue, allTravelogues, allTags, onSearch }) => {
   
   const boxStyle = {
     m: '64px',
@@ -24,7 +24,7 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
   return (
       <Box disablegutters='true' sx={boxStyle}>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home onSearch={onSearch} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
@@ -33,7 +33,7 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/collections' element={<Collections />} />
-          <Route path='/discover' element={<Discover />} />
+          <Route path='/discover' element={<Discover allTravelogues={allTravelogues}/>} />
         </Routes>
       </Box>
   )
