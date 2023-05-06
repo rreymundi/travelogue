@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -9,8 +9,22 @@ import Button from '@mui/material/Button';
 import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
 
-const Home = () => {
+const Home = ({ onSearch }) => {
   const { user } = useContext(UserContext);
+
+  const [search, setSearch] = useState('');
+
+  let navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch(search)
+    navigate('/discover')
+  };
 
   const hero = {
     minHeight: '31.25rem',
@@ -139,7 +153,7 @@ const Home = () => {
   const button = {
     m: '1rem',
   }
-  
+
   return (
     <>
     {user
@@ -150,15 +164,16 @@ const Home = () => {
             <Typography sx={heroText}>See the world</Typography>
             <Typography sx={discoverHeroSub}>One travelogue at a time</Typography>
           </Box>
-          <Box >
+          <Box component="form" onSubmit={handleSearch} >
             <TextField
               id="search-bar"
               label="Search"
               variant="filled"
               placeholder="Search..."
+              onChange={handleChange}
               sx={textField}
             />
-            <Button variant='contained' sx={searchButton}>Search</Button>
+            <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
           </Box>
         </Box>
       </Paper>
@@ -168,15 +183,16 @@ const Home = () => {
           <Box sx={heroTextBox}>
             <Typography sx={heroText}>Welcome to Travelogue</Typography>
           </Box>
-          <Box sx={searchBox}>
+          <Box sx={searchBox} component="form" onSubmit={handleSearch} >
             <TextField
               id="search-bar"
               label="Search"
               variant="filled"
               placeholder="Search..."
+              onChange={handleChange}
               sx={textField}
             />
-            <Button variant='contained' sx={searchButton}>Search</Button>
+            <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
           </Box>
         </Box>
       </Paper>
