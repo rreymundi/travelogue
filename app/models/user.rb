@@ -4,6 +4,7 @@ class User < ApplicationRecord
     validates :username, presence: true, uniqueness: true
     validates :password, presence: true, on: :create
     has_many :travelogues, dependent: :destroy
+    has_many :saved_posts, dependent: :destroy
 
     def avatar_url
       if avatar.attached?
