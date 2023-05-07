@@ -13,7 +13,7 @@ import HomepageCard from '../components/HomepageCard';
 import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
 
-const Home = ({ onSearch, allTravelogues }) => {
+const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
 
   const [search, setSearch] = useState('');
@@ -33,7 +33,7 @@ const Home = ({ onSearch, allTravelogues }) => {
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
     travelogue.cover_image_url !== null).slice(-3);
   const renderedTravelogues = traveloguesToShow?.map((travelogue) => {
-    return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} />;
+    return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />;
   });
 
 
@@ -136,6 +136,7 @@ const Home = ({ onSearch, allTravelogues }) => {
     color: '#282828',
     backgroundColor: '#FFC2A5',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '4rem'  
@@ -221,8 +222,8 @@ const Home = ({ onSearch, allTravelogues }) => {
     <Paper sx={quoteHero}>
         <Typography sx={quoteText}>
           “Nothing behind me, everything ahead of me, as is ever so on the road.” 
-          <Typography sx={{ fontStyle: 'italic', fontSize: '2rem'}}>- Jack Kerouac, On the Road</Typography>
         </Typography>
+        <Typography sx={{ fontStyle: 'italic', fontSize: '2rem', color: 'white' }}>- Jack Kerouac, On the Road</Typography>
     </Paper>
     <Paper sx={signupHero}>
       {user 

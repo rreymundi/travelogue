@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Bookmarks from '../pages/Bookmarks';
@@ -11,9 +11,37 @@ import TravelogueDraft from '../pages/TravelogueDraft';
 import Travelogue from '../pages/Travelogue';
 import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
+import { UserContext } from '../context/user';
+import { ErrorContext } from '../context/error';
 
 const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelogue, allTravelogues, allTags, onSearch }) => {
+  const { user, setCurrentUser } = useContext(UserContext);
+  const { setErrors } = useContext(ErrorContext);
   
+  const handleBookmarkSave = (id) => {
+    fetch('/bookmarks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({travelogue_id: id})
+    })
+    .then(r => {
+      if (r.ok) {
+        r.json().then((savedTravelogue) => setCurrentUser({...user, saved_posts: [...user.saved_posts, savedTravelogue]}))
+      } else {
+        r.json().then((errorData) => setErrors(errorData.errors))
+      }
+    })
+  };
+
+  const handleBookmarkUnsave = (id) => {
+    fetch(`/bookmarks/${id}`, {
+      method: 'DELETE',
+    })
+    .then(setCurrentUser({...user, saved_posts: [...user.saved_posts.filter(post => post.travelogue_id !== id)]}));
+  };
+
   const boxStyle = {
     m: '64px',
     display: 'flex',
@@ -24,7 +52,7 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
   return (
       <Box disablegutters='true' sx={boxStyle}>
         <Routes>
-          <Route path='/' element={<Home onSearch={onSearch} allTravelogues={allTravelogues} />} />
+          <Route path='/' element={<Home onSearch={onSearch} allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
@@ -32,8 +60,8 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
           <Route path='/travelogues/:id' element={<Travelogue />} />
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
-          <Route path='/bookmarks' element={<Bookmarks />} />
-          <Route path='/discover' element={<Discover allTravelogues={allTravelogues}/>} />
+          <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
         </Routes>
       </Box>
   )

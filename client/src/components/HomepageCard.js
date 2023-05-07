@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { 
     Card,
     CardActions,
@@ -9,8 +9,24 @@ import {
 } from '@mui/material'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { UserContext } from '../context/user';
 
-const HomepageCard = ({ travelogue }) => {
+const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
+  const { user } = useContext(UserContext);
+
+  const handleSaveClick = () => {
+    onBookmarkSave(travelogue.id)
+  };
+
+  const handleUnsaveClick = () => {
+    onBookmarkUnsave(travelogue.id)
+  };
+
+  const renderedBookmarkButton = user?.saved_posts.find(post => 
+    post.travelogue_id === travelogue.id) 
+    ? <BookmarkIcon onClick={handleUnsaveClick} /> 
+    : <BookmarkBorderIcon onClick={handleSaveClick} />
+
   return (
     <Card sx={{ width: '250px', margin: '1rem' }}>
       <CardMedia
@@ -29,8 +45,8 @@ const HomepageCard = ({ travelogue }) => {
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between'}}>
         <Button size="small">Read</Button>
-        <Button size="small">
-            <BookmarkBorderIcon />
+        <Button size="small" >
+            {renderedBookmarkButton}
         </Button>
       </CardActions>
     </Card>
