@@ -5,7 +5,7 @@ import { Box,
 } from '@mui/material';
 import TravelogueCard from '../components/TravelogueCard';
 
-const Discover = ({ allTravelogues }) => {
+const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
 
     const boxStyle = {
         backgroundColor: '#F7F7F6',
@@ -24,7 +24,7 @@ const Discover = ({ allTravelogues }) => {
                 <Box sx={{ margin: '2.5rem'}}>
                     <Grid container spacing={2}>
                         {allTravelogues?.map((travelogue) => (
-                            <TravelogueCard item key={travelogue.id} travelogue={travelogue} />
+                            <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
                         ))}
                     </Grid>
                 </Box>

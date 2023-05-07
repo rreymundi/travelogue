@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { 
   Box,
   Button,
@@ -11,10 +11,23 @@ import {
  } from '@mui/material';
  import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
  import BookmarkIcon from '@mui/icons-material/Bookmark';
+ import { UserContext } from '../context/user';
 
-const TravelogueCard = ({ travelogue }) => {
+const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
+  const { user } = useContext(UserContext);
 
   const publishedDate = new Date(travelogue.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  const handleSaveClick = () => {
+    onBookmarkSave(travelogue.id)
+  };
+
+  const handleUnsaveClick = () => {
+    onBookmarkUnsave(travelogue.id)
+  };
+
+  const renderedBookmarkButton = user?.saved_posts.find(post => post.travelogue_id === travelogue.id) ? <BookmarkIcon onClick={handleUnsaveClick} /> : <BookmarkBorderIcon onClick={handleSaveClick} />
+
 
 
   return (
@@ -50,7 +63,7 @@ const TravelogueCard = ({ travelogue }) => {
               </Box>
               <Box sx={{ display:'flex' }} >
                 <Button size="small">
-                  <BookmarkBorderIcon />
+                  {renderedBookmarkButton}
                 </Button>
               </Box>
             </Box>
