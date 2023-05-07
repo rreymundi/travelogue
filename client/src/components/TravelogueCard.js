@@ -26,17 +26,15 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
     onBookmarkUnsave(travelogue.id)
   };
 
-  const renderedBookmarkButton = user?.saved_posts.find(post => post.travelogue_id === travelogue.id) ? <BookmarkIcon onClick={handleUnsaveClick} /> : <BookmarkBorderIcon onClick={handleSaveClick} />
-
-
-
+  const renderedBookmarkButton = user?.saved_posts.find(post => post.travelogue_id === travelogue.id) ? <BookmarkIcon onClick={handleUnsaveClick} /> : <BookmarkBorderIcon onClick={handleSaveClick} />;
+  
   return (
     <Card sx={{ width:'100%', heigh: '100%', margin: '1rem' }}>
         <Box sx={{ display: 'flex', alignItems:'center', justifyContent:'space-between', boxSizing: 'border-box' }}>
           <Box sx={{ width:'100%', minWidth: '0', padding: '1rem'}} >
             <Box>
               <Typography gutterBottom variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                AUTHOR NAME
+                {travelogue?.user?.username}
               </Typography>
             </Box>
             <Box>

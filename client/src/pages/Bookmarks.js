@@ -7,7 +7,7 @@ import {
  } from '@mui/material';
  import TravelogueCard from '../components/TravelogueCard';
 
-const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave }) => {
+const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {
@@ -16,10 +16,9 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave }) => {
     display: 'grid'
   };
 
-  const savedTravelogues = user?.travelogues?.filter(
+  const savedTravelogues = allTravelogues?.filter(
     travelogue => user.saved_posts.find( savedPost => savedPost.travelogue_id === travelogue.id)
   );
-  console.log(savedTravelogues);
 
   return (
     <Box sx={boxStyle}>
@@ -29,7 +28,7 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave }) => {
             <Typography sx={{ fontSize: '1.5rem'}}>
                 Browse through your saved travelogues
             </Typography>
-            {user.saved_posts 
+            {user.saved_posts.length > 0
             ? 
             <Box sx={{ margin: '2.5rem'}}>
                 <Grid container spacing={2}>
