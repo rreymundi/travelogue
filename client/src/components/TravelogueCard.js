@@ -41,7 +41,7 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
               <Typography gutterBottom variant="h5" component="div" sx={{ cursor: 'pointer', maxHeight: 'none'}}>
                 {travelogue.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="primary" >
                 {travelogue.location}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ paddingTop: '4px', cursor: 'pointer' }}>
