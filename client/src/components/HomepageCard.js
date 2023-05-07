@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
     Card,
     CardActions,
@@ -13,6 +14,7 @@ import { UserContext } from '../context/user';
 
 const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
+  let navigate = useNavigate();
 
   const handleSaveClick = () => {
     onBookmarkSave(travelogue.id)
@@ -26,6 +28,10 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
     post.travelogue_id === travelogue.id) 
     ? <BookmarkIcon onClick={handleUnsaveClick} /> 
     : <BookmarkBorderIcon onClick={handleSaveClick} />
+
+  const handleClick = () => {
+    navigate(`/travelogues/${travelogue.id}`)
+  };
 
   return (
     <Card sx={{ width: '250px', margin: '1rem' }}>
@@ -44,7 +50,9 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between'}}>
-        <Button size="small">Read</Button>
+        <Button size="small" onClick={handleClick} >
+          Read
+        </Button>
         <Button size="small" >
             {renderedBookmarkButton}
         </Button>

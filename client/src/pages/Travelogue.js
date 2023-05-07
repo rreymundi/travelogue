@@ -80,7 +80,7 @@ import {
 
   return (
     <Box sx={boxStyle} >
-      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
+      {/* <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link> */}
       <Paper sx={paperContainer}>
         { travelogue.cover_image_url !== null 
         ? <Paper variant="outlined" sx={coverImage} />
@@ -93,7 +93,7 @@ import {
             <Typography variant='h4'>{travelogue?.title}</Typography>
           </Box>
           <Box xs={12} sx={{ mb: '1rem' }}>
-            <Typography variant='body2'>{travelogue?.location}</Typography>
+            <Typography variant='body2' color="primary">{travelogue?.location}</Typography>
           </Box>
           <Box xs={3} sx={{ mt: '1rem', mb: '1rem' }}>
             {travelogue?.tags?.map((tag) => 

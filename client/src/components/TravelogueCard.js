@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Box,
   Button,
   Card,
-  CardActions,
-  CardContent,
   CardMedia,
   Chip,
   Typography
@@ -15,14 +14,19 @@ import {
 
 const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
+  let navigate = useNavigate();
 
   const publishedDate = new Date(travelogue.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-  const handleSaveClick = () => {
+  const handleClick = () => {
+    navigate(`/travelogues/${travelogue.id}`)
+  };
+
+  const handleSaveClick = (e) => {
     onBookmarkSave(travelogue.id)
   };
 
-  const handleUnsaveClick = () => {
+  const handleUnsaveClick = (e) => {
     onBookmarkUnsave(travelogue.id)
   };
 
@@ -37,20 +41,20 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
                 {travelogue?.user?.username}
               </Typography>
             </Box>
-            <Box>
-              <Typography gutterBottom variant="h5" component="div" sx={{ cursor: 'pointer', maxHeight: 'none'}}>
+            <Box onClick={handleClick} sx={{ cursor: 'pointer'}}>
+              <Typography gutterBottom variant="h5" component="div" sx={{ maxHeight: 'none'}}>
                 {travelogue.title}
               </Typography>
               <Typography variant="body2" color="primary" >
                 {travelogue.location}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ paddingTop: '4px', cursor: 'pointer' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ paddingTop: '4px' }}>
                 {travelogue.description.slice(0, 70) + '...'}
               </Typography>
             </Box>
             <Box sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }} >
               <Box sx={{ display: 'flex' }}>
-                <Typography variant="body2" color="text.secondary" sx={{ cursor: 'pointer', mr: '0.375rem' }}>
+                <Typography variant="body2" color="text.secondary" sx={{ mr: '0.375rem' }}>
                   {publishedDate}
                 </Typography>
                 {travelogue?.tags?.map((tag) => 
@@ -70,9 +74,10 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
             { travelogue.cover_image_url !== null 
               ?
               <CardMedia
-                  sx={{ verticalAlign: 'middle', width: '275px', aspectRatio: 'auto 200 / 134 ', height: '100%' }}
+                  sx={{ verticalAlign: 'middle', width: '275px', aspectRatio: 'auto 200 / 134 ', height: '100%', cursor: 'pointer' }}
                   image={travelogue.cover_image_url}
                   title="travelogue image"
+                  onClick={handleClick}
               />
               : null }
           </Box>
