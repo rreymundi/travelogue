@@ -34,7 +34,7 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   };
 
   return (
-    <Card sx={{ width: '250px', margin: '1rem' }}>
+    <Card sx={{ width: '250px', margin: '1rem', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -42,14 +42,14 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
         image={travelogue.cover_image_url}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom component="div" sx={{ fontWeight: 'bold' }}>
           {travelogue.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {travelogue.description.slice(0, 25) + '...'}
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'space-between'}}>
+      <CardActions sx={{ justifyContent: 'space-between', marginTop: 'auto'}}>
         <Button size="small" onClick={handleClick} >
           Read
         </Button>

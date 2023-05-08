@@ -65,7 +65,6 @@ const AccountSettings = () => {
     };
 
     const boxStyle = {
-        backgroundColor: '#F7F7F6',
         padding: '3rem',
         display: 'flex',
         flexDirection: 'column',

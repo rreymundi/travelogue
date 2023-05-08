@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
+import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { 
-  Box, 
+  Box,
+  Button, 
   Grid,
   Typography
  } from '@mui/material';
@@ -11,9 +13,9 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
   const {user} = useContext(UserContext);
 
   const boxStyle = {
-    backgroundColor: '#F7F7F6',
     padding: '3rem',
-    display: 'grid'
+    display: 'grid',
+    minHeight: '100vh',
   };
 
   const savedTravelogues = allTravelogues?.filter(
@@ -28,17 +30,21 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
             <Typography sx={{ fontSize: '1.5rem'}}>
                 Browse through your saved travelogues
             </Typography>
-            {user.saved_posts.length > 0
-            ? 
-            <Box sx={{ margin: '2.5rem'}}>
+            <Box sx={{ m: '1rem', textAlign: 'end' }}>
+              <Button variant="contained" color="primary" component={ Link } to="/travelogues/discover">Discover</Button>
+            </Box>
+            <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
+            {user.saved_posts.length === 0
+            ? <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', backgroundColor: '#F7F7F6' }}>No bookmarks yet!</Typography>
+            : <Box sx={{ margin: '2.5rem'}}>
                 <Grid container spacing={2}>
                     {savedTravelogues.map((travelogue) => (
                         <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
                     ))}
                 </Grid>
             </Box>
-            : null
             }
+            </Box>
         </Box>
     </Box>      
   </Box>

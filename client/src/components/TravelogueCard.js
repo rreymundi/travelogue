@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
+import {
+  Avatar, 
   Box,
   Button,
   Card,
   CardMedia,
   Chip,
+  IconButton,
   Typography
  } from '@mui/material';
  import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
@@ -36,8 +38,9 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
     <Card sx={{ width:'100%', heigh: '100%', margin: '1rem' }}>
         <Box sx={{ display: 'flex', alignItems:'center', justifyContent:'space-between', boxSizing: 'border-box' }}>
           <Box sx={{ width:'100%', minWidth: '0', padding: '1rem'}} >
-            <Box>
-              <Typography gutterBottom variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              <Avatar sx={{ height: '30px', width: '30px' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
+              <Typography gutterBottom variant="body2" color="text.secondary" sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', ml: '1rem' }}>
                 {travelogue?.user?.username}
               </Typography>
             </Box>

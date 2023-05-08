@@ -16,7 +16,7 @@ const TraveloguesPage = ({ onDeleteTravelogue }) => {
   const boxStyle = {
     backgroundColor: '#F7F7F6',
     padding: '3rem',
-    display: 'grid'
+    minHeight: '100vh',
 }
 
   return (
@@ -29,19 +29,17 @@ const TraveloguesPage = ({ onDeleteTravelogue }) => {
           </Typography>
         </Box>
       </Box>
-      <Box sx={{ justifySelf: 'right', m: '1rem'}}>
+      <Box sx={{ m: '1rem', textAlign: 'end' }}>
         <Button variant="contained" color="primary" component={ Link } to="/travelogues/new">New</Button>
       </Box>
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
         {user?.travelogues.length === 0 
-        ? 
-        <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', m: '1rem' }}>You have no travelogues</Typography>
-        :
-        <List>
-          {user?.travelogues.map((travelogue) => 
-            <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
-          )}
-        </List>
+        ? <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', backgroundColor: '#F7F7F6' }}>No published travelogues</Typography>
+        : <List>
+            {user?.travelogues.map((travelogue) => 
+              <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
+            )}
+          </List>
         }
       </Box>
     </Box>

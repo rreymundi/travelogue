@@ -117,6 +117,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
       backgroundColor: '#F7F7F6',
       padding: '3rem',
       display: 'grid',
+      minHeight: '100vh',
   };
 
   const coverImage = {

@@ -6,10 +6,14 @@ import Typography from '@mui/material/Typography';
 
 const Footer = () => {
     return (
-        <Paper sx={{
-          width: '100%',
-          backgroundColor: '#1976d2',
-        }} component="footer" square variant="outlined">
+        <Paper 
+          sx={{
+            width: '100%',
+            backgroundColor: '#1976d2',
+          }} 
+          component="footer" 
+          square variant="outlined"
+          >
           <Container maxWidth="lg">
             <Box
               sx={{

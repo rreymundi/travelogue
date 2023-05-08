@@ -46,7 +46,7 @@ const LoginPage = ({ onLogin }) => {
     backgroundColor: '#F7F7F6',
     padding: '6rem',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',  
   }
 
   const formBox = {

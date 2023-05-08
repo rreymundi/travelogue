@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TravelogueContext } from '../context/travelogue';
 import { ErrorContext } from '../context/error';
 import { 
+    Avatar,
     Box, 
     Chip,
     Link,
@@ -53,9 +54,9 @@ import {
     // }, [setTravelogue, setErrors, url]);
 
     const boxStyle = {
-      backgroundColor: '#F7F7F6',
       padding: '3rem',
       display: 'grid',
+      minHeight: '100vh',
     };
 
     const paperContainer = {
@@ -89,8 +90,14 @@ import {
           spacing={2}
           sx={{ m: '2rem' }}
           >
-          <Box xs={9} sx={{ mb: '.5rem' }}>
-            <Typography variant='h4'>{travelogue?.title}</Typography>
+          <Box xs={9} sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Typography variant='h4' sx={{ fontWeight: 'bold'}}>{travelogue?.title}</Typography>
+            <Box sx={{ ml: 'auto' }}>
+              <Avatar sx={{ height: '30px', width: '30px' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
+              <Typography gutterBottom variant="body2" color="text.secondary" >
+                {travelogue?.user?.username}
+              </Typography>
+            </Box>
           </Box>
           <Box xs={12} sx={{ mb: '1rem' }}>
             <Typography variant='body2' color="primary">{travelogue?.location}</Typography>
