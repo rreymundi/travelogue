@@ -5,6 +5,7 @@ import {
   Box, 
   Button,
   List,
+  Paper,
   Typography 
 } from '@mui/material';
 import TravelogueRow from '../components/TravelogueRow';
@@ -35,11 +36,11 @@ const TraveloguesPage = ({ onDeleteTravelogue }) => {
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
         {user?.travelogues.length === 0 
         ? <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', backgroundColor: '#F7F7F6' }}>No published travelogues</Typography>
-        : <List>
+        : <Paper>
             {user?.travelogues.map((travelogue) => 
               <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
             )}
-          </List>
+          </Paper>
         }
       </Box>
     </Box>
