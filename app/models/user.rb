@@ -10,7 +10,7 @@ class User < ApplicationRecord
       if avatar.attached?
         Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
       else
-        "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"      
+        "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"      
       end
     end
 
