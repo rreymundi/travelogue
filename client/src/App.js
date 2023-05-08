@@ -15,6 +15,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [allTags, setAllTags] = useState(null);
   const [allTravelogues, setAllTravelogues] = useState(null);
+  const [searchedTravelogues, setSearchedTravelogues] = useState(null);
   let navigate = useNavigate()
 
   useEffect(() => {
@@ -99,7 +100,7 @@ const App = () => {
   };
 
   const filteredData = (query, data) => {
-    if (!query) {
+    if (query === null) {
       return data
     } else {
       const filtered = data.filter((d) => 
@@ -107,7 +108,7 @@ const App = () => {
         d.description.toLowerCase().includes(query.toLowerCase() ||
         d.location.toLowerCase().includes(query.toLowerCase()))
         )
-      setAllTravelogues(filtered)
+      setSearchedTravelogues(filtered)
     }
   }; 
 
@@ -116,15 +117,22 @@ const App = () => {
   };
 
   return (
-      <Box sx={{ minHeight: '100%' }}>
+      <Box sx={{ minHeight: '100vh' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-        {isLoading 
-        ? 
-        <p>Loading ...</p>
-        : 
-        <Content onLogin={onLogin} onDeleteTravelogue={handleDeleteTravelogue} onUpdateTravelogue={handleUpdateTravelogue} allTravelogues={allTravelogues} allTags={allTags} onAddTravelogue={handleAddTravelogue} onSearch={onSearch} />
-        }
-        <Footer />
+          {isLoading 
+            ? <p>Loading ...</p>
+            : <Content 
+                onLogin={onLogin} 
+                onDeleteTravelogue={handleDeleteTravelogue} 
+                onUpdateTravelogue={handleUpdateTravelogue} 
+                allTravelogues={allTravelogues} 
+                allTags={allTags} 
+                onAddTravelogue={handleAddTravelogue} 
+                onSearch={onSearch} 
+                searchedTravelogues={searchedTravelogues}
+              />
+          }
+          <Footer />
       </Box>
   );
 }

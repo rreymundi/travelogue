@@ -5,13 +5,26 @@ import { Box,
 } from '@mui/material';
 import TravelogueCard from '../components/TravelogueCard';
 
-const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
+const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, searchedTravelogues }) => {
 
     const boxStyle = {
         backgroundColor: '#F7F7F6',
         padding: '3rem',
-        display: 'grid'
+        display: 'grid',
+        minHeight: '100vh',
     };
+    
+    const renderedResults = searchedTravelogues?.length > 0
+    ?   <Grid container spacing={2}>
+            {searchedTravelogues?.map((travelogue) => (
+                <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
+            ))}
+        </Grid>
+    :   <Grid container spacing={2}>
+            {allTravelogues?.map((travelogue) => (
+                <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
+            ))}
+        </Grid>
 
     return (
       <Box sx={boxStyle}>
@@ -22,11 +35,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
                     Browse through the latest travelogues
                 </Typography>
                 <Box sx={{ margin: '2.5rem'}}>
-                    <Grid container spacing={2}>
-                        {allTravelogues?.map((travelogue) => (
-                            <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
-                        ))}
-                    </Grid>
+                    {renderedResults}
                 </Box>
             </Box>
         </Box>      

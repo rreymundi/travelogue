@@ -13,8 +13,18 @@ import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
+import Footer from './Footer';
 
-const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelogue, allTravelogues, allTags, onSearch }) => {
+const Content = ({ 
+    onLogin, 
+    onAddTravelogue, 
+    onDeleteTravelogue, 
+    onUpdateTravelogue, 
+    allTravelogues, 
+    allTags, 
+    onSearch,
+    searchedTravelogues
+  }) => {
   const { user, setCurrentUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
   
@@ -42,15 +52,9 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
     .then(setCurrentUser({...user, saved_posts: [...user.saved_posts.filter(post => post.travelogue_id !== id)]}));
   };
 
-  const boxStyle = {
-    m: '64px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  }
-
   return (
-      <Box disablegutters='true' sx={boxStyle}>
+    <Box sx={{ minHeight: '100vh' }}>
+      <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
         <Routes>
           <Route path='/' element={<Home onSearch={onSearch} allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
@@ -61,9 +65,10 @@ const Content = ({ onLogin, onAddTravelogue, onDeleteTravelogue, onUpdateTravelo
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
-          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} searchedTravelogues={searchedTravelogues} />} />
         </Routes>
       </Box>
+    </Box>
   )
 }
 
