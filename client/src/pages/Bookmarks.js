@@ -33,7 +33,7 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
             <Box sx={{ m: '1rem', textAlign: 'end' }}>
               <Button variant="contained" color="primary" component={ Link } to="/travelogues/discover">Discover</Button>
             </Box>
-            <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
+            <Box sx={{ m: '1rem' }}>
             {user.saved_posts.length === 0
             ? <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', backgroundColor: '#F7F7F6' }}>No bookmarks yet!</Typography>
             : <Box sx={{ margin: '2.5rem'}}>
