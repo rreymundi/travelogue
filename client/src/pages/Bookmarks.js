@@ -19,7 +19,7 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
   };
 
   const savedTravelogues = allTravelogues?.filter(
-    travelogue => user.saved_posts.find( savedPost => savedPost.travelogue_id === travelogue.id)
+    travelogue => user?.saved_posts.find( savedPost => savedPost.travelogue_id === travelogue.id)
   );
 
   return (
@@ -34,11 +34,11 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
               <Button variant="contained" color="primary" component={ Link } to="/travelogues/discover">Discover</Button>
             </Box>
             <Box sx={{ m: '1rem' }}>
-            {user.saved_posts.length === 0
+            {user?.saved_posts.length === 0
             ? <Typography sx={{ fontSize: '1.5rem', textAlign: 'center', backgroundColor: '#F7F7F6' }}>No bookmarks yet!</Typography>
             : <Box sx={{ margin: '2.5rem'}}>
                 <Grid container spacing={2}>
-                    {savedTravelogues.map((travelogue) => (
+                    {savedTravelogues?.map((travelogue) => (
                         <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
                     ))}
                 </Grid>
