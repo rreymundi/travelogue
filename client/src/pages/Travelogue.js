@@ -96,7 +96,7 @@ import {
           <Box xs={9} sx={{ display: 'flex', flexDirection: 'row' }}>
             <Typography variant='h4' sx={{ fontWeight: 'bold'}}>{travelogue?.title}</Typography>
             <Box sx={{ ml: 'auto' }}>
-              <Avatar sx={{ height: '30px', width: '30px' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
+              <Avatar sx={{ height: '30px', width: '30px', mr: 'auto', ml: 'auto' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
               <Typography gutterBottom variant="body2" color="text.secondary" >
                 {travelogue?.user?.username}
               </Typography>
