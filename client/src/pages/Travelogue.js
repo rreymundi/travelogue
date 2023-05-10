@@ -10,6 +10,7 @@ import {
     Paper,
     Typography 
   } from '@mui/material';
+  import parse from 'html-react-parser';
 
   const Travelogue = () => {
     const {travelogue, setTravelogue} = useContext(TravelogueContext);
@@ -77,6 +78,8 @@ import {
       aspectRatio: '16 / 9',
     }
 
+  const renderedDescription = parse(`${travelogue.description}`)
+
   if (isLoading) return <div>Loading...</div>
 
   return (
@@ -114,7 +117,7 @@ import {
             )}
           </Box>
           <Box xs={12} sx={{ mt: '1rem', mb: 'rem' }}>
-            <Typography variant='body'>{travelogue?.description}</Typography>
+            <Typography variant='body'>{renderedDescription}</Typography>
           </Box>
         </Box>
       </Paper>
