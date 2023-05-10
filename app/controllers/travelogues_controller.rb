@@ -1,9 +1,9 @@
 class TraveloguesController < ApplicationController
     skip_before_action :authorize, only: [:index, :show]
-    before_action :set_travelogue, except: [:index, :create]
+    before_action :set_travelogue, except: [:index, :create, :search]
     
     def index
-        travelogues = Travelogue.all
+        travelogues = Travelogue.all.order(created_at: :desc)
         render json: travelogues, status: :ok
     end
 
@@ -42,6 +42,15 @@ class TraveloguesController < ApplicationController
     def coverimagechange
         @travelogue.cover_image.attach(travelogue_params[:cover_image])
         render json: @travelogue, status: :ok
+    end
+
+    # this custom route allows searching for travelogues by title, description, 
+    # location, or tags
+    # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
+    def search
+        query = "%#{params[:q]}%"
+        travelogues = Travelogue.where("lower(title) LIKE ? OR lower(description) LIKE ? OR lower(location) LIKE ?", query.downcase, query.downcase, query.downcase)
+        render json: travelogues, status: :ok
     end
 
     private

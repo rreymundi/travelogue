@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   post '/bookmarks', to: "saved_posts#create"
   delete '/bookmarks/:id', to: "saved_posts#destroy"
 
+  get '/search/:q', to: "travelogues#search"
+
   resources :travelogues, only: [:index, :show, :create, :update, :destroy]
-  # these will need to be removed later
-  resources :users, only: [:index, :create, :update]
+  resources :users, only: [:create, :update]
   resources :tags, only: [:index, :destroy]
 
 end
