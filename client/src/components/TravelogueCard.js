@@ -6,8 +6,6 @@ import {
   Button,
   Card,
   CardMedia,
-  Chip,
-  IconButton,
   Typography
  } from '@mui/material';
  import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';

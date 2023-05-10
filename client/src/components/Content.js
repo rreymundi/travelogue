@@ -13,7 +13,6 @@ import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
-import Footer from './Footer';
 
 const Content = ({ 
     onLogin, 
