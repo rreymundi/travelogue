@@ -30,7 +30,15 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
     onBookmarkUnsave(travelogue.id)
   };
 
-  const renderedBookmarkButton = user?.saved_posts.find(post => post.travelogue_id === travelogue.id) ? <BookmarkIcon onClick={handleUnsaveClick} /> : <BookmarkBorderIcon onClick={handleSaveClick} />;
+  // this checks user.saved_posts to see if the travelogue is saved by the user and renders the appropriate icon
+  const renderedBookmarkButton = user?.saved_posts.find(post => 
+    post.travelogue_id === travelogue.id) 
+    ? <BookmarkIcon onClick={handleUnsaveClick} /> 
+    : <BookmarkBorderIcon onClick={handleSaveClick} />;
+
+  // this uses regex to strip html tags from the travelogue.description returned from the API
+  const htmlString = `${travelogue.description}`;
+  const plainString = htmlString.replace(/(<([^>]+)>)/ig, '');  
   
   return (
     <Card sx={{ width:'100%', heigh: '100%', margin: '1rem' }}>
@@ -50,7 +58,7 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
                 {travelogue.location}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ paddingTop: '4px' }}>
-                {travelogue.description.slice(0, 70) + '...'}
+                {plainString.slice(0, 70) + '...'}
               </Typography>
             </Box>
             <Box sx={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }} >
