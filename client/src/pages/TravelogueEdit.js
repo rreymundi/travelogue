@@ -14,6 +14,7 @@ import {
   } from '@mui/material';
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
+import TextEditor from '../components/TextEditor';
 
 const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
   const {setErrors} = useContext(ErrorContext);
@@ -182,7 +183,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>
-          <TextField 
+          {/* <TextField 
             multiline
             rows={16}
             id="description" 
@@ -192,7 +193,8 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
             value={formData.description} 
             onChange={handleChange} 
             sx={{ width: '100%' }}
-          />
+          /> */}
+          <TextEditor setFormData={setFormData} formData={formData} />
         </Grid>
         <Grid item sx={{ ml: 'auto', mr: 'auto'}}>
             <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Update</Button>

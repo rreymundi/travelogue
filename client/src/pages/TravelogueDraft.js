@@ -18,7 +18,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
   const [formData, setFormData] = useState({
     title: "",
     location: "",
-    description: "",
+    description: "This is the initial content of the editor.",
   });
   const [inputValue, setInputValue] = useState('');
   const data = new FormData();
@@ -28,9 +28,6 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
       [e.target.name]: e.target.value,
     })
   };
-  
-  // as of 12am THIS WORKS!
-  console.log(formData)
 
   const [buttonText, setButtonText] = useState('Add cover image');
 

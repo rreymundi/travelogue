@@ -9,16 +9,20 @@ const TextEditor = ({ formData, setFormData }) => {
       // };
       
       // const [contentEditor, setContentEditor] = useState('');
-      const handleEditorChange = (content, editor) => {
-        // console.log('Content was updated:', content);
-        setFormData({ ...formData, description: content });
-      }
-      
+  const handleEditorChange = (content, editor) => {
+    // console.log('Content was updated:', content);
+    setFormData({ ...formData, description: content });
+  }
+
   return (
     <>
       <Editor
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        // there's a known issue with how tinymce works where the intialValue and value
+        // come into conflict when using useState. tinymce recommend removing initialValue
+        // and setting the initial value as the the default state value i.e. formData.description
+        // is set to the placeholder text instead of just an empty string
+        // initialValue="<p>This is the initial content of the editor.</p>"
         apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
         init={{
           height: 500,
