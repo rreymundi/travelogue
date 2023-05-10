@@ -28,6 +28,10 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
       [e.target.name]: e.target.value,
     })
   };
+  
+  // as of 12am THIS WORKS!
+  console.log(formData)
+
   const [buttonText, setButtonText] = useState('Add cover image');
 
   const handleImageUpload = (e) => {
@@ -136,7 +140,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
             onChange={handleChange} 
             sx={{ width: '100%' }}
           /> */}
-          <TextEditor />
+          <TextEditor setFormData={setFormData} formData={formData} />
         </Grid>
         <Grid item sx={{ ml: 'auto', mr: 'auto'}}>
             <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Publish</Button>
