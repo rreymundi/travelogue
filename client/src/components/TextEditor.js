@@ -1,26 +1,25 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-
 const TextEditor = ({ formData, setFormData }) => {
   const editorRef = useRef(null);
   // const log = () => {
-  //   if (editorRef.current) {
-  //     console.log(editorRef.current.getContent());
-  //   }
-  // };
-
-  // const [contentEditor, setContentEditor] = useState('');
-  const handleEditorChange = (content, editor) => {
-    console.log('Content was updated:', content);
-    setFormData({ ...formData, description: content });
-  }
-
+    //   if (editorRef.current) {
+      //     console.log(editorRef.current.getContent());
+      //   }
+      // };
+      
+      // const [contentEditor, setContentEditor] = useState('');
+      const handleEditorChange = (content, editor) => {
+        // console.log('Content was updated:', content);
+        setFormData({ ...formData, description: content });
+      }
+      
   return (
     <>
       <Editor
         onInit={(evt, editor) => editorRef.current = editor}
         initialValue="<p>This is the initial content of the editor.</p>"
-        apiKey='wlkgvk93wd8s5889aero1pvl6ktjmvei4cqqgjbbtuca1ogw'
+        apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
         init={{
           height: 500,
           menubar: true,
