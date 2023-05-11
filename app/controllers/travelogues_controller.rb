@@ -1,5 +1,5 @@
 class TraveloguesController < ApplicationController
-    skip_before_action :authorize, only: [:index, :show]
+    skip_before_action :authorize, only: [:index, :show, :search]
     before_action :set_travelogue, except: [:index, :create, :search]
     
     def index
@@ -18,14 +18,7 @@ class TraveloguesController < ApplicationController
         @travelogue.save!
         render json: @travelogue, status: :created
     end
-
-    # def update
-    #     travelogue = @current_user.travelogues.find(params[:id])
-    #     create_or_delete_travelogue_tags(travelogue, params[:travelogue][:tags])
-    #     travelogue.update!(travelogue_params)
-    #     render json: travelogue, status: :ok
-    #   end
-
+    
     def update
         create_or_delete_travelogue_tags(@travelogue, params[:tags])
         @travelogue.update!(travelogue_params.except(:tags))
@@ -47,10 +40,18 @@ class TraveloguesController < ApplicationController
     # this custom route allows searching for travelogues by title, description, 
     # location, or tags
     # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
+    # if/else to determine what data to retrieve based on whether or not a search term was entered
+    # opted to return all travelogues if no search term was entered, rather than an error message
     def search
-        query = "%#{params[:q]}%"
-        travelogues = Travelogue.where("lower(title) LIKE ? OR lower(description) LIKE ? OR lower(location) LIKE ?", query.downcase, query.downcase, query.downcase)
-        render json: travelogues, status: :ok
+        query = "%#{params[:query]}%"
+        if query == nil || query == ''
+            travelogues = Travelogue.all.order(created_at: :desc)
+            render json: travelogues, status: :ok
+            # render json: { error: ["Please enter a search term"] }, status: :bad_request
+        else 
+            travelogues = Travelogue.where("lower(title) LIKE ? OR lower(description) LIKE ? OR lower(location) LIKE ?", query.downcase, query.downcase, query.downcase)
+            render json: travelogues, status: :ok
+        end
     end
 
     private

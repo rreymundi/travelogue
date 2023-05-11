@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { 
   Box,
   Button,
@@ -12,22 +12,26 @@ import {
 import HomepageCard from '../components/HomepageCard';
 import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
+import Search from '../components/Search';
 
 const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
-
-  const [search, setSearch] = useState('');
-
+  
   let navigate = useNavigate()
+  
+  const [query, setQuery] = useState('');
 
   const handleChange = (e) => {
-    setSearch(e.target.value)
+    setQuery(e.target.value)
   };
-
+    
   const handleSearch = (e) => {
     e.preventDefault();
-    onSearch(search)
-    navigate('/discover')
+    if (query === '') {
+      navigate('/discover')
+    } else {
+      navigate(`/discover/search?query=${query}`)
+    }
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
@@ -87,23 +91,23 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
     ml: '4rem',
   }
 
-  const searchBox = {
-    width: '50%',
-    display: 'flex',
-    flexDirection: 'inline',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+  // const searchBox = {
+  //   width: '50%',
+  //   display: 'flex',
+  //   flexDirection: 'inline',
+  //   alignItems: 'center',
+  //   justifyContent: 'center'
+  // }
   
-  const textField = {
-    backgroundColor: 'white', 
-    margin: '8px',
-    color: '#282828',
-  }
+  // const textField = {
+  //   backgroundColor: 'white', 
+  //   margin: '8px',
+  //   color: '#282828',
+  // }
 
-  const searchButton = {
-    margin: '1rem',
-  }
+  // const searchButton = {
+  //   margin: '1rem',
+  // }
 
   const discoverHero = {
     minHeight: '31.25rem',
@@ -177,7 +181,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
             <Typography sx={heroText}>See the world</Typography>
             <Typography sx={discoverHeroSub}>One travelogue at a time</Typography>
           </Box>
-          <Box component="form" onSubmit={handleSearch} >
+          {/* <Box component="form" onSubmit={handleSearch} >
             <TextField
               id="search-bar"
               label="Search"
@@ -187,7 +191,11 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
               sx={textField}
             />
             <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
-          </Box>
+          </Box> */}
+          <Search 
+            handleChange={handleChange} 
+            handleSearch={handleSearch} 
+            />
         </Box>
       </Paper>
     :
@@ -196,7 +204,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
           <Box sx={heroTextBox}>
             <Typography sx={heroText}>Welcome to Travelogue</Typography>
           </Box>
-          <Box sx={searchBox} component="form" onSubmit={handleSearch} >
+          {/* <Box sx={searchBox} component="form" onSubmit={handleSearch} >
             <TextField
               id="search-bar"
               label="Search"
@@ -206,7 +214,11 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
               sx={textField}
             />
             <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
-          </Box>
+          </Box> */}
+          <Search
+            handleChange={handleChange} 
+            handleSearch={handleSearch} 
+            />
         </Box>
       </Paper>
     }
