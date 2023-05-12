@@ -14,7 +14,7 @@ import Tags from '../components/Tags';
 import TextEditor from '../components/TextEditor';
 
 const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
-  const {setErrors} = useContext(ErrorContext);
+  const {errors, setErrors} = useContext(ErrorContext);
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -142,6 +142,12 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
         </Grid>
         <Grid item sx={{ ml: 'auto', mr: 'auto'}}>
             <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Publish</Button>
+        </Grid>
+        <Grid item>
+            { errors 
+              ? errors.map((error) => <Typography key={error} color="error">{error}</Typography>)
+              : null
+            }
         </Grid>
       </Grid>
     </Box>

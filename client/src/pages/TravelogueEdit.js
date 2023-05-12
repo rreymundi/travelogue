@@ -17,7 +17,7 @@ import Tags from '../components/Tags';
 import TextEditor from '../components/TextEditor';
 
 const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
-  const {setErrors} = useContext(ErrorContext);
+  const {errors, setErrors} = useContext(ErrorContext);
   const {travelogue, setTravelogue} = useContext(TravelogueContext);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -197,6 +197,12 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
         </Grid>
         <Grid item sx={{ ml: 'auto', mr: 'auto'}}>
             <Button variant="contained" color="primary" type="submit" sx={{ width: '10rem' }}>Update</Button>
+        </Grid>
+        <Grid item>
+            { errors 
+              ? errors.map((error) => <Typography key={error} color="error">{error}</Typography>)
+              : null
+            }
         </Grid>
       </Grid>
     </Box>
