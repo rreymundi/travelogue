@@ -30,19 +30,17 @@ const App = () => {
     },
   });
 
+  // GET current user
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const r = await fetch('/me');
-      const json = await r.json();
-      if (r.ok) {
-        setCurrentUser(json)
-        } else {
-        setErrors(json.errors)
+    fetch('/me')
+    .then(r => {
+      if(r.ok) {
+        r.json().then((data) => setCurrentUser(data))
+      } else {
+        r.json().then((data) => setErrors(data.errors))
       }
-      setIsLoading(false)
-    };
-    fetchData();
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,11 +49,11 @@ const App = () => {
     const fetchData = async () => {
       setIsLoading(true);
       const r = await fetch('/travelogues');
-      const json = await r.json();
+      const data = await r.json();
       if (r.ok) {
-        setAllTravelogues(json)
+        setAllTravelogues(data)
         } else {
-        setErrors(json.errors)
+        setErrors(data.errors)
       }
       setIsLoading(false)
     };
@@ -65,16 +63,20 @@ const App = () => {
 
   // GET all tags
   useEffect(() => {
-    fetch('/tags')
-    .then(r => {
-      if(r.ok) {
-        r.json().then((r) => setAllTags(r))
-      } else {
-        r.json().then((r) => setErrors(r.errors))
-      }
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      const fetchData = async () => {
+        setIsLoading(true);
+        const r = await fetch('/tags');
+        const data = await r.json();
+        if (r.ok) {
+          setAllTags(data)
+          } else {
+          setErrors(data.errors)
+        }
+        setIsLoading(false)
+      };
+      fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
   const onLogin = (loggedInUser) => {
     setCurrentUser(loggedInUser);
