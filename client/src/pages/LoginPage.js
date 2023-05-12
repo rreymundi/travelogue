@@ -33,9 +33,6 @@ const LoginPage = ({ onLogin }) => {
     .then(r => {
       if (r.ok) {
         r.json().then((user) => onLogin(user))
-        // fetch('/projects')
-        // .then((r) => r.json())
-        // .then((r) => setAllProjects(r))
       } else {
           r.json().then((errorData) => setErrors(errorData.error))
         }
