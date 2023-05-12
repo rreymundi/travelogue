@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Content from "./components/Content";
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Footer from './components/Footer';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
@@ -17,6 +18,17 @@ const App = () => {
   const [allTravelogues, setAllTravelogues] = useState(null);
   const [searchedTravelogues, setSearchedTravelogues] = useState(null);
   let navigate = useNavigate()
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#2727e6'
+      },
+      secondary: {
+        main: '#997D00'
+      },
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,6 +129,7 @@ const App = () => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: '100vh' }}>
         <ResponsiveAppBar onLogout={onLogout} />
           {isLoading 
@@ -134,6 +147,7 @@ const App = () => {
           }
           <Footer />
       </Box>
+    </ThemeProvider>
   );
 }
 
