@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
+import { ErrorContext } from '../context/error';
+import { Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import ExploreIcon from '@mui/icons-material/Explore';
@@ -18,6 +20,7 @@ function ResponsiveAppBar({ onLogout }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const {user} = useContext(UserContext);
+  const {setErrors} = useContext(ErrorContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -62,7 +65,7 @@ function ResponsiveAppBar({ onLogout }) {
                 color: 'inherit',
                 textDecoration: 'none',
               }}
-            >
+              >
               travelogue
             </Typography>
 
@@ -84,7 +87,7 @@ function ResponsiveAppBar({ onLogout }) {
                 color: 'inherit',
                 textDecoration: 'none',
               }}
-            >
+              >
               travelogue
             </Typography>
 
@@ -142,24 +145,21 @@ function ResponsiveAppBar({ onLogout }) {
               </Menu>
             </Box>
             :
-            <Box sx={{ flexGrow: 0 }}>
+            <Button sx={{ flexGrow: 0 }} component={ Link } to='/login' onClick={() => setErrors(null)}>
                 <Typography 
                   textAlign="center"
-                  component="a"
-                  href="/login"
                   sx={{
                     mr: 2,
                     display: { md: 'flex' },
                     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
                     fontWeight: 700,
                     letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
+                    color: 'white',
                   }}
-                >
+                  >
                   Log in
                 </Typography>
-            </Box>
+            </Button>
             }
           </Toolbar>
         </Container>
