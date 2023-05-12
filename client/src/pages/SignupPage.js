@@ -32,27 +32,11 @@ const SignupPage = ({ onLogin }) => {
     })
     .then(r => {
       if (r.ok) {
-        r.json().then((user) => onLogin(user))
+        r.json().then((data) => onLogin(data))
       } else {
-        r.json().then((errorData) => setErrors(errorData.errors))
+        r.json().then((data) => setErrors(data.errors))
       }
     })
-  };
-
-  const boxStyle = {
-    backgroundColor: '#F7F7F6',
-    padding: '6rem',
-    display: 'flex',
-    justifyContent: 'center'
-  }
-
-  const formBox = {
-    width: '25rem',
-    bgcolor: 'background.paper',
-    p: 4,
-    display: 'flex',
-    border: '1px solid',
-    borderColor: '#F1EEEA',
   };
 
   return (
