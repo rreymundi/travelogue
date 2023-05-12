@@ -40,7 +40,17 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const plainString = htmlString.replace(/(<([^>]+)>)/ig, '');
 
   return (
-    <Card sx={{ width: '250px', margin: '1rem', display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ 
+        width: '250px', 
+        margin: '1rem', 
+        display: 'flex', 
+        flexDirection: 'column',
+        '&:hover': {
+          transform: 'translateX(-2px) translateY(-2px)'
+          },
+        transition: 'all 450ms cubic-bezier(0.175, 0.885, 0.335, 1)',
+        }}
+      >
       <CardMedia
         component="img"
         alt="green iguana"

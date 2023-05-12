@@ -41,7 +41,16 @@ const TravelogueCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const plainString = htmlString.replace(/(<([^>]+)>)/ig, '');  
   
   return (
-    <Card sx={{ width:'100%', heigh: '100%', margin: '1rem' }}>
+    <Card sx={{ 
+        width:'100%', 
+        heigh: '100%', 
+        margin: '1rem',
+        '&:hover': {
+            transform: 'translateX(-2px) translateY(-2px)'
+            },
+          transition: 'all 450ms cubic-bezier(0.175, 0.885, 0.335, 1)', 
+        }}
+        >
         <Box sx={{ display: 'flex', alignItems:'center', justifyContent:'space-between', boxSizing: 'border-box' }}>
           <Box sx={{ width:'100%', minWidth: '0', padding: '1rem'}} >
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
