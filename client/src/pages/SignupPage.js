@@ -108,6 +108,13 @@ const SignupPage = ({ onLogin }) => {
               Create account
               </Button>
           </Grid>
+          {/* errors displayed here */}
+          <Grid item>
+            { errors 
+              ? errors.map((error) => <Typography key={error} color="error">{error}</Typography>)
+              : null
+            }
+          </Grid>
         </Grid>
       </Box>
     </Box>

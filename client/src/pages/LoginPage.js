@@ -95,11 +95,17 @@ const LoginPage = ({ onLogin }) => {
                 Log in
               </Button>
           </Grid>
-
           <Grid item>
             <Typography>New to travelogue?&nbsp;
-              <Link to="/signup" underline="none" >Sign up!</Link>
+              <Link to="/signup" underline="none" onClick={() => setErrors(null)}>Sign up!</Link>
             </Typography>
+          </Grid>
+          {/* errors displayed here */}
+          <Grid item>
+            { errors 
+              ? errors.map((error) => <Typography key={error} color="error">{error}</Typography>)
+              : null
+            }
           </Grid>
         </Grid>
       </Box>
