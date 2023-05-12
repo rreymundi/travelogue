@@ -32,9 +32,9 @@ const LoginPage = ({ onLogin }) => {
     })
     .then(r => {
       if (r.ok) {
-        r.json().then((user) => onLogin(user))
+        r.json().then((data) => onLogin(data))
       } else {
-          r.json().then((errorData) => setErrors(errorData.error))
+          r.json().then((data) => setErrors(data.error))
         }
       })
     };
