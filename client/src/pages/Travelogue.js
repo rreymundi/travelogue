@@ -19,62 +19,51 @@ import {
     const [isMounted, setIsMounted] = useState(false);
     const { id } = useParams();
 
-    const url = '/travelogues/' + id;
-
     useEffect(() => {
-      setIsMounted(true);
-      const fetchData = async () => {
-        setIsLoading(true);
-        const r = await fetch(url);
-        const json = await r.json();
+      setIsLoading(true);
+      fetch('/travelogues/' + id)
+      .then((r) => {
         if (r.ok) {
-          setTravelogue(json)
-          } else {
-          setErrors(json.errors)
+          r.json().then((data) => setTravelogue(data))
+        } else {
+          r.json().then((data) => setErrors(data.errors))
         }
-        setIsLoading(false)
-      };
-      fetchData();
-      return () => {
-        setIsMounted(false);
-      };
+      })
+      setIsLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const boxStyle = {
-      padding: '3rem',
-      display: 'grid',
-      minHeight: '100vh',
-    };
-
-    const paperContainer = {
-      backgroundColor: 'white', 
-      justifySelf: 'center', 
-      padding: '2rem',
-      width: '40rem'
-    };
-    
-    const coverImage = {
-      justifySelf: 'center', 
-      height: '20rem', 
-      width: '40rem', 
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundImage: `url(` + travelogue.cover_image_url +`)`,
-      aspectRatio: '16 / 9',
-    }
-
   const renderedDescription = parse(`${travelogue.description}`)
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <p>Loading ...</p>
 
   return (
-    <Box sx={boxStyle} >
+    <Box sx={{
+          padding: '3rem',
+          display: 'grid',
+          minHeight: '100vh',
+        }} 
+      >
       {/* <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link> */}
-      <Paper sx={paperContainer}>
+      <Paper sx={{
+            backgroundColor: 'white', 
+            justifySelf: 'center', 
+            padding: '2rem',
+            width: '40rem'
+          }}
+        >
         { travelogue.cover_image_url !== null 
-        ? <Paper variant="outlined" sx={coverImage} />
+        ? <Paper variant="outlined" sx={{
+            justifySelf: 'center', 
+            height: '20rem', 
+            width: '40rem', 
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundImage: `url(` + travelogue.cover_image_url +`)`,
+            aspectRatio: '16 / 9',
+          }} 
+          />
         : null }
         <Box
           spacing={2}
