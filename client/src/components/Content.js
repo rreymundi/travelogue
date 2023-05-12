@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Bookmarks from '../pages/Bookmarks';
 import Box from '@mui/material/Box';
@@ -21,11 +21,10 @@ const Content = ({
     onUpdateTravelogue, 
     allTravelogues, 
     allTags, 
-    onSearch,
-    searchedTravelogues
   }) => {
   const { user, setCurrentUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  let navigate = useNavigate()
   
   const handleBookmarkSave = (id) => {
     fetch('/bookmarks', {
@@ -40,6 +39,7 @@ const Content = ({
         r.json().then((savedTravelogue) => setCurrentUser({...user, saved_posts: [...user.saved_posts, savedTravelogue]}))
       } else {
         r.json().then((errorData) => setErrors(errorData.errors))
+        navigate('/login')
       }
     })
   };
@@ -51,11 +51,31 @@ const Content = ({
     .then(setCurrentUser({...user, saved_posts: [...user.saved_posts.filter(post => post.travelogue_id !== id)]}));
   };
 
+  if (!user) return (
+    <Box sx={{ minHeight: '100vh' }}>
+      <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
+        <Routes>
+          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
+          <Route path='/profile' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/travelogues' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/travelogues/:id' element={<Travelogue />} />
+          <Route path='/travelogues/:id/edit' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/travelogues/new' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/bookmarks' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+        </Routes>
+      </Box>
+    </Box>
+  );
+
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
         <Routes>
-          <Route path='/' element={<Home onSearch={onSearch} allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
@@ -64,7 +84,7 @@ const Content = ({
           <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
-          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} searchedTravelogues={searchedTravelogues} />} />
+          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
         </Routes>
       </Box>
