@@ -40,158 +40,37 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
     return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />;
   });
 
-
-  const hero = {
-    minHeight: '31.25rem',
-    // transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    borderRadius: '0px',
-    // boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
-    // position: 'relative',
-    color: 'white',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundImage: `url(${hero_1})`,
-    display: 'flex',
-    flexDirection: 'inline'
-  }
-
-  const heroLoggedIn = {
-    minHeight: '31.25rem',
-    borderRadius: '0px',
-    color: 'white',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundImage: `url(${hero_2})`,
-    display: 'flex',
-    justifyContent: 'center',
-  }
-
-  const heroBox = {
-    alignSelf: 'center',
-    display: 'flex',
-    flexDirection: 'inline'
-  }
-
-  const heroTextBox = {
-    m: '2rem',
-    width: '50%',
-    display: 'flex',
-    justifyContent: 'center'
-  }
-
-  const heroText = {
-    fontFamily: '"Roboto","Helvetica","Arial",sans-serif,',
-    fontWeight: 400,
-    fontSize: '6.5rem',
-    lineHeight: 1.167,
-    letterSpacing: '0em',
-    color: 'inherit',
-    ml: '4rem',
-  }
-
-  // const searchBox = {
-  //   width: '50%',
-  //   display: 'flex',
-  //   flexDirection: 'inline',
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // }
-  
-  // const textField = {
-  //   backgroundColor: 'white', 
-  //   margin: '8px',
-  //   color: '#282828',
-  // }
-
-  // const searchButton = {
-  //   margin: '1rem',
-  // }
-
-  const discoverHero = {
-    minHeight: '31.25rem',
-    borderRadius: '0px',
-    backgroundColor: '#F7F7F6',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-
-  const discoverBox = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-  
-  const discoverHeroText = {
-    fontSize: '2.75rem'
-  }
-
-  const discoverHeroSub = {
-    fontSize: '1.5rem'
-  }
-
-  const quoteHero = {
-    minHeight: '20.83rem',
-    borderRadius: '0px',
-    position: 'relative',
-    color: '#282828',
-    backgroundColor: '#FFC2A5',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '4rem'  
-  }
-
-  const quoteText = {
-    fontSize: '4rem',
-    textAlign: 'center',
-    color: 'white',
-  }
-
-  const signupHero = {
-    minHeight: '20.83rem',
-    borderRadius: '0px',
-    position: 'relative',
-    color: '#282828',
-    backgroundColor: '#F7F7F6',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-
-  const signupText = {
-    fontSize: '2.5rem',
-  }
-
-  const button = {
-    m: '1rem',
-  }
-
   return (
     <>
     {user
     ?
-      <Paper sx={heroLoggedIn}>
+      <Paper sx={{
+          minHeight: '31.25rem',
+          borderRadius: '0px',
+          color: 'white',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundImage: `url(${hero_2})`,
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
         <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
           <Box>
-            <Typography sx={heroText}>See the world</Typography>
-            <Typography sx={discoverHeroSub}>One travelogue at a time</Typography>
+            <Typography sx={{
+                fontFamily: '"Roboto","Helvetica","Arial",sans-serif,',
+                fontWeight: 400,
+                fontSize: '6.5rem',
+                lineHeight: 1.167,
+                letterSpacing: '0em',
+                color: 'inherit',
+                ml: '4rem',
+              }}
+              >
+              See the world
+            </Typography>
+            <Typography sx={{ fontSize: '1.5rem' }}>One travelogue at a time</Typography>
           </Box>
-          {/* <Box component="form" onSubmit={handleSearch} >
-            <TextField
-              id="search-bar"
-              label="Search"
-              variant="filled"
-              placeholder="Search..."
-              onChange={handleChange}
-              sx={textField}
-            />
-            <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
-          </Box> */}
           <Search 
             handleChange={handleChange} 
             handleSearch={handleSearch} 
@@ -199,22 +78,47 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         </Box>
       </Paper>
     :
-    <Paper sx={hero}>
-        <Box sx={heroBox}>
-          <Box sx={heroTextBox}>
-            <Typography sx={heroText}>Welcome to Travelogue</Typography>
+    <Paper sx={{
+          minHeight: '31.25rem',
+          // transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+          borderRadius: '0px',
+          // boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+          // position: 'relative',
+          color: 'white',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundImage: `url(${hero_1})`,
+          display: 'flex',
+          flexDirection: 'inline'
+          }}
+        >
+        <Box sx={{
+            alignSelf: 'center',
+            display: 'flex',
+            flexDirection: 'inline'
+            }}
+          >
+          <Box sx={{
+              m: '2rem',
+              width: '50%',
+              display: 'flex',
+              justifyContent: 'center'
+              }}
+            >
+            <Typography sx={{
+                fontFamily: '"Roboto","Helvetica","Arial",sans-serif,',
+                fontWeight: 400,
+                fontSize: '6.5rem',
+                lineHeight: 1.167,
+                letterSpacing: '0em',
+                color: 'inherit',
+                ml: '4rem',
+              }}
+              >
+              Welcome to Travelogue
+            </Typography>
           </Box>
-          {/* <Box sx={searchBox} component="form" onSubmit={handleSearch} >
-            <TextField
-              id="search-bar"
-              label="Search"
-              variant="filled"
-              placeholder="Search..."
-              onChange={handleChange}
-              sx={textField}
-            />
-            <Button variant='contained' type='submit' sx={searchButton}>Search</Button>
-          </Box> */}
           <Search
             handleChange={handleChange} 
             handleSearch={handleSearch} 
@@ -222,36 +126,82 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         </Box>
       </Paper>
     }
-    <Paper sx={discoverHero}>
-      <Box sx={discoverBox}>
-        <Typography sx={discoverHeroText}>Stories from around the world</Typography>
+    <Paper sx={{
+          minHeight: '31.25rem',
+          borderRadius: '0px',
+          backgroundColor: '#F7F7F6',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+      <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+        <Typography sx={{
+            fontSize: '2.75rem'
+            }}
+          >
+          Stories from around the world
+        </Typography>
         <Grid sx={{ display: 'flex' }}>
           {renderedTravelogues}
         </Grid>
-        <Button variant='contained' component={ Link } to="/discover" sx={button}>Discover</Button>
+        <Button variant='contained' component={ Link } to="/discover" sx={{ m: '1rem' }}>Discover</Button>
       </Box>
     </Paper>
-    <Paper sx={quoteHero}>
-        <Typography sx={quoteText}>
+    <Paper sx={{
+        minHeight: '20.83rem',
+        borderRadius: '0px',
+        position: 'relative',
+        color: '#282828',
+        backgroundColor: '#E6C327',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '4rem'  
+        }}
+        >
+        <Typography sx={{
+            fontSize: '4rem',
+            textAlign: 'center',
+            color: 'white',
+          }}
+          >
           “Nothing behind me, everything ahead of me, as is ever so on the road.” 
         </Typography>
         <Typography sx={{ fontStyle: 'italic', fontSize: '2rem', color: 'white' }}>- Jack Kerouac, On the Road</Typography>
     </Paper>
-    <Paper sx={signupHero}>
+    <Paper sx={{
+        minHeight: '20.83rem',
+        borderRadius: '0px',
+        position: 'relative',
+        color: '#282828',
+        backgroundColor: '#F7F7F6',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+      >
       {user 
       ?
       <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
-        <Typography sx={signupText}>
+        <Typography sx={{ fontSize: '2.5rem' }}>
           Share your stories.
         </Typography>
-        <Button variant='contained' component={ Link } to="/travelogues/new" sx={button}>Post travelogue</Button>
+        <Button variant='contained' component={ Link } to="/travelogues/new" sx={{ m: '1rem' }}>Post travelogue</Button>
       </Box>
       :
       <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>
-        <Typography sx={signupText}>
+        <Typography sx={{ fontSize: '2.5rem' }}>
           Join our community
         </Typography>
-        <Button variant='contained' component={ Link } to="/signup" sx={button}>Sign up</Button>
+        <Button variant='contained' component={ Link } to="/signup" sx={{ m: '1rem' }}>Sign up</Button>
       </Box>
       }
     </Paper>

@@ -56,8 +56,24 @@ const SignupPage = ({ onLogin }) => {
   };
 
   return (
-    <Box sx={boxStyle}>
-      <Box sx={formBox} component="form" onSubmit={handleSignup}>
+    <Box sx={{
+        backgroundColor: '#F7F7F6',
+        padding: '6rem',
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+      >
+      <Box sx={{
+          width: '25rem',
+          bgcolor: 'background.paper',
+          p: 4,
+          display: 'flex',
+          border: '1px solid',
+          borderColor: '#F1EEEA',
+        }} 
+        component="form" 
+        onSubmit={handleSignup}
+        >
         <Grid 
           container 
           spacing={2} 

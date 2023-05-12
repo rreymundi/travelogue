@@ -50,7 +50,6 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
     description: travelogue.description,
   });
 
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -114,32 +113,32 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
     })
   };
 
-  const boxStyle = {
-      backgroundColor: '#F7F7F6',
-      padding: '3rem',
-      display: 'grid',
-      minHeight: '100vh',
-  };
-
-  const coverImage = {
-    justifySelf: 'center', 
-    height: '20rem', 
-    width: '40rem', 
-    margin: '2rem',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundImage: `url(` + travelogue.cover_image_url +`)`,
-    aspectRatio: '16 / 9',
-  }
-
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <Box sx={boxStyle} component='form' onSubmit={handleSubmit}>
+    <Box sx={{
+          backgroundColor: '#F7F7F6',
+          padding: '3rem',
+          display: 'grid',
+          minHeight: '100vh',
+      }} 
+      component='form' 
+      onSubmit={handleSubmit}
+      >
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
       { travelogue.cover_image_url !== null 
-        ? <Paper variant="outlined" sx={coverImage} />
+        ? <Paper variant="outlined" sx={{
+            justifySelf: 'center', 
+            height: '20rem', 
+            width: '40rem', 
+            margin: '2rem',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundImage: `url(` + travelogue.cover_image_url +`)`,
+            aspectRatio: '16 / 9',
+            }} 
+          />
         : null }
       <Grid
         container

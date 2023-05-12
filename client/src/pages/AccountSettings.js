@@ -63,48 +63,40 @@ const AccountSettings = () => {
             }
         })
     };
-
-    const boxStyle = {
-        padding: '3rem',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-
-    const form = {
-        display: 'flex',
-        flexDirection: 'inline',
-        margin: '2.5rem',
-    }
-
-    const accountFieldsLeft = {
-        display: 'flex',
-        flexDirection: 'column',
-    }
-
-    const accountFieldsRight = {
-        display: 'flex', 
-        flexDirection: 'column',
-        ml: '5rem',
-        mt: '.5rem'
-    }
   
     return (
-        <Box sx={boxStyle}>
+        <Box sx={{
+            padding: '3rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+            }}
+            >
             <Box sx={{ display: 'flex', flexDirection: 'column'}}>
                 <Typography sx={{ fontSize: '3.5rem' }}>Edit profile</Typography>
                 <Typography sx={{ fontSize: '1.5rem'}}>
                     Make changes to your profile
                 </Typography>
             </Box>        
-            <Box sx={form} component='form' onSubmit={handleSubmit} >
-                <Box sx={accountFieldsLeft}>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'inline',
+                margin: '2.5rem',
+                }} 
+                component='form' 
+                onSubmit={handleSubmit} 
+                >
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    }}
+                    >
                     <Grid
                         container
                         spacing={2} 
                         direction="column" 
-                    >
+                        >
                         <Grid item>
                             <Typography>Name</Typography>
                         </Grid>
@@ -144,7 +136,13 @@ const AccountSettings = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <Box sx={accountFieldsRight}>
+                <Box sx={{
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    ml: '5rem',
+                    mt: '.5rem'
+                    }}
+                    >
                     <Avatar variant="square" sx={{ height: '10rem', width: '10rem' }} src={user?.avatar_url}>avatar</Avatar>
                     <Button
                         variant="contained"

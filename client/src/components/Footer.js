@@ -9,7 +9,7 @@ const Footer = () => {
         <Paper 
           sx={{
             width: '100%',
-            backgroundColor: '#1976d2',
+            backgroundColor: '#2727e6',
           }} 
           component="footer" 
           square variant="outlined"

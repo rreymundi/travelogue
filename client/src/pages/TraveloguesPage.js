@@ -14,14 +14,13 @@ import TravelogueRow from '../components/TravelogueRow';
 const TraveloguesPage = ({ onDeleteTravelogue }) => {
   const {user} = useContext(UserContext);
 
-  const boxStyle = {
-    backgroundColor: '#F7F7F6',
-    padding: '3rem',
-    minHeight: '100vh',
-}
-
   return (
-    <Box sx={boxStyle}>
+    <Box sx={{
+      backgroundColor: '#F7F7F6',
+      padding: '3rem',
+      minHeight: '100vh',
+      }}
+      >
       <Box sx={{ justifySelf: 'left' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column'}}>
           <Typography sx={{ fontSize: '3.5rem' }}>Travelogues</Typography>

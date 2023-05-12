@@ -41,19 +41,6 @@ import {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // useEffect(() => {
-    //   setIsLoading(true);
-    //   fetch(url)
-    //   .then(r => {
-    //     if (r.ok) {
-    //       r.json().then((data) => setTravelogue(data))
-    //     } else {
-    //       r.json().then((data) => setErrors(data.errors))
-    //     }
-    //   });
-    //   setIsLoading(false)
-    // }, [setTravelogue, setErrors, url]);
-
     const boxStyle = {
       padding: '3rem',
       display: 'grid',
