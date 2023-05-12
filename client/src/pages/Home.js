@@ -160,7 +160,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         position: 'relative',
         color: '#282828',
         // backgroundColor: '#E6C327',
-        background: 'linear-gradient(to right bottom, #6B0AC9, #E6C327)',
+        background: 'linear-gradient(to right bottom, #6B0AC9, #E6FF27)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
