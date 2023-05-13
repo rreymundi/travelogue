@@ -25,9 +25,9 @@ const Bookmarks = ({ onBookmarkSave, onBookmarkUnsave, allTravelogues }) => {
       >
       <Box>
           <Box >
-              <Typography sx={{ fontSize: '3.5rem' }}>Bookmarks</Typography>
+              <Typography sx={{ fontSize: '2.5rem' }}>Bookmarks</Typography>
               <Typography sx={{ fontSize: '1.5rem'}}>
-                  Browse through your saved travelogues
+                  Your saved travelogues
               </Typography>
               <Box sx={{ m: '1rem', textAlign: 'end' }}>
                 <Button variant="contained" color="primary" component={ Link } to="/discover">Discover</Button>

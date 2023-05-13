@@ -73,9 +73,9 @@ const AccountSettings = () => {
             alignItems: 'center'
             }}
             >
-            <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                <Typography sx={{ fontSize: '3.5rem' }}>Edit profile</Typography>
-                <Typography sx={{ fontSize: '1.5rem'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography sx={{ fontSize: '2.5rem', textAlign: 'center' }}>Edit profile</Typography>
+                <Typography sx={{ fontSize: '1.5rem', textAlign: 'center' }}>
                     Make changes to your profile
                 </Typography>
             </Box>        
