@@ -5,31 +5,74 @@ import { Box,
 } from '@mui/material';
 import TravelogueCard from '../components/TravelogueCard';
 import { ErrorContext } from '../context/error';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import Search from '../components/Search';
 
 const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
     const {errors, setErrors} = useContext(ErrorContext);
     const [isLoading, setIsLoading] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
-
+    const [query, setQuery] = useState('');
+    const [isMounted, setIsMounted] = useState(false);
     const location = useLocation();
+    let [searchParams, setSearchParams] = useSearchParams();
+    let navigate = useNavigate()
+  
+    const handleChange = (e) => {
+      setQuery(e.target.value)
+    };
+      
+
+    // this fetch request is for the Search component in the Discover page
+    const handleSearch = (e) => {
+      e.preventDefault();
+      setSearchParams({query: query})
+      fetch(`/discover/search/${query}`)
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((data) => setSearchResults(data))
+        } else {
+          r.json().then((data) => setErrors(data.errors))
+        }
+      })
+    };
 
     // this useEffect is for when the user searches for a travelogue
     // it makes use of the useLocation hook to get the query string from the location hash
     // it then sends a GET request to the "query" from the '/discover/search/:query' route
     // which corresponds to the "travelogues#search" action in the travelogues controller
+    
+    // useEffect(() => {
+    //     setIsLoading(true);
+    //     fetch(`/discover/search/${new URLSearchParams(location.search).get('query')}`)
+    //     .then((r) => {
+    //       if (r.ok) {
+    //         r.json().then((data) => setSearchResults(data))
+    //       } else {
+    //         r.json().then((data) => setErrors(data.errors))
+    //       }
+    //     })
+    //     setIsLoading(false)
+    // }, []);
+
     useEffect(() => {
+      setIsMounted(true);
+      const fetchData = async () => {
         setIsLoading(true);
-        fetch(`/discover/search/${new URLSearchParams(location.search).get('query')}`)
-        .then((r) => {
-          if (r.ok) {
-            r.json().then((data) => setSearchResults(data))
+        const r = await fetch(`/discover/search/${new URLSearchParams(location.search).get('query')}`);
+        const data = await r.json();
+        if (r.ok) {
+          setSearchResults(data)
           } else {
-            r.json().then((data) => setErrors(data.errors))
-          }
-        })
+          setErrors(data.errors)
+        }
         setIsLoading(false)
-    }, []);
+      };
+      fetchData();
+      return () => {
+        setIsMounted(false);
+      };
+    }, [setSearchResults, setErrors]);
 
     // conditional rendering of the travelogue cards
     // if the searchResults array is null (i.e. the user has not searched for anything or
@@ -74,13 +117,16 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
         padding: '3rem',
         display: 'grid',
         minHeight: '100vh',
-      }}>
+        }}>
         <Box>
-            <Box >
-                <Typography sx={{ fontSize: '3.5rem' }}>Discover</Typography>
+            <Box>
+                <Typography sx={{ fontSize: '2.5rem' }}>Discover</Typography>
                 <Typography sx={{ fontSize: '1.5rem'}}>
                     Browse through the latest travelogues
                 </Typography>
+                <Box sx={{ textAlign: 'center', m: '1rem' }}>
+                  <Search handleChange={handleChange} handleSearch={handleSearch} />
+                </Box>
                 <Box sx={{ margin: '2.5rem'}}>
                   <Grid container spacing={2}>
                     {renderedResults}
