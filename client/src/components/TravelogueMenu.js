@@ -28,9 +28,8 @@ const TravelogueMenu = ({
     };
 
     return (
-        <Box sx={{ flexGrow: 0 }}>
             <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: '45px', flexGrow: 0 }}
                 id="menu-appbar"
                 anchorEl={anchorTravelogueMenu}
                 anchorOrigin={{
@@ -62,7 +61,6 @@ const TravelogueMenu = ({
                     </Typography>
                 </MenuItem>
             </Menu>
-        </Box>
       )   
 }
 
