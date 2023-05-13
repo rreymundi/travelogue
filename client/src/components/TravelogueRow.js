@@ -6,6 +6,9 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    TableRow,
+    TableCell,
+    Typography
   } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TravelogueMenu from './TravelogueMenu';
@@ -24,20 +27,24 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
   const publishedDate = new Date(travelogue.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
-    <ListItem >
-        <ListItemButton component={ Link } to={`/travelogues/${travelogue.id}`} >
-            {travelogue.title}
-        </ListItemButton>
+    <TableRow>
+      <TableCell align="center">
+        <Button component={ Link } to={`/travelogues/${travelogue.id}`} >
+          <Typography>{travelogue.title}</Typography>
+        </Button>
+      </TableCell>
+      <TableCell align="center">
         <ListItemText>
-            {publishedDate}
+          <Typography>{publishedDate}</Typography>
         </ListItemText>
-        <ListItemIcon sx={{ justifyContent: 'end' }} >
-            <Button onClick={handleOpen} >
-                <MoreHorizIcon />
-            </Button>
-        </ListItemIcon>
+      </TableCell>
+      <TableCell align='center'>
+          <Button onClick={handleOpen} >
+            <MoreHorizIcon />
+          </Button>
+      </TableCell>
         <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
-    </ListItem>
+    </TableRow>
   )
 }
 
