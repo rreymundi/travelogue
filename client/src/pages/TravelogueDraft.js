@@ -75,9 +75,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
       onSubmit={handleSubmit}
       >
       <Box>
-        <Box>
-          <Typography sx={{ fontSize: '3.5rem' }}>New Draft</Typography>
-        </Box>
+        <Typography sx={{ fontSize: '2.5rem' }}>New Draft</Typography>
       </Box>
       <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
       {/* <Paper sx={{ justifySelf: 'center'}}>TEST</Paper> */}
