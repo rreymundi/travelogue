@@ -18,21 +18,45 @@ import {
     const [isLoading, setIsLoading] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
     const { id } = useParams();
+    const url = '/travelogues/' + id;
 
+    // useEffect(() => {
+    //   setIsMounted(true);
+    //   setIsLoading(true);
+    //   fetch(url)
+    //   .then((r) => {
+    //     if (r.ok) {
+    //       r.json().then((data) => setTravelogue(data))
+    //     } else {
+    //       r.json().then((data) => setErrors(data.errors))
+    //     }
+    //   })
+    //   setIsLoading(false)
+    //   setIsMounted(false);
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [setTravelogue, setErrors, url]);
+    
     useEffect(() => {
-      setIsLoading(true);
-      fetch('/travelogues/' + id)
-      .then((r) => {
+      setIsMounted(true);
+      const fetchData = async () => {
+        setIsLoading(true);
+        const r = await fetch(url);
+        const data = await r.json();
         if (r.ok) {
-          r.json().then((data) => setTravelogue(data))
-        } else {
-          r.json().then((data) => setErrors(data.errors))
+          setTravelogue(data)
+          } else {
+          setErrors(data.errors)
         }
-      })
-      setIsLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        setIsLoading(false)
+      };
+      fetchData();
+      return () => {
+        setIsMounted(false);
+      };
+    }, [setTravelogue, setErrors, url]);
 
+    // this variable makes use of the html-react-parser library to 
+    // parse the travelogue description from HTML to JSX
   const renderedDescription = parse(`${travelogue.description}`)
 
   if (isLoading) return <p>Loading ...</p>
