@@ -1,19 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import { Button } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import ExploreIcon from '@mui/icons-material/Explore';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import UserMenu from './UserMenu';
 

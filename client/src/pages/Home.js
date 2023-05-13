@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Box,
   Button,
   Grid,
   Paper,
-  TextField,
   Typography,
 } from '@mui/material';
 import HomepageCard from '../components/HomepageCard';
@@ -16,7 +15,6 @@ import Search from '../components/Search';
 
 const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
-  let [searchParams, setSearchParams] = useSearchParams();
   
   let navigate = useNavigate()
   
@@ -29,11 +27,11 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
   const handleSearch = (e) => {
     e.preventDefault();
     // setSearchParams({query: query})
-    // if (query === '') {
-    //   navigate('/discover')
-    // } else { 
+    if (query === '') {
+      navigate('/discover')
+    } else { 
       navigate(`/discover?query=${query}`)
-    // }
+    }
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
     Card,
     CardActions,
@@ -14,7 +14,6 @@ import { UserContext } from '../context/user';
 
 const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
-  let navigate = useNavigate();
 
   const handleSaveClick = () => {
     onBookmarkSave(travelogue.id)
@@ -29,11 +28,6 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
     post.travelogue_id === travelogue.id) 
     ? <BookmarkIcon onClick={handleUnsaveClick} /> 
     : <BookmarkBorderIcon onClick={handleSaveClick} />
-
-  // this uses the navigate hook to redirect to the travelogue show page
-  const handleClick = () => {
-    navigate(`/travelogues/${travelogue.id}`)
-  };
 
   // this uses regex to strip html tags from the travelogue.description returned from the API
   const htmlString = `${travelogue.description}`;
@@ -66,7 +60,7 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between', marginTop: 'auto'}}>
-        <Button size="small" onClick={handleClick} >
+        <Button size="small" component={ Link } to={`/travelogues/${travelogue.id}`}>
           Read
         </Button>
         <Button size="small" >

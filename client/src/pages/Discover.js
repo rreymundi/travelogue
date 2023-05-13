@@ -5,18 +5,17 @@ import { Box,
 } from '@mui/material';
 import TravelogueCard from '../components/TravelogueCard';
 import { ErrorContext } from '../context/error';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import Search from '../components/Search';
 
 const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
-    const {errors, setErrors} = useContext(ErrorContext);
+    const {setErrors} = useContext(ErrorContext);
     const [isLoading, setIsLoading] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
     const [query, setQuery] = useState('');
-    const [isMounted, setIsMounted] = useState(false);
+    // const [isMounted, setIsMounted] = useState(false);
     const location = useLocation();
     let [searchParams, setSearchParams] = useSearchParams();
-    let navigate = useNavigate()
   
     const handleChange = (e) => {
       setQuery(e.target.value)
@@ -26,6 +25,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
     // this fetch request is for the Search component in the Discover page
     const handleSearch = (e) => {
       e.preventDefault();
+      setIsLoading(true);
       setSearchParams({query: query})
       fetch(`/discover/${query}`)
       .then((r) => {
@@ -35,6 +35,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
           r.json().then((data) => setErrors(data.errors))
         }
       })
+      setIsLoading(false);
     };
 
     // this useEffect is for when the user searches for a travelogue
@@ -42,37 +43,39 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
     // it then sends a GET request to the "query" from the '/discover/search/:query' route
     // which corresponds to the "travelogues#search" action in the travelogues controller
     
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     fetch(`/discover/search/${new URLSearchParams(location.search).get('query')}`)
-    //     .then((r) => {
-    //       if (r.ok) {
-    //         r.json().then((data) => setSearchResults(data))
-    //       } else {
-    //         r.json().then((data) => setErrors(data.errors))
-    //       }
-    //     })
-    //     setIsLoading(false)
-    // }, []);
-
     useEffect(() => {
-      setIsMounted(true);
-      const fetchData = async () => {
         setIsLoading(true);
-        const r = await fetch(`/discover/${new URLSearchParams(location.search).get('query')}`);
-        const data = await r.json();
-        if (r.ok) {
-          setSearchResults(data)
+        fetch(`/discover/${new URLSearchParams(location.search).get('query')}`)
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((data) => setSearchResults(data))
           } else {
-          setErrors(data.errors)
-        }
-        setIsLoading(false)
-      };
-      fetchData();
-      return () => {
-        setIsMounted(false);
-      };
-    }, [setSearchResults, setErrors]);
+            r.json().then((data) => setErrors(data.errors))
+          }
+          setIsLoading(false)
+        })
+    }, [searchParams, location.search, setErrors]);
+
+    // // OK This works
+    // useEffect(() => {
+    //   setIsMounted(true);
+    //   const fetchData = async () => {
+    //     setIsLoading(true);
+    //     const r = await fetch(`/discover/${new URLSearchParams(location.search).get('query')}`);
+    //     const data = await r.json();
+    //     if (r.ok) {
+    //       setSearchResults(data)
+    //       } else {
+    //       setErrors(data.errors)
+    //     }
+    //   };
+    //   fetchData();
+    //   setIsLoading(false)
+    //   return () => {
+    //     setIsMounted(false)
+    //   };
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     // conditional rendering of the travelogue cards
     // if the searchResults array is null (i.e. the user has not searched for anything or

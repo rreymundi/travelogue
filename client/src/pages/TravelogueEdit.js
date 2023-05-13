@@ -21,12 +21,12 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
   const {travelogue, setTravelogue} = useContext(TravelogueContext);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
   const { id } = useParams();
   const url = '/travelogues/' + id;
 
   useEffect(() => {
-    setIsMounted(true);
+    // setIsMounted(true);
     const fetchData = async () => {
       setIsLoading(true);
       const r = await fetch(url);
@@ -39,9 +39,9 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
       setIsLoading(false)
     };
     fetchData();
-    return () => {
-      setIsMounted(false);
-    };
+    // return () => {
+    //   setIsMounted(false);
+    // };
   }, [setTravelogue, setErrors, url]);
 
   const [formData, setFormData] = useState({

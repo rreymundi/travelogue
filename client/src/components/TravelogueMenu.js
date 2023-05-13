@@ -4,7 +4,6 @@ import { TravelogueContext } from '../context/travelogue';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 
 const TravelogueMenu = ({ 
     anchorTravelogueMenu,
