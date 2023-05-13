@@ -129,7 +129,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
                 </Box>
                 <Box sx={{ margin: '2.5rem'}}>
                   <Grid container spacing={2}>
-                    {errors ? errors.map((error) => <Typography>{error}</Typography>) : renderedResults}
+                    {renderedResults}
                   </Grid>
                 </Box>
             </Box>
