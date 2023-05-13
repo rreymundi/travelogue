@@ -16,7 +16,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [allTags, setAllTags] = useState(null);
   const [allTravelogues, setAllTravelogues] = useState(null);
-  const [searchedTravelogues, setSearchedTravelogues] = useState(null);
   let navigate = useNavigate()
 
   const theme = createTheme({
@@ -113,23 +112,6 @@ const App = () => {
     });
   };
 
-  const filteredData = (query, data) => {
-    if (query === null) {
-      return data
-    } else {
-      const filtered = data.filter((d) => 
-        d.title.toLowerCase().includes(query.toLowerCase()) || 
-        d.description.toLowerCase().includes(query.toLowerCase() ||
-        d.location.toLowerCase().includes(query.toLowerCase()))
-        )
-      setSearchedTravelogues(filtered)
-    }
-  }; 
-
-  const onSearch = (search) => {
-    filteredData(search, allTravelogues);
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: '100vh' }}>
@@ -138,13 +120,11 @@ const App = () => {
             ? <p>Loading ...</p>
             : <Content 
                 onLogin={onLogin} 
-                onDeleteTravelogue={handleDeleteTravelogue} 
                 onUpdateTravelogue={handleUpdateTravelogue} 
+                onDeleteTravelogue={handleDeleteTravelogue} 
                 allTravelogues={allTravelogues} 
                 allTags={allTags} 
                 onAddTravelogue={handleAddTravelogue} 
-                onSearch={onSearch} 
-                searchedTravelogues={searchedTravelogues}
               />
           }
           <Footer />

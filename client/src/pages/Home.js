@@ -16,6 +16,7 @@ import Search from '../components/Search';
 
 const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
+  let [searchParams, setSearchParams] = useSearchParams();
   
   let navigate = useNavigate()
   
@@ -27,11 +28,12 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
     
   const handleSearch = (e) => {
     e.preventDefault();
-    if (query === '') {
-      navigate('/discover')
-    } else {
-      navigate(`/discover/search?query=${query}`)
-    }
+    // setSearchParams({query: query})
+    // if (query === '') {
+    //   navigate('/discover')
+    // } else { 
+      navigate(`/discover?query=${query}`)
+    // }
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
@@ -90,7 +92,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
           backgroundPosition: 'center',
           backgroundImage: `url(${hero_1})`,
           display: 'flex',
-          flexDirection: 'inline'
+          flexDirection: 'inline',
           }}
         >
         <Box sx={{

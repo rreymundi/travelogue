@@ -27,7 +27,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
     const handleSearch = (e) => {
       e.preventDefault();
       setSearchParams({query: query})
-      fetch(`/discover/search/${query}`)
+      fetch(`/discover/${query}`)
       .then((r) => {
         if (r.ok) {
           r.json().then((data) => setSearchResults(data))
@@ -59,7 +59,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
       setIsMounted(true);
       const fetchData = async () => {
         setIsLoading(true);
-        const r = await fetch(`/discover/search/${new URLSearchParams(location.search).get('query')}`);
+        const r = await fetch(`/discover/${new URLSearchParams(location.search).get('query')}`);
         const data = await r.json();
         if (r.ok) {
           setSearchResults(data)
@@ -129,7 +129,7 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
                 </Box>
                 <Box sx={{ margin: '2.5rem'}}>
                   <Grid container spacing={2}>
-                    {renderedResults}
+                    {errors ? errors.map((error) => <Typography>{error}</Typography>) : renderedResults}
                   </Grid>
                 </Box>
             </Box>
