@@ -6,14 +6,10 @@ import {
 } from '@mui/material';
 
 const Search = ({ handleChange, handleSearch }) => {
+    
   return (
     <Box 
         sx={{    
-            // width: '50%',
-            // display: 'flex',
-            // flexDirection: 'inline',
-            // alignItems: 'center',
-            // justifyContent: 'center'
             margin: 'auto',
             }} 
         component="form" 
