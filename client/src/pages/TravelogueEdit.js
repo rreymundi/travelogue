@@ -30,11 +30,11 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
     const fetchData = async () => {
       setIsLoading(true);
       const r = await fetch(url);
-      const json = await r.json();
+      const data = await r.json();
       if (r.ok) {
-        setTravelogue(json)
+        setTravelogue(data)
         } else {
-        setErrors(json.errors)
+        setErrors(data.errors)
       }
       setIsLoading(false)
     };
@@ -125,7 +125,10 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
       component='form' 
       onSubmit={handleSubmit}
       >
-      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
+      <Box>
+        <Typography sx={{ fontSize: '2.5rem' }}>Edit Travelogue</Typography>
+      </Box>
+      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to your travelogues</Link>
       { travelogue.cover_image_url !== null 
         ? <Paper variant="outlined" sx={{
             justifySelf: 'center', 
