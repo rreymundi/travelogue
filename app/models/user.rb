@@ -1,14 +1,18 @@
 class User < ApplicationRecord
+  PASSWORD_REQUIREMENTS = /\A
+  (?=.{8,})          # Must contain 8 or more characters
+  (?=.*\d)           # Must contain a digit
+  (?=.*[a-z])        # Must contain a lower case character
+  (?=.*[A-Z])        # Must contain an upper case character
+  (?=.*[[:^alnum:]]) # Must contain a symbol
+/x
     has_secure_password
     has_one_attached :avatar
     validates :username, presence: true, uniqueness: true
     validates :password, presence: true, on: :create
     has_many :travelogues, dependent: :destroy
     has_many :saved_posts, dependent: :destroy
-    # validate :password_lower_case
-    # validate :password_uppercase
-    # validate :password_special_char
-    # validate :password_contains_number
+    validate :custom_password_validation, on: :create
 
     def avatar_url
       if avatar.attached?
@@ -17,30 +21,13 @@ class User < ApplicationRecord
         "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"      
       end
     end
-  
-    # this custom validation method is used to ensure the actual password is safe
-    # this was an awesome resource
-    # https://dev.to/nodefiend/rails-password-validation-29kj
-    # def password_uppercase
-    #   return if !!password.match(/\p{Upper}/)
-    #   errors.add :password, ' must contain at least 1 uppercase '
-    # end
-  
-    # def password_lower_case
-    #   return if !!password.match(/\p{Lower}/)
-    #   errors.add :password, ' must contain at least 1 lowercase '
-    # end
-  
-    # def password_special_char
-    #   special = "?<>',?[]}{=-)(*&^%$#`~{}!"
-    #   regex = /[#{special.gsub(/./){|char| "\\#{char}"}}]/
-    #   return if password =~ regex
-    #   errors.add :password, ' must contain special character'
-    # end
-  
-    # def password_contains_number
-    #   return if password.count("0-9") > 0
-    #   errors.add :password, ' must contain at least one number'
-    # end
+
+    # this is a custom validation method that takes the password
+    # and checks to see if it matches the PASSWORD_REQUIREMENTS constant
+    def custom_password_validation
+      if password.present? && !password.match(PASSWORD_REQUIREMENTS)
+        errors.add(:password, "must contain at least eight characters, one digit, one lower case character, one upper case character, and one symbol")
+      end
+    end
 
 end
