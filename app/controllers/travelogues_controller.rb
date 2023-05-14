@@ -3,8 +3,8 @@ class TraveloguesController < ApplicationController
     before_action :set_travelogue, except: [:index, :create, :search]
     
     def index
-        travelogues = Travelogue.all.order(created_at: :desc)
-        render json: travelogues, status: :ok
+        @travelogues = Travelogue.all.order(created_at: :desc)
+        render json: @travelogues, status: :ok
     end
 
     def show

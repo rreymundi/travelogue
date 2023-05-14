@@ -2,8 +2,8 @@ class UsersController < ApplicationController
     skip_before_action :authorize, only: [:create]
 # remember to delete the index action from the skip_before_action
     def index
-        users = User.all
-        render json: users, status: :ok
+        @users = User.all
+        render json: @users, status: :ok
     end
 
     def show
@@ -11,8 +11,11 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.create!(user_params)
-        render json: user, status: :created
+        @user = User.create!(user_params)
+        # this takes the id of the user that was just created and sets it as the session user id
+        # effectively logging them in after signup
+        session[:user_id] = @user.id
+        render json: @user, status: :created
     end
 
     def update
