@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { 
@@ -14,12 +14,19 @@ import {
   TableBody,
 } from '@mui/material';
 import TravelogueRow from '../components/TravelogueRow';
+import DeletedTravelogueModal from '../modals/DeletedTravelogueModal';
 
 const TraveloguesPage = ({ onDeleteTravelogue }) => {
   const {user} = useContext(UserContext);
+  const [open, setOpen] = useState(false);
+  const handleCloseModal = () => setOpen(false);
+  const handleOpenModal = () => {
+    setOpen(true)
+    setTimeout(handleCloseModal, 1000);
+  };
 
   const renderedTravelogues = user?.travelogues.map((travelogue) => 
-    <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
+    <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} handleOpenModal={handleOpenModal} />
   );
 
   return (
@@ -69,6 +76,7 @@ const TraveloguesPage = ({ onDeleteTravelogue }) => {
             </TableContainer>
         }
         {/* table ends here */}
+        <DeletedTravelogueModal open={open} />
       </Box>
     </Box>
   )

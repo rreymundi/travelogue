@@ -9,7 +9,8 @@ const TravelogueMenu = ({
     anchorTravelogueMenu,
     handleClose, 
     travelogue,
-    onDeleteTravelogue
+    onDeleteTravelogue,
+    handleOpenModal
   }) => {
     const { setTravelogue } = useContext(TravelogueContext);
     let navigate = useNavigate();
@@ -19,7 +20,8 @@ const TravelogueMenu = ({
           method: 'DELETE'
         })
         .then(onDeleteTravelogue(travelogue))
-      };
+        handleOpenModal();
+    };
 
     const handleEditClick = () => {
         setTravelogue(travelogue)

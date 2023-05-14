@@ -10,7 +10,7 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import TravelogueMenu from './TravelogueMenu';
 
-const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
+const TravelogueRow = ({ travelogue, onDeleteTravelogue, handleOpenModal }) => {
   const [anchorTravelogueMenu, setAnchorTravelogueMenu] = useState(null);
 
   const handleOpen = (e) => {
@@ -40,7 +40,7 @@ const TravelogueRow = ({ travelogue, onDeleteTravelogue }) => {
             <MoreHorizIcon />
           </Button>
       </TableCell>
-        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} />
+        <TravelogueMenu handleClose={handleClose} anchorTravelogueMenu={anchorTravelogueMenu} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} handleOpenModal={handleOpenModal} />
     </TableRow>
   )
 }
