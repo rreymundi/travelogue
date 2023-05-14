@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Avatar,
@@ -14,10 +14,16 @@ import {
 const UserMenu = ({ 
     user,
     handleLogout,
-    anchorElUser, 
-    handleCloseUserMenu, 
-    handleOpenUserMenu  
     }) => {
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
     <Box sx={{ flexGrow: 0 }}>

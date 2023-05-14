@@ -12,17 +12,17 @@ import Typography from '@mui/material/Typography';
 import UserMenu from './UserMenu';
 
 function ResponsiveAppBar({ onLogout }) {
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  // const [anchorElUser, setAnchorElUser] = useState(null);
   const {user} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
 
   const handleLogout = () => {
     fetch("/logout", {
@@ -79,7 +79,7 @@ function ResponsiveAppBar({ onLogout }) {
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
             {user 
-            ? <UserMenu user={user} handleLogout={handleLogout} anchorElUser={anchorElUser} handleCloseUserMenu={handleCloseUserMenu} handleOpenUserMenu={handleOpenUserMenu} />
+            ? <UserMenu user={user} handleLogout={handleLogout} />
             : <Button sx={{ flexGrow: 0 }} component={ Link } to='/login' onClick={() => setErrors(null)}>
                 <Typography 
                   textAlign="center"
