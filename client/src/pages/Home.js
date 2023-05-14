@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/user';
+import { ErrorContext } from '../context/error';
 import { Link, useNavigate } from "react-router-dom";
 import { 
   Box,
@@ -15,6 +16,7 @@ import Search from '../components/Search';
 
 const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
+  const { setErrors } = useContext(ErrorContext);
   
   let navigate = useNavigate()
   
@@ -202,7 +204,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         <Typography sx={{ fontSize: '2.5rem' }}>
           Join our community
         </Typography>
-        <Button variant='contained' component={ Link } to="/signup" sx={{ m: '1rem' }}>Sign up</Button>
+        <Button variant='contained' component={ Link } to="/signup" sx={{ m: '1rem' }} onClick={() => setErrors(null)}>Sign up</Button>
       </Box>
       }
     </Paper>
