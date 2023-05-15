@@ -25,17 +25,26 @@ const Content = ({
   const { user, setCurrentUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
   let navigate = useNavigate();
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true)
     setTimeout(handleCloseDeleteModal, 1000)
   };
+
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const handleCloseUpdateModal = () => setOpenUpdateModal(false);
   const handleOpenUpdateModal = () => {
     setOpenUpdateModal(true)
     setTimeout(handleCloseUpdateModal, 1000)
+  };
+
+  const [openPublishedModal, setOpenPublishedModal] = useState(false);
+  const handleClosePublishedModal = () => setOpenPublishedModal(false);
+  const handleOpenPublishedModal = () => {
+    setOpenPublishedModal(true)
+    setTimeout(handleClosePublishedModal, 1000)
   };
   
   const handleBookmarkSave = (id) => {
@@ -91,10 +100,10 @@ const Content = ({
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/mytravelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} />} />
+          <Route path='/mytravelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} openPublishedModal={openPublishedModal} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
           <Route path='/mytravelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
-          <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
+          <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue} handleOpenPublishedModal={handleOpenPublishedModal} />} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />

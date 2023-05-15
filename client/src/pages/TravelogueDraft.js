@@ -13,7 +13,7 @@ import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 import TextEditor from '../components/TextEditor';
 
-const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
+const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal }) => {
   const {errors, setErrors} = useContext(ErrorContext);
   const [formData, setFormData] = useState({
     title: "",
@@ -58,6 +58,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
                 r.json()
                 .then((newTravelogue) => onAddTravelogue(newTravelogue))
                 navigate('/mytravelogues')
+                handleOpenPublishedModal()
               } else {
                 r.json().then((errorData) => setErrors(errorData.errors))
             }

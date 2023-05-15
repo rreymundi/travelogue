@@ -16,8 +16,9 @@ import {
 import TravelogueRow from '../components/TravelogueRow';
 import DeletedTravelogueModal from '../modals/DeletedTravelogueModal';
 import UpdatedTravelogueModal from '../modals/UpdatedTravelogueModal';
+import PublishedTravelogueModal from '../modals/PublishedTravelogueModal';
 
-const TraveloguesPage = ({ onDeleteTravelogue, openDeleteModal, handleOpenDeleteModal, openUpdateModal }) => {
+const TraveloguesPage = ({ onDeleteTravelogue, openDeleteModal, handleOpenDeleteModal, openUpdateModal, openPublishedModal }) => {
   const {user} = useContext(UserContext);
 
   const renderedTravelogues = user?.travelogues.map((travelogue) => 
@@ -73,6 +74,7 @@ const TraveloguesPage = ({ onDeleteTravelogue, openDeleteModal, handleOpenDelete
         {/* table ends here */}
         <DeletedTravelogueModal open={openDeleteModal} />
         <UpdatedTravelogueModal open={openUpdateModal} />
+        <PublishedTravelogueModal open={openPublishedModal} />
       </Box>
     </Box>
   )
