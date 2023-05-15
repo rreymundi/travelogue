@@ -64,7 +64,7 @@ const UserMenu = ({
                 <MenuItem sx={{ justifyContent:'center' }} key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem sx={{ justifyContent:'center' }} key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/travelogues'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/mytravelogues'>
                   <Typography textAlign="center">Travelogues</Typography>
                 </MenuItem>
                 <MenuItem sx={{ justifyContent:'center' }} key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/bookmarks'>

@@ -57,7 +57,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
             if (r.ok) {
                 r.json()
                 .then((newTravelogue) => onAddTravelogue(newTravelogue))
-                navigate('/travelogues')
+                navigate('/mytravelogues')
               } else {
                 r.json().then((errorData) => setErrors(errorData.errors))
             }
@@ -77,7 +77,7 @@ const TravelogueDraft = ({ allTags, onAddTravelogue }) => {
       <Box>
         <Typography sx={{ fontSize: '2.5rem' }}>New Draft</Typography>
       </Box>
-      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
+      <Link href="/mytravelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
       {/* <Paper sx={{ justifySelf: 'center'}}>TEST</Paper> */}
       {/* <Paper variant="outlined" sx={{ justifySelf: 'center', height: '20rem', width: '40rem', margin: '2rem'}}>
         ADD AN IMG ELEMENT HERE LATER

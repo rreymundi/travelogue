@@ -106,7 +106,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
       if (r.ok) {
         r.json()
         .then((r) => onUpdateTravelogue(r))
-        navigate('/travelogues')
+        navigate('/mytravelogues')
       } else {
         r.json().then((r) => setErrors(r.errors))
       }
@@ -129,7 +129,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
       <Box>
         <Typography sx={{ fontSize: '2.5rem' }}>Edit Travelogue</Typography>
       </Box>
-      <Link href="/travelogues" sx={{ mb: '2rem'}}>Back to your travelogues</Link>
+      <Link href="/mytravelogues" sx={{ mb: '2rem'}}>Back to your travelogues</Link>
       { travelogue.cover_image_url !== null 
         ? <Paper variant="outlined" sx={{
             justifySelf: 'center', 

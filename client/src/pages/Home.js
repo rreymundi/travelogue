@@ -197,7 +197,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         <Typography sx={{ fontSize: '2.5rem' }}>
           Share your stories.
         </Typography>
-        <Button variant='contained' component={ Link } to="/travelogues/new" sx={{ m: '1rem' }}>Post travelogue</Button>
+        <Button variant='contained' component={ Link } to="/mytravelogues/new" sx={{ m: '1rem' }}>Post travelogue</Button>
       </Box>
       :
       <Box sx={{ textAlign: 'center', mt: 'auto', mb: 'auto' }}>

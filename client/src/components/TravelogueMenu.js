@@ -25,7 +25,7 @@ const TravelogueMenu = ({
 
     const handleEditClick = () => {
         setTravelogue(travelogue)
-        navigate(`/travelogues/${travelogue.id}/edit`)
+        navigate(`/mytravelogues/${travelogue.id}/edit`)
     };
 
     return (

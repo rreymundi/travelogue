@@ -40,7 +40,7 @@ const TraveloguesPage = ({ onDeleteTravelogue, openDeleteModal, handleOpenDelete
         </Box>
       </Box>
       <Box sx={{ m: '1rem', textAlign: 'end' }}>
-        <Button variant="contained" color="primary" component={ Link } to="/travelogues/new">New</Button>
+        <Button variant="contained" color="primary" component={ Link } to="/mytravelogues/new">New</Button>
       </Box>
       <Box sx={{ backgroundColor: 'white', m: '1rem' }}>
         {/* table starts here */}

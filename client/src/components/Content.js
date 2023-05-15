@@ -71,10 +71,10 @@ const Content = ({
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<LoginPage onLogin={onLogin} />} />
-          <Route path='/travelogues' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/mytravelogues' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
-          <Route path='/travelogues/:id/edit' element={<LoginPage onLogin={onLogin} />} />
-          <Route path='/travelogues/new' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/mytravelogues/:id/edit' element={<LoginPage onLogin={onLogin} />} />
+          <Route path='/mytravelogues/new' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/bookmarks' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
@@ -91,10 +91,10 @@ const Content = ({
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} />} />
+          <Route path='/mytravelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
-          <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
-          <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
+          <Route path='/mytravelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
+          <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
