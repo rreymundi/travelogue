@@ -16,7 +16,7 @@ import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 import TextEditor from '../components/TextEditor';
 
-const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
+const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) => {
   const {errors, setErrors} = useContext(ErrorContext);
   const {travelogue, setTravelogue} = useContext(TravelogueContext);
   const [inputValue, setInputValue] = useState('');
@@ -111,6 +111,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags }) => {
         r.json().then((r) => setErrors(r.errors))
       }
     })
+    handleOpenUpdateModal();
   };
 
   if (isLoading) return <div>Loading...</div>

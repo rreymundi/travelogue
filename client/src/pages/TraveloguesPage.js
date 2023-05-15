@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/user';
 import { 
@@ -15,18 +15,13 @@ import {
 } from '@mui/material';
 import TravelogueRow from '../components/TravelogueRow';
 import DeletedTravelogueModal from '../modals/DeletedTravelogueModal';
+import UpdatedTravelogueModal from '../modals/UpdatedTravelogueModal';
 
-const TraveloguesPage = ({ onDeleteTravelogue }) => {
+const TraveloguesPage = ({ onDeleteTravelogue, openDeleteModal, handleOpenDeleteModal, openUpdateModal }) => {
   const {user} = useContext(UserContext);
-  const [open, setOpen] = useState(false);
-  const handleCloseModal = () => setOpen(false);
-  const handleOpenModal = () => {
-    setOpen(true)
-    setTimeout(handleCloseModal, 1000);
-  };
 
   const renderedTravelogues = user?.travelogues.map((travelogue) => 
-    <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} handleOpenModal={handleOpenModal} />
+    <TravelogueRow key={travelogue.id} travelogue={travelogue} onDeleteTravelogue={onDeleteTravelogue} handleOpenDeleteModal={handleOpenDeleteModal} />
   );
 
   return (
@@ -76,7 +71,8 @@ const TraveloguesPage = ({ onDeleteTravelogue }) => {
             </TableContainer>
         }
         {/* table ends here */}
-        <DeletedTravelogueModal open={open} />
+        <DeletedTravelogueModal open={openDeleteModal} />
+        <UpdatedTravelogueModal open={openUpdateModal} />
       </Box>
     </Box>
   )

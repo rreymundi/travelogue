@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Bookmarks from '../pages/Bookmarks';
@@ -24,7 +24,19 @@ const Content = ({
   }) => {
   const { user, setCurrentUser } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(true)
+    setTimeout(handleCloseDeleteModal, 1000)
+  };
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const handleCloseUpdateModal = () => setOpenUpdateModal(false);
+  const handleOpenUpdateModal = () => {
+    setOpenUpdateModal(true)
+    setTimeout(handleCloseUpdateModal, 1000)
+  };
   
   const handleBookmarkSave = (id) => {
     fetch('/bookmarks', {
@@ -79,9 +91,9 @@ const Content = ({
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
-          <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} />} />
+          <Route path='/travelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} />} />
           <Route path='/travelogues/:id' element={<Travelogue />} />
-          <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} />} />
+          <Route path='/travelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
           <Route path='/travelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue}/>} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />

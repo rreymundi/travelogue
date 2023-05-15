@@ -5,7 +5,7 @@ import {
     Modal 
     } from '@mui/material';
 
-const DeletedTravelogueModal = ({ open }) => {
+const UpdatedTravelogueModal = ({ open }) => {
 
   return (
     <div>
@@ -25,8 +25,8 @@ const DeletedTravelogueModal = ({ open }) => {
             p: 4,
             }}
             >
-          <Typography id="modal-modal-title" variant="h6" component="h2" color="error" sx={{ textAlign: 'center' }}>
-            Travelogue deleted!
+          <Typography id="modal-modal-title" variant="h6" component="h2" color="primary" sx={{ textAlign: 'center' }}>
+            Changes saved!
           </Typography>
         </Box>
       </Modal>
@@ -34,4 +34,4 @@ const DeletedTravelogueModal = ({ open }) => {
   );
 }
 
-export default DeletedTravelogueModal
+export default UpdatedTravelogueModal
