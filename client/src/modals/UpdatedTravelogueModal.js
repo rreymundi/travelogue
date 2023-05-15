@@ -26,7 +26,7 @@ const UpdatedTravelogueModal = ({ open }) => {
             }}
             >
           <Typography id="modal-modal-title" variant="h6" component="h2" color="primary" sx={{ textAlign: 'center' }}>
-            Changes saved!
+            Travelogue updated!
           </Typography>
         </Box>
       </Modal>

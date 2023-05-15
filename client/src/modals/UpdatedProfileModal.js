@@ -26,7 +26,7 @@ const UpdatedProfileModal = ({ open }) => {
             }}
             >
           <Typography id="modal-modal-title" variant="h6" component="h2" color="primary" sx={{ textAlign: 'center' }}>
-            Changes saved!
+            Profile updated!
           </Typography>
         </Box>
       </Modal>
