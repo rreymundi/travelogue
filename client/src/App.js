@@ -89,8 +89,10 @@ const App = () => {
   };
 
   const handleAddTravelogue = (newTravelogue) => {
-    // this adds new travelogue to state
+    // this adds new travelogue to user state
     setCurrentUser({ ...user, travelogues: [...user.travelogues, newTravelogue] })
+    // this adds new travelogue to all travelogues state
+    setAllTravelogues([...allTravelogues, newTravelogue])
     // this adds new tags to state
     const tagsToAdd = newTravelogue.tags.filter((tag) => !allTags.includes(tag));
     const updatedTags = allTags.concat(tagsToAdd);
