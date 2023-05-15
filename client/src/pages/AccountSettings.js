@@ -4,6 +4,7 @@ import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
 import LocationMenu from '../components/LocationMenu';
+import UpdatedProfileModal from '../modals/UpdatedProfileModal'
 
 const AccountSettings = () => {
     const {user, setCurrentUser} = useContext(UserContext);
@@ -13,8 +14,13 @@ const AccountSettings = () => {
         bio: user.bio,
       });
     const [inputValue, setInputValue] = useState('');
-    // const navigate = useNavigate();
-
+    const [openUpdateModal, setOpenUpdateModal] = useState(false);
+    const handleCloseUpdateModal = () => setOpenUpdateModal(false);
+    const handleOpenUpdateModal = () => {
+      setOpenUpdateModal(true)
+      setTimeout(handleCloseUpdateModal, 1000)
+    };
+  
     const handleChange = (e) => {
         setFormData({
         ...formData,
@@ -57,11 +63,11 @@ const AccountSettings = () => {
             if (r.ok) {
                 r.json()
                 .then((updatedUser) => setCurrentUser(updatedUser))
-                // navigate('/')
             } else {
                 r.json().then((errorData) => setErrors(errorData.errors))
             }
         })
+        handleOpenUpdateModal();
     };
   
     return (
@@ -161,6 +167,7 @@ const AccountSettings = () => {
                     </Button>
                 </Box>
             </Box>
+            <UpdatedProfileModal open={openUpdateModal} />
         </Box>
   )
 }
