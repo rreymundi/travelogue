@@ -10,26 +10,26 @@ Setting up your environment:
 
 Ruby version 2.7.4 is recommended. If you need to upgrade you can install it using rvm:
 
-"$ rvm install 2.7.4 --default"
+    $ rvm install 2.7.4 --default
 
 You should also install the latest versions of bundler and rails:
 
-"$ gem install bundler"
-"$ gem install rails"
+    $ gem install bundler
+    $ gem install rails
 
 Verify you are running Node 16:
 
-"node -v"
+    node -v
 
 If your Node version is not 16.x.x, install it and set it as the current and default version with:
 
-"nvm install 16"
-"nvm use 16"
-"nvm alias default 16"
+    nvm install 16
+    nvm use 16
+    nvm alias default 16
 
 Fork and clone this branch to set up your local copy.
 
-Preliminary installs:
+# Preliminary installs:
 ### `bundle install` 
 
 Installs the required gems
