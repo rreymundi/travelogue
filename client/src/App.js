@@ -8,6 +8,7 @@ import Content from "./components/Content";
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Footer from './components/Footer';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import LoadingSpinner from './components/LoadingSpinner';
 
 const App = () => {
   const {user, setCurrentUser} = useContext(UserContext);
@@ -30,16 +31,13 @@ const App = () => {
   });
 
   // GET current user
-
   useEffect(() => {
     fetch('/me')
     .then(r => {
       if(r.ok) {
         r.json().then((data) => setCurrentUser(data))
-      } else {
-        r.json().then((data) => setErrors(data.errors))
       }
-    })
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -114,13 +112,13 @@ const App = () => {
     });
   };
 
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: '100vh' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-          {isLoading 
-            ? <p>Loading ...</p>
-            : <Content 
+              <Content 
                 onLogin={onLogin} 
                 onUpdateTravelogue={handleUpdateTravelogue} 
                 onDeleteTravelogue={handleDeleteTravelogue} 
@@ -128,7 +126,6 @@ const App = () => {
                 allTags={allTags} 
                 onAddTravelogue={handleAddTravelogue} 
               />
-          }
           <Footer />
       </Box>
     </ThemeProvider>
