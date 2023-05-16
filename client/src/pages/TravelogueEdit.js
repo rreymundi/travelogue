@@ -15,21 +15,20 @@ import {
 import LocationMenu from '../components/LocationMenu';
 import Tags from '../components/Tags';
 import TextEditor from '../components/TextEditor';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) => {
   const {errors, setErrors} = useContext(ErrorContext);
   const {travelogue, setTravelogue} = useContext(TravelogueContext);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [isMounted, setIsMounted] = useState(false);
   const { id } = useParams();
-  const url = '/travelogues/' + id;
+  // const url = '/travelogues/' + id;
 
   useEffect(() => {
-    // setIsMounted(true);
     const fetchData = async () => {
       setIsLoading(true);
-      const r = await fetch(url);
+      const r = await fetch(`/travelogues/${id}`);
       const data = await r.json();
       if (r.ok) {
         setTravelogue(data)
@@ -39,10 +38,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
       setIsLoading(false)
     };
     fetchData();
-    // return () => {
-    //   setIsMounted(false);
-    // };
-  }, [setTravelogue, setErrors, url]);
+  }, [id, setErrors, setTravelogue]);
 
   const [formData, setFormData] = useState({
     title: travelogue.title,
@@ -114,7 +110,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
     handleOpenUpdateModal();
   };
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <Box sx={{
