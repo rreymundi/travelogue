@@ -98,7 +98,8 @@ All actions are set to persist via the back-end.
 
 ## ERD
 
-Screenshot 2023-05-13 at 2.53.04 PM.png
+<img src="client/src/assets/ERD.png" />
+
 
 The database tables were set up using Active Record migrations. Any changes to the database should be done via Active Record migrations. The schema.rb file will contain the latest state of the database.
 
