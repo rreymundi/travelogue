@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TravelogueContext } from '../context/travelogue';
-import { ErrorContext } from '../context/error';
 import { 
     Avatar,
     Box, 
@@ -9,53 +8,40 @@ import {
     Paper,
     Typography 
   } from '@mui/material';
-  import parse from 'html-react-parser';
+import parse from 'html-react-parser';
+import LoadingSpinner from '../components/LoadingSpinner';
 
   const Travelogue = () => {
     const {travelogue, setTravelogue} = useContext(TravelogueContext);
-    const {setErrors} = useContext(ErrorContext);
-    const [isLoading, setIsLoading] = useState(false);
-    // const [isMounted, setIsMounted] = useState(false);
     const { id } = useParams();
-
+    const [isLoading, setIsLoading] = React.useState(true);
+    
     useEffect(() => {
-      setIsLoading(true);
       fetch(`/travelogues/${id}`)
       .then((r) => {
         if (r.ok) {
           r.json().then((data) => setTravelogue(data))
-        } else {
-          r.json().then((data) => setErrors(data.errors))
         }
       })
-      setIsLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
-    // useEffect(() => {
-    //   setIsMounted(true);
-    //   const fetchData = async () => {
-    //     setIsLoading(true);
-    //     const r = await fetch(url);
-    //     const data = await r.json();
-    //     if (r.ok) {
-    //       setTravelogue(data)
-    //       } else {
-    //       setErrors(data.errors)
-    //     }
-    //     setIsLoading(false)
-    //   };
-    //   fetchData();
-    //   return () => {
-    //     setIsMounted(false);
-    //   };
-    // }, [setTravelogue, setErrors, url]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsLoading(true);
+        const r = await fetch(`/travelogues/${id}`);
+        const data = await r.json();
+        setTravelogue(data);
+        setIsLoading(false);
+      };
+      fetchData();
+    }, [setTravelogue, id]);
 
     // this variable makes use of the html-react-parser library to 
     // parse the travelogue description from HTML to JSX
   const renderedDescription = parse(`${travelogue.description}`)
 
-  if (isLoading) return <p>Loading ...</p>
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Box sx={{

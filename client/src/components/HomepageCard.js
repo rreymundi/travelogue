@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
     Card,
     CardActions,
@@ -14,6 +14,7 @@ import { UserContext } from '../context/user';
 
 const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSaveClick = () => {
     onBookmarkSave(travelogue.id)
@@ -21,6 +22,10 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
 
   const handleUnsaveClick = () => {
     onBookmarkUnsave(travelogue.id)
+  };
+
+  const handleClick = () => {
+    navigate(`/travelogues/${travelogue.id}`)
   };
 
   // this checks user.saved_posts to see if the travelogue is saved by the user and renders the appropriate icon
@@ -60,7 +65,7 @@ const HomepageCard = ({ travelogue, onBookmarkSave, onBookmarkUnsave }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'space-between', marginTop: 'auto'}}>
-        <Button size="small" component={ Link } to={`/travelogues/${travelogue.id}`}>
+        <Button size="small" onClick={handleClick} >
           Read
         </Button>
         <Button size="small" >
