@@ -13,6 +13,10 @@ class User < ApplicationRecord
     has_many :travelogues, dependent: :destroy
     has_many :saved_posts, dependent: :destroy
     validate :custom_password_validation, on: :create
+    # Will return an array of follows for the given user instance
+    has_many :received_follows, foreign_key: :followed_user_id, class_name: "Follow"
+    #Will return an array of users who follow the user instance
+    has_many :followers, through: :received_follows, source: :follower
 
     def avatar_url
       if avatar.attached?
