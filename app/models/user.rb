@@ -13,14 +13,20 @@ class User < ApplicationRecord
     has_many :travelogues, dependent: :destroy
     has_many :saved_posts, dependent: :destroy
     validate :custom_password_validation, on: :create
-    # Will return an array of follows for the given user instance
-    has_many :received_follows, foreign_key: :followed_user_id, class_name: "Follow"
-    # Will return an array of users who follow the user instance
-    has_many :followers, through: :received_follows, source: :follower
-    # Will return an array of follows a user gave to someone else
-    has_many :given_follows, foreign_key: :follower_id, class_name: "Follow"
-    # Will return an array of other users who the user has followed
-    has_many :followings, through: :given_follows, source: :followed_user
+
+    # FOLLOWINGS
+    #  Will return an array of follows this User instance gave to someone else
+    has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+    # Will return an array of other users who the User instance has followed 
+    # THIS IS WHAT I SHOULD USE IN MY ROUTES AND CONTROLLER
+    has_many :following, through: :active_follows, source: :followed_user
+
+    # FOLLOWERS
+    # Will return an array of follows for the given User instance
+    has_many :passive_follows, class_name: "Follow", foreign_key: "followed_user_id", dependent: :destroy
+    # Will return an array of users who follow the User instance 
+    # THIS IS WHAT I SHOULD USE IN MY ROUTES AND CONTROLLER
+    has_many :followers, through: :passive_follows, source: :follower
 
     def avatar_url
       if avatar.attached?
@@ -36,6 +42,19 @@ class User < ApplicationRecord
       if password.present? && !password.match(PASSWORD_REQUIREMENTS)
         errors.add(:password, "must contain at least eight characters, one digit, one lower case character, one upper case character, and one symbol")
       end
+    end
+
+    # this instance method handles following a user
+    def follow(user)
+      active_follows.create(followed_user_id: user.id)
+    end
+    # this instance method handles un-following a user
+    def unfollow(user)
+      active_follows.find_by(followed_user_id: user.id).destroy
+    end
+    # this instance method handles checking if a User instance is following a certain user
+    def following?(user)
+      active_follows.include?(user)
     end
 
 end
