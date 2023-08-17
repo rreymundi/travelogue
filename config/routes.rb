@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   resources :travelogues
   resources :users, only: [:create, :update]
   resources :tags, only: [:index, :destroy]
+  resources :follows, only: [:create, :destroy]
 
 end
