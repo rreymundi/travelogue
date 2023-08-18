@@ -44,7 +44,7 @@ class User < ApplicationRecord
 
     # this instance method handles following a user
     def follow(user)
-      active_follows.create(followed_user_id: user.id)
+      active_follows.create!(followed_user_id: user.id)
     end
     # this instance method handles un-following a user
     def unfollow(user)
