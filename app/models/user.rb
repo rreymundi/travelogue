@@ -17,15 +17,13 @@ class User < ApplicationRecord
     # FOLLOWINGS
     #  Will return an array of follows this User instance gave to someone else
     has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
-    # Will return an array of other users who the User instance has followed 
-    # THIS IS WHAT I SHOULD USE IN MY ROUTES AND CONTROLLER
+    # Will return an array of users this User has followed 
     has_many :following, through: :active_follows, source: :followed_user
 
     # FOLLOWERS
     # Will return an array of follows for the given User instance
     has_many :passive_follows, class_name: "Follow", foreign_key: "followed_user_id", dependent: :destroy
-    # Will return an array of users who follow the User instance 
-    # THIS IS WHAT I SHOULD USE IN MY ROUTES AND CONTROLLER
+    # Will return an array of users who follow this User instance 
     has_many :followers, through: :passive_follows, source: :follower
 
     def avatar_url
