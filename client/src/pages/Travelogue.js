@@ -60,8 +60,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
     : <Button variant='outlined' size="small" onClick={handleFollowClick}>
         Follow
       </Button>
-
-
+      
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -103,7 +102,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
               <Typography gutterBottom variant="body2" color="text.secondary" >
                 {travelogue?.user?.username}
               </Typography>
-              {renderedFollowButton}
+              {user.id !== travelogue.user.id ? renderedFollowButton : null}
             </Box>
           </Box>
           <Box xs={12} sx={{ mb: '1rem' }}>
