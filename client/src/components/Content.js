@@ -13,6 +13,7 @@ import TravelogueEdit from '../pages/TravelogueEdit';
 import Discover from '../pages/Discover';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
+import Following from '../pages/Following';
 
 const Content = ({ 
     onLogin, 
@@ -72,6 +73,32 @@ const Content = ({
     .then(setCurrentUser({...user, saved_posts: [...user.saved_posts.filter(post => post.travelogue_id !== id)]}));
   };
 
+  const handleFollowClick = (follow) => {
+    fetch('/follows', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: follow.id      
+      })
+    })
+    .then(r => {
+      if (r.ok) {
+        r.json().then((new_follow) => setCurrentUser({...user, following: [...user.following, new_follow]}))
+      } else {
+        r.json().then((errorData) => setErrors(errorData))
+      }
+    })
+  };
+
+  const handleUnfollowClick = (unfollow) => {
+    fetch(`/follows/${unfollow.id}`, {
+      method: 'DELETE',
+    })
+    .then(setCurrentUser({...user, following: [...user.following.filter(follow => follow.id !== unfollow.id)]}))
+  };
+
   if (!user) return (
     <Box sx={{ minHeight: '100vh' }}>
       <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
@@ -101,12 +128,13 @@ const Content = ({
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
           <Route path='/mytravelogues' element={<TraveloguesPage onDeleteTravelogue={onDeleteTravelogue} openDeleteModal={openDeleteModal} handleOpenDeleteModal={handleOpenDeleteModal} openUpdateModal={openUpdateModal} openPublishedModal={openPublishedModal} />} />
-          <Route path='/travelogues/:id' element={<Travelogue />} />
+          <Route path='/travelogues/:id' element={<Travelogue onFollowClick={handleFollowClick} onUnfollowClick={handleUnfollowClick} />} />
           <Route path='/mytravelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
           <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue} handleOpenPublishedModal={handleOpenPublishedModal} />} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/profile/following' element={<Following user={user} onUnfollowClick={handleUnfollowClick} onFollowClick={handleFollowClick} />} />
         </Routes>
       </Box>
     </Box>

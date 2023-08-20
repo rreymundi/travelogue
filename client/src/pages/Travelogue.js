@@ -4,15 +4,18 @@ import { TravelogueContext } from '../context/travelogue';
 import { 
     Avatar,
     Box, 
+    Button, 
     Chip,
     Paper,
     Typography 
   } from '@mui/material';
+import { UserContext } from '../context/user';
 import parse from 'html-react-parser';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-  const Travelogue = () => {
+  const Travelogue = ({ onFollowClick, onUnfollowClick }) => {
     const {travelogue, setTravelogue} = useContext(TravelogueContext);
+    const { user } = useContext(UserContext);
     const { id } = useParams();
     const [isLoading, setIsLoading] = React.useState(true);
     
@@ -37,10 +40,27 @@ import LoadingSpinner from '../components/LoadingSpinner';
       fetchData();
     }, [setTravelogue, id]);
 
+    const handleFollowClick = (e) => {
+      onFollowClick(travelogue.user)
+    };
+    
+    const handleUnfollowClick = (e) => {
+      onUnfollowClick(travelogue.user)
+    };
+
     // this variable makes use of the html-react-parser library to 
     // parse the travelogue description from HTML to JSX
   const renderedDescription = parse(`${travelogue.description}`)
 
+  const renderedFollowButton = user?.following?.find(follow =>
+    follow.id === travelogue?.user?.id)
+    ? <Button variant='contained' size="small" onClick={handleUnfollowClick}>
+        Unfollow
+      </Button>
+    : <Button variant='outlined' size="small" onClick={handleFollowClick}>
+        Follow
+      </Button>
+      
   if (isLoading) return <LoadingSpinner />;
 
   return (
@@ -75,13 +95,14 @@ import LoadingSpinner from '../components/LoadingSpinner';
           spacing={2}
           sx={{ m: '2rem' }}
           >
-          <Box xs={9} sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box xs={9} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Typography variant='h4' sx={{ fontWeight: 'bold'}}>{travelogue?.title}</Typography>
-            <Box sx={{ ml: 'auto' }}>
-              <Avatar sx={{ height: '30px', width: '30px', mr: 'auto', ml: 'auto' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
+            <Box sx={{ textAlign: 'center', height: '96px', width: '96px' }}>
+              <Avatar sx={{ height: '40px', width: '40px', mr: 'auto', ml: 'auto' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
               <Typography gutterBottom variant="body2" color="text.secondary" >
                 {travelogue?.user?.username}
               </Typography>
+              {user.id !== travelogue.user.id ? renderedFollowButton : null}
             </Box>
           </Box>
           <Box xs={12} sx={{ mb: '1rem' }}>

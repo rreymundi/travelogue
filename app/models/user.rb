@@ -14,6 +14,18 @@ class User < ApplicationRecord
     has_many :saved_posts, dependent: :destroy
     validate :custom_password_validation, on: :create
 
+    # FOLLOWINGS
+    #  Will return an array of follows this User instance gave to someone else
+    has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+    # Will return an array of users this User has followed 
+    has_many :following, through: :active_follows, source: :followed_user
+
+    # FOLLOWERS
+    # Will return an array of follows for the given User instance
+    has_many :passive_follows, class_name: "Follow", foreign_key: "followed_user_id", dependent: :destroy
+    # Will return an array of users who follow this User instance 
+    has_many :followers, through: :passive_follows, source: :follower
+
     def avatar_url
       if avatar.attached?
         Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
@@ -28,6 +40,19 @@ class User < ApplicationRecord
       if password.present? && !password.match(PASSWORD_REQUIREMENTS)
         errors.add(:password, "must contain at least eight characters, one digit, one lower case character, one upper case character, and one symbol")
       end
+    end
+
+    # this instance method handles following a user
+    def follow(user)
+      active_follows.create!(followed_user_id: user.id)
+    end
+    # this instance method handles un-following a user
+    def unfollow(user)
+      active_follows.find_by(followed_user_id: user.id).destroy
+    end
+    # this instance method handles checking if a User instance is following a certain user
+    def following?(user)
+      active_follows.include?(user)
     end
 
 end

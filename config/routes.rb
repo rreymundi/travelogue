@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get '/discover/:query', to: "travelogues#search"
 
   resources :travelogues
-  resources :users, only: [:create, :update]
+  resources :users, only: [:show, :create, :update]
   resources :tags, only: [:index, :destroy]
+  resources :follows, only: [:create, :destroy]
 
 end
