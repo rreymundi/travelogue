@@ -52,8 +52,8 @@ import LoadingSpinner from '../components/LoadingSpinner';
     // parse the travelogue description from HTML to JSX
   const renderedDescription = parse(`${travelogue.description}`)
 
-  const renderedFollowButton = user?.active_follows?.find(follow =>
-    follow.followed_user_id === travelogue?.user?.id)
+  const renderedFollowButton = user?.following?.find(follow =>
+    follow.id === travelogue?.user?.id)
     ? <Button variant='contained' size="small" onClick={handleUnfollowClick}>
         Unfollow
       </Button>
@@ -95,9 +95,9 @@ import LoadingSpinner from '../components/LoadingSpinner';
           spacing={2}
           sx={{ m: '2rem' }}
           >
-          <Box xs={9} sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Box xs={9} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Typography variant='h4' sx={{ fontWeight: 'bold'}}>{travelogue?.title}</Typography>
-            <Box sx={{ ml: 'auto', textAlign: 'center' }}>
+            <Box sx={{ textAlign: 'center', height: '96px', width: '96px' }}>
               <Avatar sx={{ height: '40px', width: '40px', mr: 'auto', ml: 'auto' }} alt={travelogue?.user?.username} src={travelogue?.user?.avatar_url} />
               <Typography gutterBottom variant="body2" color="text.secondary" >
                 {travelogue?.user?.username}

@@ -85,18 +85,18 @@ const Content = ({
     })
     .then(r => {
       if (r.ok) {
-        r.json().then((new_follow) => setCurrentUser({...user, active_follows: [...user.active_follows, new_follow]}))
+        r.json().then((new_follow) => setCurrentUser({...user, following: [...user.following, new_follow]}))
       } else {
         r.json().then((errorData) => setErrors(errorData))
       }
     })
   };
 
-  const handleUnfollowClick = (follow) => {
-    fetch(`/follows/${follow.id}`, {
+  const handleUnfollowClick = (unfollow) => {
+    fetch(`/follows/${unfollow.id}`, {
       method: 'DELETE',
     })
-    .then(setCurrentUser({...user, active_follows: [...user.active_follows.filter(f => f.followed_user_id !== follow.id)]}))
+    .then(setCurrentUser({...user, following: [...user.following.filter(follow => follow.id !== unfollow.id)]}))
   };
 
   if (!user) return (
@@ -134,7 +134,7 @@ const Content = ({
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
-          <Route path='/profile/following' element={<Following user={user} />} />
+          <Route path='/profile/following' element={<Following user={user} onUnfollowClick={handleUnfollowClick} onFollowClick={handleFollowClick} />} />
         </Routes>
       </Box>
     </Box>
