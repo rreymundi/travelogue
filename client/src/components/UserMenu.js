@@ -10,6 +10,7 @@ import {
     Tooltip,
     Typography
 } from '@mui/material';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const UserMenu = ({ 
     user,
@@ -64,11 +65,16 @@ const UserMenu = ({
                 <MenuItem sx={{ justifyContent:'center' }} key={"Profile"} onClick={handleCloseUserMenu} component={ Link } to='/profile'>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                <MenuItem sx={{ justifyContent:'center' }} key={"My Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/mytravelogues'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Travelogues"} onClick={handleCloseUserMenu} component={ Link } to='/mytravelogues'>
                   <Typography textAlign="center">Travelogues</Typography>
                 </MenuItem>
-                <MenuItem sx={{ justifyContent:'center' }} key={"Collections"} onClick={handleCloseUserMenu} component={ Link } to='/bookmarks'>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Bookmarks"} onClick={handleCloseUserMenu} component={ Link } to='/bookmarks'>
                   <Typography textAlign="center">Bookmarks</Typography>
+                </MenuItem>
+                <MenuItem sx={{ justifyContent:'space-between' }} key={"Following"} onClick={handleCloseUserMenu} component={ Link } to='/profile/following'>
+                  <AutoAwesomeIcon color='primary' />
+                  <Typography textAlign="center">Following</Typography>
+                  <AutoAwesomeIcon color='primary' />
                 </MenuItem>
                 <Divider />
                 <MenuItem sx={{ justifyContent:'center' }} key={"Log out"} onClick={handleLogout}>
