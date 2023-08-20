@@ -4,7 +4,7 @@ class FollowsController < ApplicationController
   def create
     if @current_user != @user
       @current_user.follow(@user)
-      follow = @current_user.active_follows.find_by(followed_user_id: @user.id)
+      follow = @current_user.following.find_by(id: @user.id)
       render json: follow, status: :created
     else 
       render json: { errors: ['You can\'t follow yourself']  }, status: :not_acceptable
