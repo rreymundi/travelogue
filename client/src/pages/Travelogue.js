@@ -102,7 +102,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
               <Typography gutterBottom variant="body2" color="text.secondary" >
                 {travelogue?.user?.username}
               </Typography>
-              {user.id !== travelogue.user.id ? renderedFollowButton : null}
+              {user && user?.id !== travelogue?.user.id ? renderedFollowButton : null}
             </Box>
           </Box>
           <Box xs={12} sx={{ mb: '1rem' }}>

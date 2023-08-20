@@ -114,6 +114,7 @@ const Content = ({
           <Route path='/bookmarks' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/profile/following' element={<LoginPage onLogin={onLogin} />} />
         </Routes>
       </Box>
     </Box>
