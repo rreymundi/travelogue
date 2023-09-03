@@ -14,6 +14,7 @@ import Discover from '../pages/Discover';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import Following from '../pages/Following';
+import ActivityFeed from '../pages/ActivityFeed';
 
 const Content = ({ 
     onLogin, 
@@ -136,6 +137,7 @@ const Content = ({
           <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/profile/following' element={<Following user={user} onUnfollowClick={handleUnfollowClick} onFollowClick={handleFollowClick} />} />
+          <Route path='/profile/activity' element={<ActivityFeed follows={user.following} travelogues={allTravelogues} />} />
         </Routes>
       </Box>
     </Box>
