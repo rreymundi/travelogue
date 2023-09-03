@@ -76,6 +76,9 @@ const UserMenu = ({
                   <Typography textAlign="center">Following</Typography>
                   <AutoAwesomeIcon color='primary' />
                 </MenuItem>
+                <MenuItem sx={{ justifyContent:'center' }} key={"Activity Feed"} onClick={handleCloseUserMenu} component={ Link } to='/profile/activity'>
+                  <Typography textAlign="center">Activity Feed</Typography>
+                </MenuItem>
                 <Divider />
                 <MenuItem sx={{ justifyContent:'center' }} key={"Log out"} onClick={handleLogout}>
                   <Typography textAlign="center">Log out</Typography>
