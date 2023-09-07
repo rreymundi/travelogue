@@ -6,13 +6,13 @@ import {
 } from '@mui/material'
 import TravelogueCard from '../components/TravelogueCard'
 
-const ActivityFeed = ({ follows, travelogues }) => {
+const ActivityFeed = ({ follows, travelogues, onBookmarkSave, onBookmarkUnsave }) => {
 
     const followIds = follows?.map(follow => follow.id)
     const filteredActivity = travelogues?.filter(travelogue => followIds?.includes(travelogue.user.id)).sort((a,b) => a.created_at - b.created_at).slice(0, 5)
     
     const renderedActivity = filteredActivity?.map(travelogue =>
-        <TravelogueCard item key={travelogue.id} travelogue={travelogue} />
+        <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
     )
 
     return (
