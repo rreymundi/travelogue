@@ -28,7 +28,6 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
     
   const handleSearch = (e) => {
     e.preventDefault();
-    // setSearchParams({query: query})
     if (query === '') {
       navigate('/discover')
     } else { 
@@ -37,7 +36,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
-    travelogue.cover_image_url !== null).slice(-3);
+    travelogue.cover_image_url !== null).slice(0, 3);
   const renderedTravelogues = traveloguesToShow?.map((travelogue) => {
     return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />;
   });
@@ -82,10 +81,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
     :
     <Paper sx={{
           minHeight: '31.25rem',
-          // transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
           borderRadius: '0px',
-          // boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
-          // position: 'relative',
           color: 'white',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -161,7 +157,6 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         borderRadius: '0px',
         position: 'relative',
         color: '#282828',
-        // backgroundColor: '#E6C327',
         background: 'linear-gradient(to right bottom, #6B0AC9, #E6FF27)',
         display: 'flex',
         flexDirection: 'column',

@@ -12,17 +12,8 @@ import Typography from '@mui/material/Typography';
 import UserMenu from './UserMenu';
 
 function ResponsiveAppBar({ onLogout }) {
-  // const [anchorElUser, setAnchorElUser] = useState(null);
   const {user} = useContext(UserContext);
   const {setErrors} = useContext(ErrorContext);
-
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
 
   const handleLogout = () => {
     fetch("/logout", {
