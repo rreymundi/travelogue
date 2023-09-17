@@ -37,31 +37,6 @@ class TraveloguesController < ApplicationController
         render json: @travelogue, status: :ok
     end
 
-    # this custom route allows searching for travelogues by title, description, 
-    # location, or tags
-    # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
-    # if/else to determine what data to retrieve based on whether or not a search term was entered
-    # opted to return all travelogues if no search term was entered, rather than an error message
-    # def search
-    #     query = "%#{params[:query]}%"
-    #     # if query is nil, return all travelogues as not to disrupt browsing experience
-    #     if query.nil?
-    #         travelogues = Travelogue.all.order(created_at: :desc)
-    #         render json: travelogues, status: :ok
-    #         # render json: { errors: ['No search term entered'] }, status: :bad_request
-    #     else 
-    #         travelogues = Travelogue.where("lower(title) LIKE ? OR lower(description) LIKE ? OR lower(location) LIKE ?", query.downcase, query.downcase, query.downcase)
-    #         # if no results are found, return all travelogues
-    #         if travelogues.empty?
-    #             # render json: { errors: ['No results found'] }, status: :not_found
-    #             travelogues = Travelogue.all.order(created_at: :desc)
-    #             render json: travelogues, status: :ok
-    #         else
-    #             render json: travelogues, status: :ok
-    #         end
-    #     end
-    # end
-
     # this custom route allows searching for travelogues by title, description, and location
     # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
     # there is a class method in the Travelogue model that handles the search. more information there.

@@ -23,7 +23,6 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
-  // const url = '/travelogues/' + id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,10 +51,6 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
       [e.target.name]: e.target.value,
     })
   };
-
-  // const handleImageChange = (e) => {
-  //   data.append('cover_image', e.target.files[0])
-  // };
 
   const [postTags, setPostTags] = useState([]);
 
@@ -182,17 +177,6 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
         </Grid>
         <Grid item xs={12}>
           <Typography>Description</Typography>
-          {/* <TextField 
-            multiline
-            rows={16}
-            id="description" 
-            name="description" 
-            variant="filled"                    
-            placeholder="Description" 
-            value={formData.description} 
-            onChange={handleChange} 
-            sx={{ width: '100%' }}
-          /> */}
           <TextEditor setFormData={setFormData} formData={formData} />
         </Grid>
         <Grid item sx={{ ml: 'auto', mr: 'auto'}}>

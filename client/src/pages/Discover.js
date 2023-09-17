@@ -12,14 +12,12 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
     const {setErrors} = useContext(ErrorContext);
     const [searchResults, setSearchResults] = useState([]);
     const [query, setQuery] = useState('');
-    // const [isMounted, setIsMounted] = useState(false);
     const location = useLocation();
     let [searchParams, setSearchParams] = useSearchParams();
   
     const handleChange = (e) => {
       setQuery(e.target.value)
     };
-      
 
     // this fetch request is for the Search component in the Discover page
     const handleSearch = (e) => {
@@ -67,24 +65,6 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
           ))}
         </Grid>
         </>
-
-    // const rendered = () => {
-    //   if (searchResults.length === 0) {
-    //     return <Typography>No results</Typography>
-    //   } else if (searchResults.length > 0) {
-    //     return <Grid container spacing={2}>
-    //               {searchResults?.map((travelogue) => (
-    //                 <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
-    //               ))}
-    //             </Grid>
-    //     } else {
-    //       return <Grid container spacing={2}>
-    //                 {allTravelogues?.map((travelogue) => (
-    //                   <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
-    //                 ))}
-    //               </Grid>
-    //     }
-    // };
 
     return (
       <Box sx={{

@@ -1,16 +1,9 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+
 const TextEditor = ({ formData, setFormData }) => {
   const editorRef = useRef(null);
-  // const log = () => {
-    //   if (editorRef.current) {
-      //     console.log(editorRef.current.getContent());
-      //   }
-      // };
-      
-      // const [contentEditor, setContentEditor] = useState('');
   const handleEditorChange = (content, editor) => {
-    // console.log('Content was updated:', content);
     setFormData({ ...formData, description: content });
   }
 
