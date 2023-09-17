@@ -37,7 +37,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
-    travelogue.cover_image_url !== null).slice(-3);
+    travelogue.cover_image_url !== null).slice(0, 3);
   const renderedTravelogues = traveloguesToShow?.map((travelogue) => {
     return <HomepageCard xs={4} key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />;
   });
