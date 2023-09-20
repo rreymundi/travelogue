@@ -92,9 +92,9 @@ const App = () => {
     // this adds new travelogue to all travelogues state
     setAllTravelogues([...allTravelogues, newTravelogue])
     // this adds new tags to state
-    const tagsToAdd = newTravelogue.tags.filter((tag) => !allTags.includes(tag));
-    const updatedTags = allTags.concat(tagsToAdd);
-    setAllTags(updatedTags);
+    // const tagsToAdd = newTravelogue.tags.filter((tag) => !allTags.includes(tag.name));
+    // const updatedTags = allTags.push(tagsToAdd);
+    // setAllTags(updatedTags);
   };
 
   const handleUpdateTravelogue = (updatedTravelogue) => {
@@ -102,7 +102,9 @@ const App = () => {
     travelogue.id === updatedTravelogue.id ? updatedTravelogue : travelogue
     );
     setCurrentUser({ ...user, travelogues: updatedTravelogues });
+    // i might not need to set the travelogue here
     setTravelogue(updatedTravelogue);
+    // need to update the tags here as well
   };
 
   const handleDeleteTravelogue = (deletedTravelogue) => {
