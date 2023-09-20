@@ -52,7 +52,7 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
     })
   };
 
-  const [postTags, setPostTags] = useState([]);
+  const [postTags, setPostTags] = useState(travelogue.tags?.map((tag) => tag.name));
 
   const handleSetTags = (e, newValue) => {
     setPostTags(newValue)
