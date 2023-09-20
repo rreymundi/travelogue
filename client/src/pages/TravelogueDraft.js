@@ -6,6 +6,7 @@ import {
     Button,
     Grid,
     Link,
+    Paper,
     TextField,
     Typography 
   } from '@mui/material';
@@ -15,13 +16,15 @@ import TextEditor from '../components/TextEditor';
 
 const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal }) => {
   const {errors, setErrors} = useContext(ErrorContext);
+  
   const [formData, setFormData] = useState({
     title: "",
     location: "",
-    description: "This is the initial content of the editor.",
+    description: "",
   });
+
   const [inputValue, setInputValue] = useState('');
-  const data = new FormData();
+    
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -31,8 +34,13 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
 
   const [buttonText, setButtonText] = useState('Add cover image');
 
+  const [imageURL, setImageURL] = useState('');
+  const [imageFile, setImageFile] = useState('');
+
   const handleImageUpload = (e) => {
-    data.append('cover_image', e.target.files[0])
+    setImageURL(URL.createObjectURL(e.target.files[0]))
+    setImageFile(e.target.files[0])
+    setButtonText('Change cover image')
   };
 
   const [postTags, setPostTags] = useState([]);
@@ -40,30 +48,32 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
   const handleSetTags = (e, newValue) => {
     setPostTags(newValue)
   };
-  
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-        data.append('title', formData.title)
-        data.append('description', formData.description)
-        data.append('location', inputValue)
-        data.append('tags', postTags)
-          fetch(`/travelogues/`, {
-            method: "POST",
-            body: data,
-        })
-        .then((r) => {
-            if (r.ok) {
-                r.json()
-                .then((newTravelogue) => onAddTravelogue(newTravelogue))
-                navigate('/mytravelogues')
-                handleOpenPublishedModal()
-              } else {
-                r.json().then((errorData) => setErrors(errorData.errors))
-            }
-        })
-    };
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('description', formData.description);
+    data.append('location', inputValue);
+    data.append('tags', postTags);
+    data.append('cover_image', imageFile);
+    fetch(`/travelogues/`, {
+      method: "POST",
+      body: data,
+    })
+    .then((r) => {
+      if (r.ok) {
+        r.json()
+        .then((newTravelogue) => onAddTravelogue(newTravelogue))
+        navigate('/mytravelogues')
+        handleOpenPublishedModal()
+      } else {
+        r.json().then((errorData) => setErrors(errorData.errors))
+      }
+    })
+  };
 
   return (
     <Box sx={{
@@ -72,17 +82,27 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
         display: 'grid',
         minHeight: '100vh',
       }} 
-      component='form' 
+      component='form'
       onSubmit={handleSubmit}
       >
       <Box>
         <Typography sx={{ fontSize: '2.5rem' }}>New Draft</Typography>
       </Box>
       <Link href="/mytravelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
-      {/* <Paper sx={{ justifySelf: 'center'}}>TEST</Paper> */}
-      {/* <Paper variant="outlined" sx={{ justifySelf: 'center', height: '20rem', width: '40rem', margin: '2rem'}}>
-        ADD AN IMG ELEMENT HERE LATER
-      </Paper> */}
+      { imageURL ?
+      <Paper variant="outlined" sx={{
+            justifySelf: 'center', 
+            height: '20rem', 
+            width: '40rem', 
+            margin: '2rem',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundImage: `url(` + imageURL +`)`,
+            aspectRatio: '16 / 9',
+            }} 
+          /> 
+          : null }
       <Grid
         container
         spacing={2}
@@ -104,14 +124,13 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
             variant="contained"
             component="label"
             sx={{ width: '10rem', textAlign: 'center' }}
-            onClick={() => setButtonText('Change cover image')}
             >
               {buttonText}
             <input
                 id="cover_image"
                 name="cover_image"
                 type="file"
-                accept=".jpg, .jpeg, .png, .webp"
+                accept=".jpg, .jpeg, .png, .webp, .gif"
                 hidden
                 onChange={handleImageUpload}
             />
