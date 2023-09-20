@@ -10,8 +10,7 @@ const Tags = ({ travelogue, allTags, postTags, handleSetTags }) => {
         multiple
         id="tags-filled"
         options={allTags?.map((option) => option.name)}
-        defaultValue={travelogue ? travelogue.tags?.map((tag) => tag.name) : [] }        
-        // limitTags={3}
+        defaultValue={travelogue?.tags?.map((tag) => tag.name)}        
         freeSolo
         renderTags={(value, getTagProps) =>
             value.map((option, index) => (
