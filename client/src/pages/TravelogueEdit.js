@@ -105,14 +105,16 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
     handleOpenUpdateModal();
   };
 
+  const renderedCoverImage = travelogue.cover_image_url ? `url(` + travelogue.cover_image_url +`)` : null;
+
   if (isLoading) return <LoadingSpinner />
 
   return (
     <Box sx={{
-          backgroundColor: '#F7F7F6',
-          padding: '3rem',
-          display: 'grid',
-          minHeight: '100vh',
+        backgroundColor: '#F7F7F6',
+        padding: '3rem',
+        display: 'grid',
+        minHeight: '100vh',
       }} 
       component='form' 
       onSubmit={handleSubmit}
@@ -121,24 +123,22 @@ const TravelogueEdit = ({ onUpdateTravelogue, allTags, handleOpenUpdateModal }) 
         <Typography sx={{ fontSize: '2.5rem' }}>Edit Travelogue</Typography>
       </Box>
       <Link href="/mytravelogues" sx={{ mb: '2rem'}}>Back to your travelogues</Link>
-      { travelogue.cover_image_url !== null 
-        ? <Paper variant="outlined" sx={{
-            justifySelf: 'center', 
-            height: '20rem', 
-            width: '40rem', 
-            margin: '2rem',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundImage: `url(` + travelogue.cover_image_url +`)`,
-            aspectRatio: '16 / 9',
-            }} 
-          />
-        : null }
+      <Paper variant="outlined" sx={{ 
+        justifySelf: 'center', 
+        height: '20rem', 
+        width: '40rem', 
+        margin: '2rem',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundImage: renderedCoverImage,
+        aspectRatio: '16 / 9',
+        }} 
+      />
       <Grid
         container
         spacing={2}
-      >
+        >
         <Grid item xs={9}>
           <Typography>Title</Typography>
           <TextField 
