@@ -75,6 +75,8 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
     })
   };
 
+  const renderedCoverImage = imageURL ? `url(` + imageURL +`)` : null;
+
   return (
     <Box sx={{
         backgroundColor: '#F7F7F6',
@@ -89,7 +91,6 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
         <Typography sx={{ fontSize: '2.5rem' }}>New Draft</Typography>
       </Box>
       <Link href="/mytravelogues" sx={{ mb: '2rem'}}>Back to Travelogues</Link>
-      { imageURL ?
       <Paper variant="outlined" sx={{
             justifySelf: 'center', 
             height: '20rem', 
@@ -98,11 +99,10 @@ const TravelogueDraft = ({ allTags, onAddTravelogue, handleOpenPublishedModal })
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            backgroundImage: `url(` + imageURL +`)`,
+            backgroundImage: renderedCoverImage,
             aspectRatio: '16 / 9',
             }} 
           /> 
-          : null }
       <Grid
         container
         spacing={2}
