@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/bookmarks', to: "saved_posts#create"
   delete '/bookmarks/:id', to: "saved_posts#destroy"
 
-  get '/discover/:query', to: "travelogues#search"
+  get '/discover(/:page(/:query))', to: "travelogues#search"
 
   resources :travelogues
   resources :users, only: [:show, :create, :update]
