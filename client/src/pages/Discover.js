@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Box,
+    Button,
     Grid, 
     Typography,
 } from '@mui/material';
@@ -8,63 +9,48 @@ import { ErrorContext } from '../context/error';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import Search from '../components/Search';
 
-const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
+const Discover = ({ onBookmarkSave, onBookmarkUnsave }) => {
     const {setErrors} = useContext(ErrorContext);
-    const [searchResults, setSearchResults] = useState([]);
     const [query, setQuery] = useState('');
-    const location = useLocation();
     let [searchParams, setSearchParams] = useSearchParams();
-  
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    
     const handleChange = (e) => {
       setQuery(e.target.value)
     };
 
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsLoading(true);
+        try {
+          const res = await fetch(`/discover/${page}`)
+          const data = await res.json()
+          setData((prev) => [...prev, ...data.travelogues])
+          setTotalPages(data.total_pages)
+        } catch (error) {
+          setErrors(error);
+        }
+        setIsLoading(false);
+      }
+      fetchData();
+    }, [page]);
+
     // this fetch request is for the Search component in the Discover page
     const handleSearch = (e) => {
       e.preventDefault();
-      setSearchParams({query: query})
-      fetch(`/discover/${query}`)
+      setSearchParams({'query': query})
+      fetch(`/discover/${page}/${query}`)
       .then((r) => {
         if (r.ok) {
-          r.json().then((data) => setSearchResults(data))
+          r.json().then((data) => setData(data.travelogues))
         } else {
           r.json().then((data) => setErrors(data.errors))
         }
       })
     };
-
-    // this useEffect is for when the user searches for a travelogue
-    // it makes use of the useLocation hook to get the query string from the location hash
-    // it then sends a GET request to the "query" from the '/discover/search/:query' route
-    // which corresponds to the "travelogues#search" action in the travelogues controller
-    
-    useEffect(() => {
-        fetch(`/discover/${new URLSearchParams(location.search).get('query')}`)
-        .then((r) => {
-          if (r.ok) {
-            r.json().then((data) => setSearchResults(data))
-          } else {
-            r.json().then((data) => setErrors(data.errors))
-          }
-        })
-    }, [searchParams, location.search, setErrors]);
-
-    // conditional rendering of the travelogue cards
-    // if the searchResults array is null (i.e. the user has not searched for anything or
-    // attempted to search an empty string), then the allTravelogues array is mapped over
-    const renderedResults = searchResults.length > 0
-    ?   <Grid container spacing={2}>
-            {searchResults?.map((travelogue) => (
-                <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
-            ))}
-        </Grid>
-    :   <>
-        <Grid container spacing={2}>
-          {allTravelogues?.map((travelogue) => (
-            <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
-          ))}
-        </Grid>
-        </>
 
     return (
       <Box sx={{
@@ -84,8 +70,20 @@ const Discover = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
                 </Box>
                 <Box sx={{ margin: '2.5rem'}}>
                   <Grid container spacing={2}>
-                    {renderedResults}
+                  <Grid container spacing={2}>
+                    {data?.map((travelogue) => (
+                      <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />
+                    ))}
                   </Grid>
+                  </Grid>
+                </Box>
+                <Box sx={{ textAlign: 'center', m: '1rem' }}>
+                {page < totalPages && (<Button
+                  variant="contained"
+                  onClick={() => setPage((prev) => prev + 1)}
+                  >
+                  {isLoading ? "Loading..." : "Load More"}
+                  </Button>)}
                 </Box>
             </Box>
         </Box>      
