@@ -134,8 +134,8 @@ const Content = ({
           <Route path='/mytravelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
           <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue} handleOpenPublishedModal={handleOpenPublishedModal} />} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
-          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
-          <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          {/* <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} /> */}
+          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/profile/following' element={<Following user={user} onUnfollowClick={handleUnfollowClick} onFollowClick={handleFollowClick} />} />
           <Route path='/profile/activity' element={<ActivityFeed follows={user.following} travelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave}/>} />
         </Routes>
