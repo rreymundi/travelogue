@@ -14,25 +14,32 @@ import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
 import Search from '../components/Search';
 
-const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) => {
+const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, page, query, setQuery }) => {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
+  // const [page, setPage] = useState(1);
+  // const [query, setQuery] = useState('');
   
   let navigate = useNavigate()
   
-  const [query, setQuery] = useState('');
 
   const handleChange = (e) => {
     setQuery(e.target.value)
   };
     
-  const handleSearch = (e) => {
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   if (query === '') {
+  //     navigate('/discover')
+  //   } else { 
+  //     navigate(`/discover?query=${query}`)
+  //   }
+  // };
+
+  const onSearch = (e) => {
     e.preventDefault();
-    if (query === '') {
-      navigate('/discover')
-    } else { 
-      navigate(`/discover?query=${query}`)
-    }
+    handleSearch(query)
+    navigate(`/discover?page=${page}&query=${query}`)
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
@@ -74,7 +81,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
           </Box>
           <Search 
             handleChange={handleChange} 
-            handleSearch={handleSearch} 
+            handleSearch={onSearch} 
             />
         </Box>
       </Paper>
@@ -119,7 +126,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
           </Box>
           <Search
             handleChange={handleChange} 
-            handleSearch={handleSearch} 
+            handleSearch={onSearch} 
             />
         </Box>
       </Paper>
@@ -149,7 +156,7 @@ const Home = ({ onSearch, allTravelogues, onBookmarkSave, onBookmarkUnsave }) =>
         <Grid sx={{ display: 'flex' }}>
           {renderedTravelogues}
         </Grid>
-        <Button variant='contained' component={ Link } to="/discover" sx={{ m: '1rem' }}>Discover</Button>
+        <Button variant='contained' component={ Link } to={`/discover?page=${page}`} sx={{ m: '1rem' }}>Discover</Button>
       </Box>
     </Paper>
     <Paper sx={{
