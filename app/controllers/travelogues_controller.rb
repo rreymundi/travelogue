@@ -43,11 +43,7 @@ class TraveloguesController < ApplicationController
     # this custom route allows searching for travelogues by title, description, and location
     # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
     def search
-        if params[:query].present?
-            results = Travelogue.search(params[:query])
-        else
-            results = Travelogue.all.order(created_at: :desc)
-        end
+        results = Travelogue.search(params[:query])
         paginated_results = results.then(&paginate)
         total_pages = (results.count.to_f/per_page).ceil
         render json: { 
