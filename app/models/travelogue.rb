@@ -21,7 +21,7 @@ class Travelogue < ApplicationRecord
     # in order to not disrupt the browsing experience, i opted to return all travelogues if
     # the query is empty or nil
     def self.search(query)
-      if query
+      if query.present? && query != nil
         results = where("lower(title) LIKE :query OR lower(description) LIKE :query OR lower(location) LIKE :query", query: "%#{query.downcase}%")
         if results.empty?
           all.order(created_at: :desc)
