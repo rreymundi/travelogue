@@ -1,10 +1,11 @@
 class TraveloguesController < ApplicationController
     skip_before_action :authorize, only: [:index, :show, :search]
     before_action :set_travelogue, except: [:index, :create, :search]
-    
+
     def index
-        @travelogues = Travelogue.all.order(created_at: :desc)
-        render json: @travelogues, status: :ok
+        travelogues = Travelogue.all.order(created_at: :desc)
+        paginated_travelogues = travelogues.then(&paginate)
+        render json: paginated_travelogues, status: :ok
     end
 
     def show
@@ -41,15 +42,20 @@ class TraveloguesController < ApplicationController
 
     # this custom route allows searching for travelogues by title, description, and location
     # found this to be a helpful resource to make this work: https://cbabhusal.wordpress.com/2015/06/04/ruby-on-rails-case-insensitive-matching-in-rails-where-clause/
-    # there is a class method in the Travelogue model that handles the search. more information there.
-    # this controller action simply takes the params and passes them to the class method in the model. the results are then rendered as json
     def search
         results = Travelogue.search(params[:query])
-        # if results.empty?
-        #     render json: { errors: ['No results found'] }, status: :not_found
-        # else
-            render json: results, status: :ok
-        # end
+        paginated_results = results.then(&paginate)
+        total_pages = (results.count.to_f/per_page).ceil
+        render json: { 
+            travelogues: paginated_results, 
+            total_pages: total_pages 
+            }, 
+            include: [
+                :tags, 
+                user: { only: [ :username ], methods: :avatar_url }
+            ], 
+            methods: :cover_image_url, 
+            status: :ok
     end
 
     private
