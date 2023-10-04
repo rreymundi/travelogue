@@ -17,8 +17,6 @@ import Search from '../components/Search';
 const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, page, query, setQuery }) => {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);
-  // const [page, setPage] = useState(1);
-  // const [query, setQuery] = useState('');
   
   let navigate = useNavigate()
   
@@ -26,20 +24,10 @@ const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, 
   const handleChange = (e) => {
     setQuery(e.target.value)
   };
-    
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   if (query === '') {
-  //     navigate('/discover')
-  //   } else { 
-  //     navigate(`/discover?query=${query}`)
-  //   }
-  // };
 
   const onSearch = (e) => {
     e.preventDefault();
     handleSearch(query)
-    navigate(`/discover?page=${page}&query=${query}`)
   };
 
   const traveloguesToShow = allTravelogues?.filter((travelogue) =>
