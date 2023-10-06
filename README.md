@@ -8,9 +8,11 @@ This project was cloned from [this](https://github.com/learn-co-curriculum/proje
 
 Setting up your environment:
 
-Ruby version 2.7.4 is recommended. If you need to upgrade you can install it using rvm:
+Ruby version 3.1.4 is recommended. If you need to upgrade you can install it using your preferred Ruby version manager:
 
-    $ rvm install 2.7.4 --default
+    $ rvm install 3.1.4 --default
+    or 
+    $ rbenv install 3.1.4 --default
 
 You should also install the latest versions of bundler and rails:
 
@@ -19,59 +21,59 @@ You should also install the latest versions of bundler and rails:
 
 Verify you are running Node 16:
 
-    node -v
+    $ node -v
 
 If your Node version is not 16.x.x, install it and set it as the current and default version with:
 
-    nvm install 16
-    nvm use 16
-    nvm alias default 16
+    $ nvm install 16
+    $ nvm use 16
+    $ nvm alias default 16
 
 Fork and clone this branch to set up your local copy.
 
 # Preliminary installs:
+
+Installs the required gems:
 ### `bundle install` 
 
-Installs the required gems
+Create your db:
+### `rails db:create` 
 
+Gets your db all set up with the latest schema:
 ### `rails db:migrate` 
 
-Gets your db all set up with the latest schema.
-
+Sets up some seed data to help you get started:
 ### `rails db:seed` 
 
-Sets up some seed data to help you get started.
-
+Installs Rails ActiveStorage to handle image uploads.
 ### `rails active_storage:install`
 
-Installs Rails ActiveStorage to handle image uploads.
-
 ### `React`
-
+The app front-end was built with ReactJs:
     "react": "17.0.2"
 
+
 ### `React Router Dom`
-
-The app routes were set up using React Router Dom v6
-
+The app routes were set up using React Router Dom v6:
     "react-router-dom": "6.6.2"
+
+
+This app makes use of Material UI components and icons:
 
 ### `npm install @mui/material @emotion/react @emotion/styled`
 ### `npm install @mui/icons-material`
 
-This app makes use of Material UI components and icons.
-
+Add autosuggest-hightight (a small (1 kB) utility for highlighting text in autosuggest and autocomplete components)
 ### `npm install autosuggest-highlight --save`
 
-Add autosuggest-hightight (a small (1 kB) utility for highlighting text in autosuggest and autocomplete components)
-
-### `npm install --save @tinymce/tinymce-react`
 
 Installs TinyMCE rich text editor
+### `npm install --save @tinymce/tinymce-react`
 
-### `npm install html-react-parser --save`
 
 Install react-html-parser (to display TinyMCE HTML in React JSX)
+### `npm install html-react-parser --save`
+
 
 In the project directory, you can run:
 
