@@ -13,7 +13,7 @@
 
 # misc
 .DS_Store
-# here's where i've stored the Google Maps keys
+# the .env file is where the Google Maps and TINYMCE api keys are stored
 .env
 .env.local
 .env.development.local
