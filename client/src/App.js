@@ -127,15 +127,15 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: '100vh' }}>
         <ResponsiveAppBar onLogout={onLogout} />
-              <Content 
-                onLogin={onLogin} 
-                onUpdateTravelogue={handleUpdateTravelogue} 
-                onDeleteTravelogue={handleDeleteTravelogue} 
-                allTravelogues={allTravelogues} 
-                allTags={allTags} 
-                onAddTravelogue={handleAddTravelogue} 
-              />
-          <Footer />
+        <Content 
+          onLogin={onLogin} 
+          onUpdateTravelogue={handleUpdateTravelogue} 
+          onDeleteTravelogue={handleDeleteTravelogue} 
+          allTravelogues={allTravelogues} 
+          allTags={allTags} 
+          onAddTravelogue={handleAddTravelogue} 
+        />
+        <Footer />
       </Box>
     </ThemeProvider>
   );

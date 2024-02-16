@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { 
   Box,
   Button,
@@ -16,10 +16,7 @@ import Search from '../components/Search';
 
 const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, page, query, setQuery }) => {
   const { user } = useContext(UserContext);
-  const { setErrors } = useContext(ErrorContext);
-  
-  let navigate = useNavigate()
-  
+  const { setErrors } = useContext(ErrorContext);  
 
   const handleChange = (e) => {
     setQuery(e.target.value)
