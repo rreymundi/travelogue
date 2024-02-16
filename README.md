@@ -8,11 +8,11 @@ This project was cloned from [this](https://github.com/learn-co-curriculum/proje
 
 Setting up your environment:
 
-Ruby version 3.1.4 is recommended. If you need to upgrade you can install it using your preferred Ruby version manager:
+Ruby version 3.2.2 is recommended. If you need to upgrade you can install it using your preferred Ruby version manager:
 
-    $ rvm install 3.1.4 --default
+    $ rvm install 3.2.2 --default
     or 
-    $ rbenv install 3.1.4 --default
+    $ rbenv install 3.2.2 --default
 
 You should also install the latest versions of bundler and rails:
 
@@ -60,26 +60,26 @@ The app routes were set up using React Router Dom v6:
 
 This app makes use of Material UI components and icons:
 
-### `npm install @mui/material @emotion/react @emotion/styled`
-### `npm install @mui/icons-material`
+### `yarn install @mui/material @emotion/react @emotion/styled`
+### `yarn install @mui/icons-material`
 
 Add autosuggest-hightight (a small (1 kB) utility for highlighting text in autosuggest and autocomplete components)
-### `npm install autosuggest-highlight --save`
+### `yarn install autosuggest-highlight --save`
 
 
 Installs TinyMCE rich text editor
-### `npm install --save @tinymce/tinymce-react`
+### `yarn install --save @tinymce/tinymce-react`
 
 
 Install react-html-parser (to display TinyMCE HTML in React JSX)
-### `npm install html-react-parser --save`
+### `yarn install html-react-parser --save`
 
 
 In the project directory, you can run:
 
 ### `rails s` 
 to run the backend on http://localhost:3000
-### `npm start --prefix client` 
+### `yarn start --prefix client` 
 to run the frontend on http://localhost:4000
 
 ## Features
