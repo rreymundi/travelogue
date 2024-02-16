@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, useSearchParams } from "react-router-dom";
+import React, { useContext, useState } from 'react';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Bookmarks from '../pages/Bookmarks';
 import Box from '@mui/material/Box';
@@ -30,10 +30,11 @@ const Content = ({
   let navigate = useNavigate();
   const [totalPages, setTotalPages] = useState(0);
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState(null);
-  const [pageQ, setPageQ] = useQueryState('page');
+
+  const [setPageQ] = useQueryState('page');
   const [queryQ, setQueryQ] = useQueryState('query');
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -127,7 +128,7 @@ const Content = ({
     <Box sx={{ minHeight: '100vh' }}>
       <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
         <Routes>
-          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} page={page} query={query} setQuery={setQuery} setPageQ={setPageQ} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<LoginPage onLogin={onLogin} />} />
@@ -136,7 +137,7 @@ const Content = ({
           <Route path='/mytravelogues/:id/edit' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/mytravelogues/new' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/bookmarks' element={<LoginPage onLogin={onLogin} />} />
-          <Route path='/discover' element={<Discover allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} setTotalPages={setTotalPages} totalPages={totalPages} setData={setData} data={data} isLoading={isLoading} page={page} setPage={setPage} query={query} setQuery={setQuery} queryQ={queryQ}/>} />
           <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
           <Route path='/profile/following' element={<LoginPage onLogin={onLogin} />} />
         </Routes>
