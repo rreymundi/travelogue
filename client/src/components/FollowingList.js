@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 
   const FollowingList = ({ following, onUnfollowClick }) => {
-    const [dense, setDense] = useState(false);
-    const [secondary, setSecondary] = useState(false);
+    const [secondary] = useState(false);
       
     const renderedActiveFollows = following?.map((follow) =>
         <ListItem
@@ -38,7 +37,7 @@ import {
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             Following
         </Typography>
-        <List dense={dense}>
+        <List>
             {renderedActiveFollows}
         </List>
     </Grid>

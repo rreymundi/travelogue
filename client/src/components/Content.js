@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useSearchParams } from "react-router-dom";
 import AccountSettings from '../pages/AccountSettings';
 import Bookmarks from '../pages/Bookmarks';
 import Box from '@mui/material/Box';
@@ -15,7 +15,6 @@ import { UserContext } from '../context/user';
 import { ErrorContext } from '../context/error';
 import Following from '../pages/Following';
 import ActivityFeed from '../pages/ActivityFeed';
-import { useQueryState } from '../hooks/useQueryState';
 
 const Content = ({ 
     onLogin, 
@@ -32,10 +31,7 @@ const Content = ({
   const [data, setData] = useState([]);
   const [isLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState(null);
-
-  const [setPageQ] = useQueryState('page');
-  const [queryQ, setQueryQ] = useQueryState('query');
+  const [query, setQuery] = useState('');
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
@@ -109,26 +105,23 @@ const Content = ({
     .then(setCurrentUser({...user, following: [...user.following.filter(follow => follow.id !== unfollow.id)]}))
   };
 
-  const handleSearch = (query) => {
-    setPage(1)
-    setQueryQ(query)
-    fetch(`/discover/${page}/${query}`)
-    // .then((r) => {
-    //   if (r.ok) {
-    //     r.json().then((data) => setData(data.travelogues))
-    //     setTotalPages(data.total_pages)
-    //   } else {
-    //     r.json().then((data) => setErrors(data.errors))
-    //   }
-    // })
-    navigate(`/discover?page=${page}&query=${query}`)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [queryParam, setQueryParam] = useState(searchParams.get('query') || 'all');
+
+  const handleSearch = (q) => {
+    const firstPage = 1;
+    const queryParam = q || 'all';
+    setSearchParams({ page: firstPage, query: queryParam });
+    navigate(`/discover?page=${firstPage}&query=${queryParam}`);
+    setQueryParam(queryParam);
+    setPage(firstPage);
   };
 
   if (!user) return (
     <Box sx={{ minHeight: '100vh' }}>
       <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
         <Routes>
-          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} page={page} query={query} setQuery={setQuery} setPageQ={setPageQ} />} />
+          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} page={page} query={query} setQuery={setQuery} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<LoginPage onLogin={onLogin} />} />
@@ -137,8 +130,7 @@ const Content = ({
           <Route path='/mytravelogues/:id/edit' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/mytravelogues/new' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/bookmarks' element={<LoginPage onLogin={onLogin} />} />
-          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} setTotalPages={setTotalPages} totalPages={totalPages} setData={setData} data={data} isLoading={isLoading} page={page} setPage={setPage} query={query} setQuery={setQuery} queryQ={queryQ}/>} />
-          <Route path='/discover/search' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} />} />
+          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} setTotalPages={setTotalPages} totalPages={totalPages} setData={setData} data={data} isLoading={isLoading} page={page} setPage={setPage} query={query} setQuery={setQuery} setSearchParams={setSearchParams} searchParams={searchParams} queryParam={queryParam} />} />
           <Route path='/profile/following' element={<LoginPage onLogin={onLogin} />} />
         </Routes>
       </Box>
@@ -149,7 +141,7 @@ const Content = ({
     <Box sx={{ minHeight: '100vh' }}>
       <Box disablegutters='true' sx={{ backgroundColor: '#F7F7F6', m: '64px' }}>
         <Routes>
-          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} page={page} query={query} setQuery={setQuery} setPageQ={setPageQ} />} />
+          <Route path='/' element={<Home allTravelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} page={page} query={query} setQuery={setQuery} />} />
           <Route path='/login' element={<LoginPage onLogin={onLogin} />} />
           <Route path='/signup' element={<SignupPage onLogin={onLogin} />} />
           <Route path='/profile' element={<AccountSettings />} />
@@ -158,7 +150,7 @@ const Content = ({
           <Route path='/mytravelogues/:id/edit' element={<TravelogueEdit onUpdateTravelogue={onUpdateTravelogue} allTags={allTags} handleOpenUpdateModal={handleOpenUpdateModal} />} />
           <Route path='/mytravelogues/new' element={<TravelogueDraft allTags={allTags} onAddTravelogue={onAddTravelogue} handleOpenPublishedModal={handleOpenPublishedModal} />} />
           <Route path='/bookmarks' element={<Bookmarks onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} allTravelogues={allTravelogues} />} />
-          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} setTotalPages={setTotalPages} totalPages={totalPages} setData={setData} data={data} isLoading={isLoading} page={page} setPage={setPage} query={query} setQuery={setQuery} queryQ={queryQ}/>} />
+          <Route path='/discover/*' element={<Discover onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave} handleSearch={handleSearch} setTotalPages={setTotalPages} totalPages={totalPages} setData={setData} data={data} isLoading={isLoading} page={page} setPage={setPage} query={query} setQuery={setQuery} setSearchParams={setSearchParams} searchParams={searchParams} queryParam={queryParam} />} />
           <Route path='/profile/following' element={<Following user={user} onUnfollowClick={handleUnfollowClick} onFollowClick={handleFollowClick} />} />
           <Route path='/profile/activity' element={<ActivityFeed follows={user.following} travelogues={allTravelogues} onBookmarkSave={handleBookmarkSave} onBookmarkUnsave={handleBookmarkUnsave}/>} />
         </Routes>

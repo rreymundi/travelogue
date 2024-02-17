@@ -14,7 +14,7 @@ import hero_1 from '../assets/hero_1.jpg';
 import hero_2 from '../assets/hero_2.jpg';
 import Search from '../components/Search';
 
-const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, page, query, setQuery }) => {
+const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, query, setQuery }) => {
   const { user } = useContext(UserContext);
   const { setErrors } = useContext(ErrorContext);  
 
@@ -141,7 +141,7 @@ const Home = ({ allTravelogues, onBookmarkSave, onBookmarkUnsave, handleSearch, 
         <Grid sx={{ display: 'flex' }}>
           {renderedTravelogues}
         </Grid>
-        <Button variant='contained' component={ Link } to={`/discover?page=${page}`} sx={{ m: '1rem' }}>Discover</Button>
+        <Button variant='contained' component={ Link } sx={{ m: '1rem' }} onClick={onSearch}>Discover</Button>
       </Box>
     </Paper>
     <Paper sx={{

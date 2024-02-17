@@ -8,7 +8,21 @@ import TravelogueCard from '../components/TravelogueCard';
 import { ErrorContext } from '../context/error';
 import Search from '../components/Search';
 
-const Discover = ({ onBookmarkSave, onBookmarkUnsave, handleSearch, setTotalPages, totalPages, data, setData, page, setPage, query, setQuery, queryQ }) => {
+const Discover = ({ 
+  onBookmarkSave, 
+  onBookmarkUnsave, 
+  handleSearch, 
+  setTotalPages, 
+  totalPages, 
+  data, 
+  setData, 
+  page, 
+  setPage, 
+  query, 
+  setQuery, 
+  setSearchParams,
+  queryParam
+  }) => {
     const {setErrors} = useContext(ErrorContext);
     const [isLoading, setIsLoading] = useState(false);
     
@@ -20,7 +34,7 @@ const Discover = ({ onBookmarkSave, onBookmarkUnsave, handleSearch, setTotalPage
       const fetchData = async () => {
         setIsLoading(true);
         try {
-          const res = await fetch(`/discover/${page}/${query}`)
+          const res = await fetch(`/discover/${page}/${queryParam}`)
           const d = await res.json()
           page === 1 ? setData(d.travelogues) : setData((prev) => [...prev, ...d.travelogues])
           setTotalPages(d.total_pages)
@@ -30,7 +44,8 @@ const Discover = ({ onBookmarkSave, onBookmarkUnsave, handleSearch, setTotalPage
         setIsLoading(false);
       }
       fetchData();
-    }, [page, queryQ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page, queryParam]);
 
     const onSearch = (e) => {
       e.preventDefault();
@@ -38,9 +53,12 @@ const Discover = ({ onBookmarkSave, onBookmarkUnsave, handleSearch, setTotalPage
     };
 
     const onLoadMore = () => {
-      // maybe change this to setPageQ((prev) => prev + 1) or soomething likt that
-      setPage((prev) => prev + 1)
-    }
+      setPage(prev => {
+        const newPage = prev + 1;
+        setSearchParams({ page: newPage, query: queryParam });
+        return newPage;
+      });
+    };
 
     const renderedCards = data?.map((travelogue) => (
       <TravelogueCard item key={travelogue.id} travelogue={travelogue} onBookmarkSave={onBookmarkSave} onBookmarkUnsave={onBookmarkUnsave} />

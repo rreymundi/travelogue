@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 
 const FollowersList = ({ followers, following, onFollowClick, onUnfollowClick }) => {
-    const [dense, setDense] = useState(false);
-    const [secondary, setSecondary] = useState(false);
+    const [secondary] = useState(false);
 
     const renderedActiveFollows = followers?.map((follower) =>
         <ListItem
@@ -42,7 +41,7 @@ const FollowersList = ({ followers, following, onFollowClick, onUnfollowClick })
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
             Followers
         </Typography>
-        <List dense={dense}>
+        <List>
             {renderedActiveFollows}
         </List>
     </Grid>
