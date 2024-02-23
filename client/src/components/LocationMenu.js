@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
-import { debounce } from '@mui/material/utils';
+import { debounce } from "@mui/material/utils";
 
 const MY_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -15,9 +15,9 @@ function loadScript(src, position, id) {
     return;
   }
 
-  const script = document.createElement('script');
-  script.setAttribute('async', '');
-  script.setAttribute('id', id);
+  const script = document.createElement("script");
+  script.setAttribute("async", "");
+  script.setAttribute("id", id);
   script.src = src;
   position.appendChild(script);
 }
@@ -25,17 +25,17 @@ function loadScript(src, position, id) {
 const autocompleteService = { current: null };
 
 export default function LocationMenu({ inputValue, setInputValue, location }) {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState("");
   // const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
   const loaded = React.useRef(false);
 
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
+  if (typeof window !== "undefined" && !loaded.current) {
+    if (!document.querySelector("#google-maps")) {
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${MY_KEY}&libraries=places&callback=Function.prototype`,
-        document.querySelector('head'),
-        'google-maps',
+        document.querySelector("head"),
+        "google-maps"
       );
     }
 
@@ -47,7 +47,7 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
       debounce((request, callback) => {
         autocompleteService.current.getPlacePredictions(request, callback);
       }, 400),
-    [],
+    []
   );
 
   React.useEffect(() => {
@@ -61,7 +61,7 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
       return undefined;
     }
 
-    if (inputValue === '') {
+    if (inputValue === "") {
       setOptions(value ? [value] : []);
       return undefined;
     }
@@ -92,7 +92,7 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
       id="google-map-demo"
       sx={{ width: 300 }}
       getOptionLabel={(option) =>
-        typeof option === 'string' ? option : option.description
+        typeof option === "string" ? option : option.description
       }
       filterOptions={(x) => x}
       options={options}
@@ -119,21 +119,24 @@ export default function LocationMenu({ inputValue, setInputValue, location }) {
 
         const parts = parse(
           option.structured_formatting.main_text,
-          matches.map((match) => [match.offset, match.offset + match.length]),
+          matches.map((match) => [match.offset, match.offset + match.length])
         );
 
         return (
           <li {...props}>
             <Grid container alignItems="center">
-              <Grid item sx={{ display: 'flex', width: 44 }}>
-                <LocationOnIcon sx={{ color: 'text.secondary' }} />
+              <Grid item sx={{ display: "flex", width: 44 }}>
+                <LocationOnIcon sx={{ color: "text.secondary" }} />
               </Grid>
-              <Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
+              <Grid
+                item
+                sx={{ width: "calc(100% - 44px)", wordWrap: "break-word" }}
+              >
                 {parts.map((part, index) => (
                   <Box
                     key={index}
                     component="span"
-                    sx={{ fontWeight: part.highlight ? 'bold' : 'regular' }}
+                    sx={{ fontWeight: part.highlight ? "bold" : "regular" }}
                   >
                     {part.text}
                   </Box>
